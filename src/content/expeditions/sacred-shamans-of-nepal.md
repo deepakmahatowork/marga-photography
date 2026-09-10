@@ -1,7 +1,7 @@
 ---
 title: "Sacred Shamans of Nepal: Ancient Jhankri Trance, Rites & Mountain Animism"
 tagline: "An intimate photographic expedition into remote Himalayan valleys to document living Kham Magar healers, sacred Dhyangro drum trances, and ancestral earth rituals."
-heroImage: "/images/shaman_leader_dhyangro.png"
+heroImage: "/images/burtibang_shaman_dhyangro_elder.jpg"
 category: "Culture & People"
 region: "Dhorpatan & Kham Magar Highlands, Western Nepal"
 durationDays: 11
