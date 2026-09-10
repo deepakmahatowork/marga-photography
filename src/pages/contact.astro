@@ -10,11 +10,38 @@ const defaultTitle =
     : requestedIntent === 'commercial'
     ? 'Commercial Production Inquiry'
     : '2026 Expedition Reservation';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Contact', url: '/contact' },
+];
+
+const contactSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  name: 'Contact Marga Photography',
+  description: 'Direct inquiries for upcoming Nepal photography expeditions, bespoke private scouting trips, filming permits, and commercial assignments.',
+  url: Astro.url.href,
+  mainEntity: {
+    '@type': 'TravelAgency',
+    name: 'Marga Photography',
+    telephone: '+977-9841008984',
+    email: 'expeditions@margaphotography.com',
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Kathmandu',
+      addressRegion: 'Bagmati',
+      addressCountry: 'NP',
+    },
+  },
+};
 ---
 
 <BaseLayout
   title="Contact Marga Photography | Kathmandu Fixers & Expeditions"
   description="Contact our team for upcoming Nepal photography expeditions, bespoke private scouting trips, filming permits, and commercial photography assignments."
+  breadcrumbs={breadcrumbs}
+  jsonLd={contactSchema}
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">

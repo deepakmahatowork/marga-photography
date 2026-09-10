@@ -5,17 +5,34 @@ import { getCollection } from 'astro:content';
 
 const allStories = await getCollection('stories');
 
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Field Notes & Stories', url: '/stories' },
+];
+
 const storiesJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Blog',
   name: 'Marga Photography Stories & Field Notes',
   description: 'Documentary essays, photographer interviews, and cultural insights from the field in Nepal.',
+  blogPost: allStories.map((story) => ({
+    '@type': 'BlogPosting',
+    headline: story.data.title,
+    description: story.data.excerpt,
+    url: `https://margaphotography.com/stories/${story.id.replace(/\.(md|mdx|json)$/, '')}`,
+    datePublished: story.data.date,
+    author: {
+      '@type': 'Person',
+      name: story.data.photographer,
+    },
+  })),
 };
 ---
 
 <BaseLayout
   title="Stories & Photo Essays from Nepal | Field Notes"
   description="Immerse in visual field notes and photo essays documenting the ancient traditions, Himalayan landscapes, and rare wildlife of Nepal."
+  breadcrumbs={breadcrumbs}
   jsonLd={storiesJsonLd}
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">

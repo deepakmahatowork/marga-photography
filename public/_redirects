@@ -1,0 +1,6 @@
+# Static 301 Redirects for Legacy and Alias Routes
+/gallery                          /explore/people                                      301
+/tours/nepal-photography          /expeditions                                         301
+/tours/mustang-tiji-photography   /expeditions/tiji-festival-upper-mustang            301
+/tours/everest-gokyo-photo        /expeditions/gokyo-everest-high-himalaya             301
+/tours/wildlife-photography-nepal /expeditions/bardia-chitwan-wildlife-expedition      301

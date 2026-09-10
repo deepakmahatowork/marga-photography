@@ -24,14 +24,6 @@ export default defineConfig({
 
   integrations: [sitemap()],
 
-  redirects: {
-    '/tours/nepal-photography': '/expeditions',
-    '/tours/mustang-tiji-photography': '/expeditions/tiji-festival-upper-mustang',
-    '/tours/everest-gokyo-photo': '/expeditions/gokyo-everest-high-himalaya',
-    '/tours/wildlife-photography-nepal': '/expeditions/bardia-chitwan-wildlife-expedition',
-    '/gallery': '/explore/people',
-  },
-
   adapter: node({
     mode: 'standalone'
   })

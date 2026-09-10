@@ -1,0 +1,40 @@
+---
+export function getStaticPaths() {
+  return [
+    {
+      params: { slug: 'nepal-photography' },
+      props: { destination: '/expeditions', title: 'Nepal Photography Expeditions' },
+    },
+    {
+      params: { slug: 'mustang-tiji-photography' },
+      props: { destination: '/expeditions/tiji-festival-upper-mustang', title: 'Tiji Festival Upper Mustang Expedition' },
+    },
+    {
+      params: { slug: 'everest-gokyo-photo' },
+      props: { destination: '/expeditions/gokyo-everest-high-himalaya', title: 'Gokyo & Everest High Himalaya Expedition' },
+    },
+    {
+      params: { slug: 'wildlife-photography-nepal' },
+      props: { destination: '/expeditions/bardia-chitwan-wildlife-expedition', title: 'Bardia & Chitwan Wildlife Expedition' },
+    },
+  ];
+}
+
+const { destination, title } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>{`Redirecting to ${title} — Marga Photography`}</title>
+  <link rel="canonical" href={`https://margaphotography.com${destination}`} />
+  <meta http-equiv="refresh" content={`0;url=${destination}`} />
+  <meta name="robots" content="noindex, follow" />
+  <script is:inline define:vars={{ destination }}>
+    window.location.replace(destination);
+  </script>
+</head>
+<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; text-align: center; padding: 40px; background: #0b0f19; color: #f8fafc;">
+  <p>Redirecting to <a href={destination} style="color: #1e73be; text-decoration: underline;">{title}</a>...</p>
+</body>
+</html>

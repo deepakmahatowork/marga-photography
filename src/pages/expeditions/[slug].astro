@@ -15,19 +15,34 @@ const { expedition } = Astro.props;
 const exp = expedition.data;
 const { Content } = await render(expedition);
 
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') || 'https://margaphotography.com';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Expeditions', url: '/expeditions' },
+  { name: exp.title, url: Astro.url.pathname },
+];
+
 const tripJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'TouristTrip',
   name: exp.title,
   description: exp.tagline,
+  image: new URL(exp.heroImage, siteUrl).href,
   touristType: 'Photographers, visual artists, documentary filmmakers',
+  provider: {
+    '@type': 'TravelAgency',
+    name: 'Marga Photography',
+    url: siteUrl,
+  },
   itinerary: exp.itinerary.map((item) => ({
     '@type': 'Day',
-    name: `Days ${item.day}: ${item.title}`,
+    name: `Day ${item.day}: ${item.title}`,
     description: `${item.description} Photography Focus: ${item.photoFocus}`,
   })),
   offers: {
     '@type': 'Offer',
+    priceCurrency: 'USD',
     availability: 'https://schema.org/InStock',
     url: Astro.url.href,
   },
@@ -39,6 +54,7 @@ const tripJsonLd = {
   description={exp.tagline}
   image={exp.heroImage}
   type="product"
+  breadcrumbs={breadcrumbs}
   jsonLd={tripJsonLd}
 >
   <!-- 1. EXPEDITION HERO -->

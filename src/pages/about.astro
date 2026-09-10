@@ -4,11 +4,43 @@ import BusinessCard from '../components/common/BusinessCard.astro';
 import { getCollection } from 'astro:content';
 
 const photographers = await getCollection('photographers');
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') || 'https://margaphotography.com';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'About', url: '/about' },
+];
+
+const aboutSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  name: 'About Marga Photography',
+  description: 'Specialist photography expeditions into the people, cultures, festivals, wildlife, and landscapes of Nepal.',
+  url: Astro.url.href,
+  mainEntity: {
+    '@type': 'Organization',
+    name: 'Marga Photography',
+    founder: {
+      '@type': 'Person',
+      name: 'Buddhiman Tamang',
+      jobTitle: 'CEO & Founder',
+    },
+    member: photographers.map((p) => ({
+      '@type': 'Person',
+      name: p.data.name,
+      jobTitle: p.data.role,
+      description: p.data.bio,
+      image: new URL(p.data.avatar, siteUrl).href,
+    })),
+  },
+};
 ---
 
 <BaseLayout
   title="About Marga Photography | Himalayan Visual Collective"
   description="Learn about Marga Photography: our philosophy, master photographers, ethical documentary standards, and strategic partnership with Marga Adventure."
+  breadcrumbs={breadcrumbs}
+  jsonLd={aboutSchema}
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
     <!-- Header -->

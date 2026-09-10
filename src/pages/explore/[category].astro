@@ -60,11 +60,44 @@ const relatedExpeditions = allExpeditions.filter((e) => {
   if ((categorySlug === 'people' || categorySlug === 'culture') && cat.includes('culture')) return true;
   return false;
 });
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Portfolios', url: '/explore/people' },
+  { name: catInfo.name, url: `/explore/${categorySlug}` },
+];
+
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') || 'https://margaphotography.com';
+const gallerySchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ImageGallery',
+  name: `${catInfo.name} — Photography Collection`,
+  description: catInfo.metaDesc,
+  url: Astro.url.href,
+  numberOfItems: filteredPhotos.length,
+  itemListElement: filteredPhotos.map((p, idx) => ({
+    '@type': 'ImageObject',
+    position: idx + 1,
+    name: p.data.title,
+    description: p.data.caption,
+    contentUrl: new URL(p.data.image, siteUrl).href,
+    author: {
+      '@type': 'Person',
+      name: p.data.photographer,
+    },
+    copyrightHolder: {
+      '@type': 'Organization',
+      name: 'Marga Photography',
+    },
+  })),
+};
 ---
 
 <BaseLayout
   title={`${catInfo.name} | Nepal Photography Portfolio`}
   description={catInfo.metaDesc}
+  breadcrumbs={breadcrumbs}
+  jsonLd={gallerySchema}
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
     <!-- Header -->

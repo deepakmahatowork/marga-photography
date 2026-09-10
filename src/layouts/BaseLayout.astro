@@ -4,6 +4,11 @@ import Footer from '../components/navigation/Footer.astro';
 import SEOHead from '../components/seo/SEOHead.astro';
 import '../styles/global.css';
 
+interface BreadcrumbItem {
+  name: string;
+  url: string;
+}
+
 interface Props {
   title: string;
   description: string;
@@ -11,13 +16,16 @@ interface Props {
   canonicalURL?: string;
   type?: 'website' | 'article' | 'product';
   jsonLd?: Record<string, any>;
+  breadcrumbs?: BreadcrumbItem[];
 }
 
-const { title, description, image, canonicalURL, type, jsonLd } = Astro.props;
+const { title, description, image, canonicalURL, type, jsonLd, breadcrumbs } = Astro.props;
+const isFrench = Astro.url.pathname.startsWith('/fr');
+const currentLang = isFrench ? 'fr' : 'en';
 ---
 
 <!doctype html>
-<html lang="en" class="scroll-smooth">
+<html lang={currentLang} class="scroll-smooth">
   <head>
     <meta name="color-scheme" content="light dark" />
     <script is:inline>
@@ -34,6 +42,7 @@ const { title, description, image, canonicalURL, type, jsonLd } = Astro.props;
       canonicalURL={canonicalURL}
       type={type}
       jsonLd={jsonLd}
+      breadcrumbs={breadcrumbs}
     />
   </head>
   <body class="bg-canvas-bg text-text-primary font-sans antialiased min-h-screen flex flex-col selection:bg-accent-himalaya/25 selection:text-text-primary">

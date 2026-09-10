@@ -25,11 +25,45 @@ const commercialServices = [
     deliverables: 'Editorial rights, global advertising licensing, limited-edition museum prints',
   },
 ];
+
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') || 'https://margaphotography.com';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Commercial & Assignments', url: '/commercial' },
+];
+
+const commercialSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: 'Marga Photography Commercial & Editorial Production',
+  description: 'Commercial photography production, hotel and resort campaigns, tourism branding, conservation documentary assignments, and image licensing in Nepal.',
+  url: Astro.url.href,
+  provider: {
+    '@type': 'Organization',
+    name: 'Marga Photography',
+    url: siteUrl,
+  },
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Commercial Photography Services',
+    itemListElement: commercialServices.map((svc) => ({
+      '@type': 'Offer',
+      itemOffered: {
+        '@type': 'Service',
+        name: svc.title,
+        description: svc.desc,
+      },
+    })),
+  },
+};
 ---
 
 <BaseLayout
   title="Commercial & Editorial Photography Services Nepal | Marga Photography"
   description="Commercial photography production, hotel and resort campaigns, tourism branding, conservation documentary assignments, and image licensing in Nepal."
+  breadcrumbs={breadcrumbs}
+  jsonLd={commercialSchema}
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
     <!-- Header -->

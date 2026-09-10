@@ -21,12 +21,20 @@ const relatedExpedition = targetExpeditionSlug
   ? allExpeditions.find((e) => e.id.replace(/\.(md|mdx|json)$/, '') === targetExpeditionSlug)
   : null;
 
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') || 'https://margaphotography.com';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Field Notes & Stories', url: '/stories' },
+  { name: s.title, url: Astro.url.pathname },
+];
+
 const articleJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Article',
   headline: s.title,
   description: s.excerpt,
-  image: new URL(s.heroImage, Astro.site || 'https://margaphotography.com').href,
+  image: new URL(s.heroImage, siteUrl).href,
   datePublished: s.date,
   author: {
     '@type': 'Person',
@@ -35,7 +43,11 @@ const articleJsonLd = {
   publisher: {
     '@type': 'Organization',
     name: 'Marga Photography',
-    logo: 'https://margaphotography.com/images/gokyo_himalaya_sunrise.jpg',
+    logo: `${siteUrl}/images/marga_photography_logo.png`,
+  },
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': Astro.url.href,
   },
 };
 ---
@@ -45,6 +57,7 @@ const articleJsonLd = {
   description={s.excerpt}
   image={s.heroImage}
   type="article"
+  breadcrumbs={breadcrumbs}
   jsonLd={articleJsonLd}
 >
   <article class="py-16 sm:py-24">

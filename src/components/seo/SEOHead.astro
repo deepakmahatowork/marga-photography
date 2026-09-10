@@ -1,4 +1,9 @@
 ---
+interface BreadcrumbItem {
+  name: string;
+  url: string;
+}
+
 interface Props {
   title: string;
   description: string;
@@ -6,37 +11,78 @@ interface Props {
   canonicalURL?: string;
   type?: 'website' | 'article' | 'product';
   jsonLd?: Record<string, any>;
+  breadcrumbs?: BreadcrumbItem[];
 }
 
 const {
   title,
   description,
   image = '/images/gokyo_himalaya_sunrise.jpg',
-  canonicalURL = Astro.url.href,
+  canonicalURL,
   type = 'website',
   jsonLd,
+  breadcrumbs,
 } = Astro.props;
+
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') || 'https://margaphotography.com';
+const pathname = Astro.url.pathname;
+const isFrench = pathname.startsWith('/fr');
+
+// Derive clean canonical and multi-language hreflang alternate URLs
+const pathWithoutFr = pathname.replace(/^\/fr(\/|$)/, '$1') || '/';
+const normalizedPath = pathWithoutFr.startsWith('/') ? pathWithoutFr : `/${pathWithoutFr}`;
+const enCanonical = new URL(normalizedPath, siteUrl).href;
+const frCanonical = new URL(`/fr${normalizedPath === '/' ? '' : normalizedPath}`, siteUrl).href;
+const activeCanonical = canonicalURL || (isFrench ? frCanonical : enCanonical);
 
 const siteName = 'Marga Photography | Specialist Nepal Expeditions';
 const fullTitle = title.includes('Marga Photography') ? title : `${title} — Marga Photography`;
-const resolvedImage = new URL(image, Astro.site || 'https://margaphotography.com').href;
+const resolvedImage = new URL(image, siteUrl).href;
 
 const defaultOrgSchema = {
   '@context': 'https://schema.org',
-  '@type': 'Organization',
+  '@type': ['TravelAgency', 'Organization'],
   name: 'Marga Photography',
-  url: 'https://margaphotography.com',
-  logo: 'https://margaphotography.com/images/gokyo_himalaya_sunrise.jpg',
+  legalName: 'Marga Adventure Pvt. Ltd.',
+  url: siteUrl,
+  logo: `${siteUrl}/images/marga_photography_logo.png`,
+  image: resolvedImage,
   description: 'Specialist photography expeditions into the people, cultures, festivals, wildlife, and landscapes of Nepal.',
+  telephone: '+977-9841008984',
+  email: 'expeditions@margaphotography.com',
+  priceRange: '$$$',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Kathmandu',
+    addressRegion: 'Bagmati',
+    addressCountry: 'NP'
+  },
+  founder: {
+    '@type': 'Person',
+    name: 'Buddhiman Tamang',
+    jobTitle: 'CEO & Expedition Lead'
+  },
   parentOrganization: {
     '@type': 'Organization',
     name: 'Marga Adventure',
-    url: 'https://margaadventure.com',
+    url: 'https://margaadventure.com'
   },
   sameAs: [
     'https://instagram.com/margaphotography',
+    'https://margaadventure.com'
   ],
 };
+
+const breadcrumbSchema = breadcrumbs && breadcrumbs.length > 0 ? {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: breadcrumbs.map((crumb, idx) => ({
+    '@type': 'ListItem',
+    position: idx + 1,
+    name: crumb.name,
+    item: crumb.url.startsWith('http') ? crumb.url : new URL(crumb.url, siteUrl).href
+  }))
+} : null;
 ---
 
 <!-- Global Metadata -->
@@ -48,30 +94,49 @@ const defaultOrgSchema = {
 <meta name="generator" content={Astro.generator} />
 
 <!-- Canonical URL -->
-<link rel="canonical" href={canonicalURL} />
+<link rel="canonical" href={activeCanonical} />
 
-<!-- Primary SEO Meta Tags -->
+<!-- Multi-Language Hreflang Alternates (SEO i18n) -->
+<link rel="alternate" hreflang="en" href={enCanonical} />
+<link rel="alternate" hreflang="fr" href={frCanonical} />
+<link rel="alternate" hreflang="x-default" href={enCanonical} />
+
+<!-- Primary Search Engine & Crawler Directives -->
 <title>{fullTitle}</title>
 <meta name="title" content={fullTitle} />
 <meta name="description" content={description} />
-<meta name="keywords" content="Nepal photography expeditions, Himalayan landscape photography, Tiji festival photography tour, Nepal wildlife tiger photography, Kathmandu portrait workshop" />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+<meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+<meta name="bingbot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+<meta name="keywords" content="Nepal photography expeditions, Himalayan landscape photography, Upper Mustang Tiji festival photo tour, Bengal tiger wildlife photography Nepal, Kathmandu documentary portraits workshop, Sherpa culture photography" />
 <meta name="author" content="Marga Photography" />
-<meta name="theme-color" content="#0b0d10" />
+<meta name="theme-color" content="#0b0f19" />
+
+<!-- Geographic Target Directives (Kathmandu / Himalaya, Nepal) -->
+<meta name="geo.region" content="NP" />
+<meta name="geo.placename" content="Kathmandu, Nepal" />
+<meta name="geo.position" content="27.7172;85.3240" />
+<meta name="ICBM" content="27.7172, 85.3240" />
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content={type} />
-<meta property="og:url" content={canonicalURL} />
+<meta property="og:url" content={activeCanonical} />
 <meta property="og:title" content={fullTitle} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={resolvedImage} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content={fullTitle} />
 <meta property="og:site_name" content={siteName} />
+<meta property="og:locale" content={isFrench ? "fr_FR" : "en_US"} />
 
 <!-- Twitter / X -->
 <meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content={canonicalURL} />
+<meta property="twitter:url" content={activeCanonical} />
 <meta property="twitter:title" content={fullTitle} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={resolvedImage} />
+<meta property="twitter:image:alt" content={fullTitle} />
 
 <!-- Google Fonts Preconnect -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -83,4 +148,5 @@ const defaultOrgSchema = {
 
 <!-- Structured Data (JSON-LD) -->
 <script type="application/ld+json" is:inline set:html={JSON.stringify(defaultOrgSchema)} />
+{breadcrumbSchema && <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumbSchema)} />}
 {jsonLd && <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />}

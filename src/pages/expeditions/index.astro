@@ -5,6 +5,11 @@ import { getCollection } from 'astro:content';
 
 const allExpeditions = await getCollection('expeditions');
 
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Expeditions', url: '/expeditions' },
+];
+
 const seoJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',
@@ -22,6 +27,7 @@ const seoJsonLd = {
 <BaseLayout
   title="Nepal Photography Expeditions 2026 | Small Group Masterclasses"
   description="Explore our specialist photography expeditions in Nepal: Upper Mustang, Tiji Festival, Bardia Royal Bengal Tiger tracking, Gokyo Lakes, and Sacred Kathmandu Valley."
+  breadcrumbs={breadcrumbs}
   jsonLd={seoJsonLd}
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
