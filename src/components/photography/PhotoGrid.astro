@@ -25,9 +25,14 @@ interface Props {
 }
 
 const { photos, columns = 'mixed' } = Astro.props;
+
+const gridColsClass =
+  columns === '2'
+    ? 'grid-cols-1 md:grid-cols-2'
+    : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3';
 ---
 
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+<div class={`grid ${gridColsClass} gap-6 sm:gap-8`}>
   {photos.map((photo, index) => {
     const p = photo.data;
     const exifString = [

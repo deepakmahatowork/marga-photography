@@ -16,8 +16,9 @@ const { Content } = await render(story);
 
 // Check if related expedition exists
 const allExpeditions = await getCollection('expeditions');
-const relatedExpedition = s.relatedExpeditionSlug
-  ? allExpeditions.find((e) => e.id.replace(/\.(md|mdx|json)$/, '') === s.relatedExpeditionSlug.replace(/\.(md|mdx|json)$/, ''))
+const targetExpeditionSlug = s.relatedExpeditionSlug?.replace(/\.(md|mdx|json)$/, '');
+const relatedExpedition = targetExpeditionSlug
+  ? allExpeditions.find((e) => e.id.replace(/\.(md|mdx|json)$/, '') === targetExpeditionSlug)
   : null;
 
 const articleJsonLd = {

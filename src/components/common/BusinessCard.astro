@@ -142,40 +142,46 @@ const {
 
     if (!flipper || !frontSide || !backSide || !btnFront || !btnBack) return;
 
+    const elFront = frontSide;
+    const elBack = backSide;
+    const elBtnF = btnFront;
+    const elBtnB = btnBack;
+    const elFlipper = flipper;
+
     let showingFront = true;
 
     function updateCardView(toFront: boolean) {
       showingFront = toFront;
       if (showingFront) {
-        frontSide.classList.remove('opacity-0', 'pointer-events-none');
-        backSide.classList.add('opacity-0', 'pointer-events-none');
+        elFront.classList.remove('opacity-0', 'pointer-events-none');
+        elBack.classList.add('opacity-0', 'pointer-events-none');
 
-        btnFront.classList.add('bg-accent-himalaya', 'text-white', 'font-semibold', 'shadow-xs');
-        btnFront.classList.remove('text-text-muted');
-        btnBack.classList.remove('bg-accent-himalaya', 'text-white', 'font-semibold', 'shadow-xs');
-        btnBack.classList.add('text-text-muted');
+        elBtnF.classList.add('bg-accent-himalaya', 'text-white', 'font-semibold', 'shadow-xs');
+        elBtnF.classList.remove('text-text-muted');
+        elBtnB.classList.remove('bg-accent-himalaya', 'text-white', 'font-semibold', 'shadow-xs');
+        elBtnB.classList.add('text-text-muted');
       } else {
-        frontSide.classList.add('opacity-0', 'pointer-events-none');
-        backSide.classList.remove('opacity-0', 'pointer-events-none');
+        elFront.classList.add('opacity-0', 'pointer-events-none');
+        elBack.classList.remove('opacity-0', 'pointer-events-none');
 
-        btnBack.classList.add('bg-accent-himalaya', 'text-white', 'font-semibold', 'shadow-xs');
-        btnBack.classList.remove('text-text-muted');
-        btnFront.classList.remove('bg-accent-himalaya', 'text-white', 'font-semibold', 'shadow-xs');
-        btnFront.classList.add('text-text-muted');
+        elBtnB.classList.add('bg-accent-himalaya', 'text-white', 'font-semibold', 'shadow-xs');
+        elBtnB.classList.remove('text-text-muted');
+        elBtnF.classList.remove('bg-accent-himalaya', 'text-white', 'font-semibold', 'shadow-xs');
+        elBtnF.classList.add('text-text-muted');
       }
     }
 
-    btnFront.addEventListener('click', (e) => {
+    elBtnF.addEventListener('click', (e) => {
       e.stopPropagation();
       updateCardView(true);
     });
 
-    btnBack.addEventListener('click', (e) => {
+    elBtnB.addEventListener('click', (e) => {
       e.stopPropagation();
       updateCardView(false);
     });
 
-    flipper.addEventListener('click', () => {
+    elFlipper.addEventListener('click', () => {
       updateCardView(!showingFront);
     });
   }

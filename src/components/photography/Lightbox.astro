@@ -89,6 +89,7 @@
   const nextBtn = document.getElementById('lightbox-next-btn');
 
   function openLightbox(index: number) {
+    if (items.length === 0 || index < 0 || index >= items.length) return;
     activeIndex = index;
     updateLightbox();
     lightbox?.classList.remove('hidden');
@@ -114,17 +115,20 @@
   }
 
   function prevImage() {
+    if (items.length === 0) return;
     activeIndex = (activeIndex - 1 + items.length) % items.length;
     updateLightbox();
   }
 
   function nextImage() {
+    if (items.length === 0) return;
     activeIndex = (activeIndex + 1) % items.length;
     updateLightbox();
   }
 
-  // Bind trigger buttons across the page
-  document.addEventListener('DOMContentLoaded', () => {
+  let initialized = false;
+
+  function initLightbox() {
     const triggerElements = document.querySelectorAll<HTMLElement>('[data-lightbox-trigger]');
     items = Array.from(triggerElements).map((el) => ({
       src: el.dataset.src || '',
@@ -136,70 +140,79 @@
     }));
 
     triggerElements.forEach((el, idx) => {
-      el.addEventListener('click', () => openLightbox(idx));
-      el.addEventListener('keydown', (e) => {
+      el.onclick = () => openLightbox(idx);
+      el.onkeydown = (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
           openLightbox(idx);
         }
+      };
+    });
+
+    if (!initialized) {
+      initialized = true;
+      closeBtn?.addEventListener('click', closeLightbox);
+      prevBtn?.addEventListener('click', prevImage);
+      nextBtn?.addEventListener('click', nextImage);
+
+      // Close when tapping outside the image
+      lightbox?.addEventListener('click', (e) => {
+        if (e.target === lightbox || (e.target as HTMLElement)?.id === 'lightbox-center-container') {
+          closeLightbox();
+        }
       });
-    });
 
-    closeBtn?.addEventListener('click', closeLightbox);
-    prevBtn?.addEventListener('click', prevImage);
-    nextBtn?.addEventListener('click', nextImage);
+      // Mobile touch swipe gestures
+      let touchStartX = 0;
+      let touchStartY = 0;
+      let touchEndX = 0;
+      let touchEndY = 0;
 
-    // Close when tapping outside the image
-    lightbox?.addEventListener('click', (e) => {
-      if (e.target === lightbox || (e.target as HTMLElement)?.id === 'lightbox-center-container') {
-        closeLightbox();
-      }
-    });
+      lightbox?.addEventListener(
+        'touchstart',
+        (e: TouchEvent) => {
+          touchStartX = e.changedTouches[0].screenX;
+          touchStartY = e.changedTouches[0].screenY;
+        },
+        { passive: true }
+      );
 
-    // Mobile touch swipe gestures
-    let touchStartX = 0;
-    let touchStartY = 0;
-    let touchEndX = 0;
-    let touchEndY = 0;
+      lightbox?.addEventListener(
+        'touchend',
+        (e: TouchEvent) => {
+          touchEndX = e.changedTouches[0].screenX;
+          touchEndY = e.changedTouches[0].screenY;
+          handleSwipe();
+        },
+        { passive: true }
+      );
 
-    lightbox?.addEventListener(
-      'touchstart',
-      (e: TouchEvent) => {
-        touchStartX = e.changedTouches[0].screenX;
-        touchStartY = e.changedTouches[0].screenY;
-      },
-      { passive: true }
-    );
-
-    lightbox?.addEventListener(
-      'touchend',
-      (e: TouchEvent) => {
-        touchEndX = e.changedTouches[0].screenX;
-        touchEndY = e.changedTouches[0].screenY;
-        handleSwipe();
-      },
-      { passive: true }
-    );
-
-    function handleSwipe() {
-      const diffX = touchEndX - touchStartX;
-      const diffY = touchEndY - touchStartY;
-      // Only horizontal swipes (not vertical scroll attempts)
-      if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 45) {
-        if (diffX < 0) {
-          nextImage(); // Swiped left -> next
-        } else {
-          prevImage(); // Swiped right -> prev
+      function handleSwipe() {
+        const diffX = touchEndX - touchStartX;
+        const diffY = touchEndY - touchStartY;
+        if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 45) {
+          if (diffX < 0) {
+            nextImage();
+          } else {
+            prevImage();
+          }
         }
       }
-    }
 
-    window.addEventListener('keydown', (e) => {
-      if (lightbox && !lightbox.classList.contains('hidden')) {
-        if (e.key === 'Escape') closeLightbox();
-        if (e.key === 'ArrowLeft') prevImage();
-        if (e.key === 'ArrowRight') nextImage();
-      }
-    });
-  });
+      window.addEventListener('keydown', (e) => {
+        if (lightbox && !lightbox.classList.contains('hidden')) {
+          if (e.key === 'Escape') closeLightbox();
+          if (e.key === 'ArrowLeft') prevImage();
+          if (e.key === 'ArrowRight') nextImage();
+        }
+      });
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLightbox);
+  } else {
+    initLightbox();
+  }
+  document.addEventListener('astro:page-load', initLightbox);
 </script>

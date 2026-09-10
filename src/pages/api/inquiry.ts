@@ -5,7 +5,7 @@ export const prerender = false; // Hybrid serverless endpoint
 
 const inquirySchema = z.object({
   name: z.string().min(2, 'Name is required'),
-  email: z.string().email('Valid email is required'),
+  email: z.string().email({ message: 'Valid email is required' }),
   country: z.string().min(2, 'Country is required'),
   phone: z.string().optional(),
   experience: z.string().optional(),

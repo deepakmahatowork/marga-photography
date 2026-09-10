@@ -82,5 +82,5 @@ const defaultOrgSchema = {
 />
 
 <!-- Structured Data (JSON-LD) -->
-<script type="application/ld+json" set:html={JSON.stringify(defaultOrgSchema)} />
-{jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+<script type="application/ld+json" is:inline set:html={JSON.stringify(defaultOrgSchema)} />
+{jsonLd && <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />}

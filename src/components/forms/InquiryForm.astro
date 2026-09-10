@@ -29,6 +29,7 @@ const { expeditionTitle, defaultCategory } = Astro.props;
 
     <!-- Hidden Expedition Context -->
     <input type="hidden" name="expedition" value={expeditionTitle || 'General / Custom Expedition'} />
+    {defaultCategory && <input type="hidden" name="category" value={defaultCategory} />}
 
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
       <!-- Full Name -->
