@@ -1,0 +1,133 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const stories = await getCollection('stories');
+  return stories.map((story) => ({
+    params: { slug: story.id.replace(/\.(md|mdx|json)$/, '') },
+    props: { story },
+  }));
+}
+
+const { story } = Astro.props;
+const s = story.data;
+const { Content } = await render(story);
+
+// Check if related expedition exists
+const allExpeditions = await getCollection('expeditions');
+const relatedExpedition = s.relatedExpeditionSlug
+  ? allExpeditions.find((e) => e.id.replace(/\.(md|mdx|json)$/, '') === s.relatedExpeditionSlug.replace(/\.(md|mdx|json)$/, ''))
+  : null;
+
+const articleJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: s.title,
+  description: s.excerpt,
+  image: new URL(s.heroImage, Astro.site || 'https://margaphotography.com').href,
+  datePublished: s.date,
+  author: {
+    '@type': 'Person',
+    name: s.photographer,
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Marga Photography',
+    logo: 'https://margaphotography.com/images/gokyo_himalaya_sunrise.jpg',
+  },
+};
+---
+
+<BaseLayout
+  title={`${s.title} | Marga Photography Stories`}
+  description={s.excerpt}
+  image={s.heroImage}
+  type="article"
+  jsonLd={articleJsonLd}
+>
+  <article class="py-16 sm:py-24">
+    <!-- Header Container -->
+    <header class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-12">
+      <div class="flex items-center justify-center gap-3 text-xs uppercase tracking-[0.25em] text-accent-himalaya mb-4">
+        <span>{s.location}</span>
+        <span>•</span>
+        <span>{s.category}</span>
+      </div>
+      <h1 class="font-editorial text-3xl sm:text-5xl lg:text-6xl font-medium text-text-primary leading-tight">
+        {s.title}
+      </h1>
+      <p class="font-editorial text-xl sm:text-2xl text-text-secondary italic mt-4 max-w-2xl mx-auto leading-relaxed">
+        {s.subtitle}
+      </p>
+
+      <!-- Byline -->
+      <div class="mt-8 pt-6 border-t border-canvas-border flex items-center justify-center gap-6 text-xs text-text-muted">
+        <span>Photographed & Written by <strong class="text-text-primary">{s.photographer}</strong></span>
+        <span>•</span>
+        <span>{s.date}</span>
+      </div>
+    </header>
+
+    <!-- Full-bleed Hero Photography Breakout -->
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
+      <div class="aspect-[16/9] overflow-hidden rounded-xl border border-canvas-border shadow-xl">
+        <img
+          src={s.heroImage}
+          alt={s.title}
+          fetchpriority="high"
+          decoding="async"
+          class="w-full h-full object-cover"
+        />
+      </div>
+      <div class="text-center mt-3 text-xs text-text-muted italic">
+        Field photograph by {s.photographer} • Marga Photography
+      </div>
+    </div>
+
+    <!-- Story Body Prose -->
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="prose prose-lg max-w-none text-text-secondary leading-relaxed font-sans space-y-6">
+        <Content />
+      </div>
+
+      <!-- Natural Story → Expedition Conversion Bridge -->
+      {relatedExpedition && (
+        <div class="mt-20 p-8 rounded-xl bg-canvas-elevated border border-canvas-border shadow-xl">
+          <span class="text-[10px] uppercase tracking-[0.25em] text-accent-himalaya font-semibold block mb-2">
+            Related Field Expedition
+          </span>
+          <h3 class="font-editorial text-2xl sm:text-3xl text-text-primary font-medium">
+            Experience This Location in Person
+          </h3>
+          <p class="text-xs text-text-secondary mt-2 leading-relaxed">
+            Join our small-group visual masterclass to document {relatedExpedition.data.region} under the mentorship of our lead photographers.
+          </p>
+
+          <div class="mt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-6 border-t border-canvas-border">
+            <div>
+              <span class="font-editorial text-xl text-text-primary block">{relatedExpedition.data.title}</span>
+              <span class="text-xs text-text-muted">{relatedExpedition.data.durationDays} Days • From {relatedExpedition.data.priceFrom}</span>
+            </div>
+            <a
+              href={`/expeditions/${relatedExpedition.id.replace(/\.(md|mdx|json)$/, '')}`}
+              class="px-6 py-2.5 bg-accent-himalaya hover:opacity-90 text-white dark:text-black font-semibold text-xs uppercase tracking-widest rounded transition-all shrink-0 shadow-sm"
+            >
+              View Expedition →
+            </a>
+          </div>
+        </div>
+      )}
+
+      <!-- Back to stories link -->
+      <div class="mt-16 pt-8 border-t border-canvas-border text-center">
+        <a
+          href="/stories"
+          class="text-xs uppercase tracking-[0.2em] font-semibold text-accent-himalaya hover:text-text-primary transition-colors"
+        >
+          ← Back to All Field Notes & Stories
+        </a>
+      </div>
+    </div>
+  </article>
+</BaseLayout>

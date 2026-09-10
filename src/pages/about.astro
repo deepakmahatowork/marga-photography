@@ -1,0 +1,121 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const photographers = await getCollection('photographers');
+---
+
+<BaseLayout
+  title="About Marga Photography | Himalayan Visual Collective"
+  description="Learn about Marga Photography: our philosophy, master photographers, ethical documentary standards, and strategic partnership with Marga Adventure."
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+    <!-- Header -->
+    <div class="max-w-3xl mb-16">
+      <span class="text-xs uppercase tracking-[0.25em] text-accent-himalaya font-sans font-semibold">
+        Our Philosophy & Collective
+      </span>
+      <h1 class="font-editorial text-4xl sm:text-6xl font-medium text-text-primary mt-2 leading-tight">
+        Visual Stewardship in the Himalayas
+      </h1>
+      <p class="text-text-secondary text-base leading-relaxed mt-4">
+        Marga Photography was founded on a simple conviction: Nepal deserves to be photographed with depth, patience, and profound cultural respect—not as an exotic backdrop for rushed tourist itineraries.
+      </p>
+    </div>
+
+    <!-- Philosophy Pillars -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-24 items-center">
+      <div class="space-y-6 text-sm text-text-secondary leading-relaxed">
+        <h2 class="font-editorial text-3xl text-text-primary font-medium">
+          Born Out of Marga Adventure
+        </h2>
+        <p>
+          For over a decade, <a href="https://margaadventure.com" target="_blank" rel="noopener noreferrer" class="text-accent-himalaya hover:underline font-medium">Marga Adventure</a> built an impeccable reputation leading treks and high-altitude mountain expeditions across Nepal. Yet we recognized that photographers have fundamentally different needs than hikers.
+        </p>
+        <p>
+          A hiker wants to reach the next camp before afternoon. A photographer wants to remain on a freezing ridgeline through twilight to capture the precise instant alpenglow strikes an 8,000-meter wall.
+        </p>
+        <p>
+          Marga Photography is our dedicated response: an autonomous, photography-first entity where every route, vehicle, schedule, and team member is oriented around light, artistic mentorship, and visual storytelling.
+        </p>
+      </div>
+
+      <div class="p-8 rounded-xl bg-canvas-elevated border border-canvas-border space-y-6 shadow-lg">
+        <h3 class="font-editorial text-2xl text-accent-himalaya font-medium">
+          Our Ethical Commitment
+        </h3>
+        <div class="space-y-4 text-xs text-text-secondary leading-relaxed">
+          <div>
+            <strong class="text-text-primary block mb-1">1. Respect Before Exposure</strong>
+            We never intrude upon sacred ceremonies without prior spiritual consent. We sit, listen, and share tea before reaching for camera bags.
+          </div>
+          <div>
+            <strong class="text-text-primary block mb-1">2. Direct Economic Honorarium</strong>
+            We directly compensate artisanal families, monasteries, and local communities for their time and hospitality.
+          </div>
+          <div>
+            <strong class="text-text-primary block mb-1">3. Strict Wildlife Distance</strong>
+            We do not bait, corner, or stress wildlife in Bardia or Chitwan. Our trackers use natural behavioral cues and ethical viewing distances.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lead Photographers Section -->
+    <div class="mb-24">
+      <div class="max-w-2xl mb-12">
+        <span class="text-xs uppercase tracking-[0.2em] text-accent-himalaya font-semibold">
+          Master Mentors & Curators
+        </span>
+        <h2 class="font-editorial text-3xl sm:text-4xl text-text-primary font-medium mt-1">
+          The Photographers Behind the Lens
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {photographers.map((p) => {
+          const person = p.data;
+          return (
+            <div class="p-8 rounded-xl bg-canvas-elevated border border-canvas-border flex flex-col sm:flex-row gap-6 items-start card-hover-border shadow-sm">
+              <img
+                src={person.avatar}
+                alt={person.name}
+                class="w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover border-2 border-accent-himalaya/40 shrink-0"
+              />
+              <div>
+                <h3 class="font-editorial text-2xl text-text-primary font-medium">{person.name}</h3>
+                <span class="text-xs font-mono text-accent-himalaya block mb-3">{person.role}</span>
+                <p class="text-xs text-text-secondary leading-relaxed mb-4">
+                  {person.bio}
+                </p>
+                <div class="flex flex-wrap gap-1.5">
+                  {person.specialties.map((spec) => (
+                    <span class="px-2.5 py-1 bg-canvas-surface border border-canvas-border rounded text-[10px] text-text-muted">
+                      {spec}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="p-8 sm:p-12 rounded-xl bg-canvas-surface border border-canvas-border text-center max-w-3xl mx-auto shadow-md">
+      <h3 class="font-editorial text-3xl text-text-primary font-medium mb-3">
+        Ready to Join Our Next Himalayan Expedition?
+      </h3>
+      <p class="text-xs text-text-secondary mb-6 leading-relaxed max-w-lg mx-auto">
+        Departures are strictly limited to maintain quiet intimacy and optimal mentor time. Reserve your seat or speak directly with our team.
+      </p>
+      <a
+        href="/expeditions"
+        class="inline-block px-8 py-3.5 bg-accent-himalaya hover:opacity-90 text-white dark:text-black font-semibold text-xs uppercase tracking-[0.2em] rounded transition-all shadow-lg"
+      >
+        View Available Expeditions
+      </a>
+    </div>
+  </div>
+</BaseLayout>

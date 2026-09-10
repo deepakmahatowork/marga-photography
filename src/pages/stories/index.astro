@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import StoryCard from '../../components/stories/StoryCard.astro';
+import { getCollection } from 'astro:content';
+
+const allStories = await getCollection('stories');
+
+const storiesJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Blog',
+  name: 'Marga Photography Stories & Field Notes',
+  description: 'Documentary essays, photographer interviews, and cultural insights from the field in Nepal.',
+};
+---
+
+<BaseLayout
+  title="Stories & Photo Essays from Nepal | Field Notes"
+  description="Immerse in visual field notes and photo essays documenting the ancient traditions, Himalayan landscapes, and rare wildlife of Nepal."
+  jsonLd={storiesJsonLd}
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+    <!-- Header -->
+    <div class="max-w-3xl mb-16">
+      <span class="text-xs uppercase tracking-[0.25em] text-accent-himalaya font-sans font-semibold">
+        Field Notes & Visual Meditations
+      </span>
+      <h1 class="font-editorial text-4xl sm:text-6xl font-medium text-text-primary mt-2 leading-tight">
+        Stories from the Field
+      </h1>
+      <p class="text-text-secondary text-sm sm:text-base leading-relaxed mt-4">
+        Deep documentary narratives from our expedition leads. Every story explores the philosophy, patience, and cultural intimacy behind each photograph.
+      </p>
+    </div>
+
+    <!-- Story Cards Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {allStories.map((story) => (
+        <StoryCard story={story} />
+      ))}
+    </div>
+  </div>
+</BaseLayout>

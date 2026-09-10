@@ -1,0 +1,179 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PhotoGrid from '../../components/photography/PhotoGrid.astro';
+import Lightbox from '../../components/photography/Lightbox.astro';
+import { getCollection } from 'astro:content';
+
+export function getStaticPaths() {
+  const categories = [
+    {
+      slug: 'people',
+      name: 'People & Portraits',
+      subtitle: 'Intimate, environmental documentary portraits of the diverse ethnic peoples of Nepal.',
+      metaDesc: 'Discover powerful environmental portraits and ethnographic photography of the diverse indigenous peoples of Nepal.',
+    },
+    {
+      slug: 'culture',
+      name: 'Living Culture & Sacred Rites',
+      subtitle: 'Ancient craftsmanship, Buddhist and Hindu rituals, monastic traditions, and medieval courtyards.',
+      metaDesc: 'Explore documentary photography capturing Nepal’s living cultural heritage, master artisans, and sacred rituals.',
+    },
+    {
+      slug: 'festivals',
+      name: 'Sacred Himalayan Festivals',
+      subtitle: 'The whirlwind energy, sacred masks, and devotional fervour of Nepal’s historic festivals.',
+      metaDesc: 'Witness Nepal’s sacred festivals through master photography: Tiji Festival, Indra Jatra, and ancient monastic Cham dances.',
+    },
+    {
+      slug: 'wildlife',
+      name: 'Royal Bengal Wildlife',
+      subtitle: 'Elusive apex predators and rare species in the subtropical jungles and river corridors of the Terai.',
+      metaDesc: 'Wildlife photography in Nepal: Royal Bengal Tigers in Bardia, one-horned rhinoceros in Chitwan, and rare birdlife.',
+    },
+    {
+      slug: 'landscapes',
+      name: 'High Himalaya & Wild Horizons',
+      subtitle: 'Glacial lakes, razor ridges, 8,000m summits, and high-altitude desert canyons.',
+      metaDesc: 'High Himalayan landscape photography: Mount Everest, Gokyo Lakes, and the rain-shadow desert canyons of Mustang.',
+    },
+  ];
+
+  return categories.map((cat) => ({
+    params: { category: cat.slug },
+    props: { catInfo: cat },
+  }));
+}
+
+const { catInfo } = Astro.props;
+const categorySlug = Astro.params.category;
+
+const allPhotos = await getCollection('photographs');
+const filteredPhotos = allPhotos.filter((p) => p.data.category.toLowerCase() === categorySlug.toLowerCase());
+
+// Related expeditions
+const allExpeditions = await getCollection('expeditions');
+const relatedExpeditions = allExpeditions.filter((e) => {
+  const cat = e.data.category.toLowerCase();
+  if (categorySlug === 'festivals' && cat.includes('festival')) return true;
+  if (categorySlug === 'wildlife' && cat.includes('wildlife')) return true;
+  if (categorySlug === 'landscapes' && cat.includes('landscape')) return true;
+  if ((categorySlug === 'people' || categorySlug === 'culture') && cat.includes('culture')) return true;
+  return false;
+});
+---
+
+<BaseLayout
+  title={`${catInfo.name} | Nepal Photography Portfolio`}
+  description={catInfo.metaDesc}
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+    <!-- Header -->
+    <div class="max-w-3xl mb-12">
+      <div class="flex items-center gap-2 mb-3">
+        <a href="/" class="text-xs text-text-muted hover:text-text-primary uppercase tracking-widest transition-colors">Home</a>
+        <span class="text-xs text-text-muted">/</span>
+        <span class="text-xs text-accent-himalaya uppercase tracking-widest font-semibold">Portfolio Archive</span>
+      </div>
+      <h1 class="font-editorial text-4xl sm:text-6xl font-medium text-text-primary leading-tight">
+        {catInfo.name}
+      </h1>
+      <p class="text-text-secondary text-base leading-relaxed mt-4">
+        {catInfo.subtitle}
+      </p>
+    </div>
+
+    <!-- Category Nav Pills -->
+    <div class="flex flex-wrap items-center gap-2 mb-16 pb-6 border-b border-canvas-border text-xs uppercase tracking-widest">
+      <a
+        href="/explore/people"
+        class={`px-4 py-2 rounded-full border transition-colors ${
+          categorySlug === 'people'
+            ? 'bg-accent-himalaya text-white dark:text-black border-accent-himalaya font-semibold'
+            : 'bg-canvas-surface text-text-secondary border-canvas-border hover:border-accent-himalaya'
+        }`}
+      >
+        People
+      </a>
+      <a
+        href="/explore/culture"
+        class={`px-4 py-2 rounded-full border transition-colors ${
+          categorySlug === 'culture'
+            ? 'bg-accent-himalaya text-white dark:text-black border-accent-himalaya font-semibold'
+            : 'bg-canvas-surface text-text-secondary border-canvas-border hover:border-accent-himalaya'
+        }`}
+      >
+        Culture
+      </a>
+      <a
+        href="/explore/festivals"
+        class={`px-4 py-2 rounded-full border transition-colors ${
+          categorySlug === 'festivals'
+            ? 'bg-accent-himalaya text-white dark:text-black border-accent-himalaya font-semibold'
+            : 'bg-canvas-surface text-text-secondary border-canvas-border hover:border-accent-himalaya'
+        }`}
+      >
+        Festivals
+      </a>
+      <a
+        href="/explore/wildlife"
+        class={`px-4 py-2 rounded-full border transition-colors ${
+          categorySlug === 'wildlife'
+            ? 'bg-accent-himalaya text-white dark:text-black border-accent-himalaya font-semibold'
+            : 'bg-canvas-surface text-text-secondary border-canvas-border hover:border-accent-himalaya'
+        }`}
+      >
+        Wildlife
+      </a>
+      <a
+        href="/explore/landscapes"
+        class={`px-4 py-2 rounded-full border transition-colors ${
+          categorySlug === 'landscapes'
+            ? 'bg-accent-himalaya text-white dark:text-black border-accent-himalaya font-semibold'
+            : 'bg-canvas-surface text-text-secondary border-canvas-border hover:border-accent-himalaya'
+        }`}
+      >
+        Landscapes
+      </a>
+    </div>
+
+    <!-- Photos Grid -->
+    {filteredPhotos.length > 0 ? (
+      <PhotoGrid photos={filteredPhotos} />
+    ) : (
+      <div class="text-center py-20 p-8 rounded-xl bg-canvas-elevated border border-canvas-border shadow-sm">
+        <p class="text-text-muted text-sm">New photographic series for this category are currently being curated in the darkroom.</p>
+        <a href="/explore/people" class="mt-4 inline-block text-xs uppercase tracking-widest text-accent-himalaya font-semibold">
+          View People & Portraits →
+        </a>
+      </div>
+    )}
+
+    <!-- Related Expedition Banner -->
+    {relatedExpeditions.length > 0 && (
+      <div class="mt-24 p-8 sm:p-12 rounded-xl bg-canvas-surface border border-canvas-border shadow-md">
+        <span class="text-xs uppercase tracking-[0.2em] text-accent-himalaya font-semibold block mb-2">
+          Experience This In Person
+        </span>
+        <h3 class="font-editorial text-2xl sm:text-3xl text-text-primary font-medium">
+          Interested in photographing {catInfo.name.toLowerCase()}?
+        </h3>
+        <p class="text-xs text-text-secondary mt-2 max-w-2xl leading-relaxed">
+          Our small-group photography expeditions are specifically structured around peak season dates, optimal light windows, and exclusive local access.
+        </p>
+
+        <div class="mt-6 flex flex-wrap gap-4">
+          {relatedExpeditions.map((exp) => (
+            <a
+              href={`/expeditions/${exp.id.replace(/\.(md|mdx|json)$/, '')}`}
+              class="px-5 py-2.5 bg-canvas-elevated hover:bg-accent-himalaya hover:text-white dark:hover:text-black border border-canvas-border rounded text-xs uppercase tracking-wider font-medium text-text-primary transition-all shadow-sm"
+            >
+              {exp.data.title} →
+            </a>
+          ))}
+        </div>
+      </div>
+    )}
+  </div>
+
+  <Lightbox />
+</BaseLayout>

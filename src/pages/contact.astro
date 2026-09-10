@@ -1,0 +1,78 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import InquiryForm from '../components/forms/InquiryForm.astro';
+
+const requestedIntent = Astro.url.searchParams.get('intent');
+const defaultTitle =
+  requestedIntent === 'custom'
+    ? 'Bespoke Private Expedition'
+    : requestedIntent === 'commercial'
+    ? 'Commercial Production Inquiry'
+    : '2026 Expedition Reservation';
+---
+
+<BaseLayout
+  title="Contact Marga Photography | Kathmandu Fixers & Expeditions"
+  description="Contact our team for upcoming Nepal photography expeditions, bespoke private scouting trips, filming permits, and commercial photography assignments."
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+      
+      <!-- Left: Context & Contact Details -->
+      <div class="lg:col-span-5 space-y-8">
+        <div>
+          <span class="text-xs uppercase tracking-[0.25em] text-accent-himalaya font-sans font-semibold">
+            Direct Line to Curators
+          </span>
+          <h1 class="font-editorial text-4xl sm:text-5xl font-medium text-text-primary mt-2 leading-tight">
+            Begin the Journey
+          </h1>
+          <p class="text-text-secondary text-sm leading-relaxed mt-4">
+            Whether you want to join a scheduled small-group masterclass, design a custom expedition into the remote Himalayas, or commission commercial work, our team is at your disposal.
+          </p>
+        </div>
+
+        <div class="space-y-4 pt-6 border-t border-canvas-border text-xs text-text-secondary">
+          <div class="flex items-start gap-3">
+            <span class="text-accent-himalaya font-bold mt-0.5">✦</span>
+            <div>
+              <strong class="text-text-primary block font-medium">Kathmandu Atelier & Operations</strong>
+              <span>Thamel & Patan Heritage Enclave, Kathmandu, Nepal</span>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3">
+            <span class="text-accent-himalaya font-bold mt-0.5">✦</span>
+            <div>
+              <strong class="text-text-primary block font-medium">Direct Email</strong>
+              <a href="mailto:expeditions@margaphotography.com" class="text-accent-himalaya hover:underline">
+                expeditions@margaphotography.com
+              </a>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3">
+            <span class="text-accent-himalaya font-bold mt-0.5">✦</span>
+            <div>
+              <strong class="text-text-primary block font-medium">Logistics Partner</strong>
+              <span>Backed by Marga Adventure operational infrastructure</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-6 rounded-lg bg-canvas-elevated border border-canvas-border text-xs text-text-secondary shadow-sm">
+          <h4 class="text-text-primary font-medium mb-1">Response Guarantee</h4>
+          <p>
+            Every dispatch is personally answered by our photography leads or expedition directors within 24 hours. We do not use generic call centers.
+          </p>
+        </div>
+      </div>
+
+      <!-- Right: Inquiry Form -->
+      <div class="lg:col-span-7">
+        <InquiryForm expeditionTitle={defaultTitle} />
+      </div>
+
+    </div>
+  </div>
+</BaseLayout>

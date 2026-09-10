@@ -1,0 +1,120 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import InquiryForm from '../../components/forms/InquiryForm.astro';
+import LicensingCalculator from '../../components/commercial/LicensingCalculator.astro';
+
+const commercialServices = [
+  {
+    title: 'Luxury Resorts & Heritage Hotels',
+    desc: 'Architectural, twilight interior, culinary, and experiential imagery crafted for premier Himalayan lodges, eco-resorts, and heritage boutique properties.',
+    deliverables: 'High-resolution archival master files, architectural licensing, social media suites',
+  },
+  {
+    title: 'Tourism Campaigns & Destination Branding',
+    desc: 'World-class visual assets for international tourism boards, conservation trusts, and high-end adventure brands seeking authentic, non-stock storytelling.',
+    deliverables: 'Multi-season visual libraries, 4K aerial drone imagery, raw editorial storytelling',
+  },
+  {
+    title: 'Documentary & NGO Assignments',
+    desc: 'Sensitive, culturally informed visual documentation for NGOs, conservation projects, medical expeditions, and ethnographic cultural preservation.',
+    deliverables: 'In-depth photo essays, community portrait suites, exhibition-grade print masters',
+  },
+  {
+    title: 'Fine Art Prints & Image Licensing',
+    desc: 'Rights-managed commercial and editorial licensing from our comprehensive master archive of Nepal’s people, festivals, wildlife, and alpine topography.',
+    deliverables: 'Editorial rights, global advertising licensing, limited-edition museum prints',
+  },
+];
+---
+
+<BaseLayout
+  title="Commercial & Editorial Photography Services Nepal | Marga Photography"
+  description="Commercial photography production, hotel and resort campaigns, tourism branding, conservation documentary assignments, and image licensing in Nepal."
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+    <!-- Header -->
+    <div class="max-w-3xl mb-16">
+      <span class="text-xs uppercase tracking-[0.25em] text-accent-himalaya font-sans font-semibold">
+        Commercial & Editorial Production
+      </span>
+      <h1 class="font-editorial text-4xl sm:text-6xl font-medium text-text-primary mt-2 leading-tight">
+        Visual Authority for Himalayan Brands & Publications
+      </h1>
+      <p class="text-text-secondary text-sm sm:text-base leading-relaxed mt-4">
+        Beyond our photographic masterclasses, Marga Photography operates a full-service production wing in Nepal. We provide location scouting, production fixers, government filming permits, helicopter charters, and world-class commercial photography.
+      </p>
+    </div>
+
+    <!-- Commercial Services Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-24">
+      {commercialServices.map((service, idx) => (
+        <div class="p-8 rounded-xl bg-canvas-elevated border border-canvas-border flex flex-col justify-between card-hover-border shadow-sm">
+          <div>
+            <span class="font-mono text-xs text-accent-himalaya uppercase tracking-widest block mb-2">
+              0{idx + 1} • Service
+            </span>
+            <h3 class="font-editorial text-2xl text-text-primary font-medium mb-3">
+              {service.title}
+            </h3>
+            <p class="text-xs text-text-secondary leading-relaxed mb-6">
+              {service.desc}
+            </p>
+          </div>
+          <div class="pt-4 border-t border-canvas-border text-[11px] text-text-muted">
+            <strong class="text-text-primary">Deliverables:</strong> {service.deliverables}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Commercial Production Capabilities -->
+    <div class="mb-24 p-8 sm:p-12 rounded-xl bg-canvas-surface border border-canvas-border shadow-md">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div>
+          <h3 class="font-editorial text-2xl text-text-primary font-medium mb-2">
+            Field Production Infrastructure
+          </h3>
+          <p class="text-xs text-text-secondary leading-relaxed">
+            Operating in Nepal requires deep bureaucratic expertise and robust mountain logistics. In partnership with Marga Adventure, we handle the friction so your creative team can focus entirely on production.
+          </p>
+        </div>
+        <div class="space-y-3 text-xs text-text-secondary">
+          <div class="flex items-center gap-2">
+            <span class="text-accent-himalaya">✦</span>
+            <span>Ministry of Information & Broadcasting Filming Permits</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-accent-himalaya">✦</span>
+            <span>National Park & Restricted Enclave Permissions</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-accent-himalaya">✦</span>
+            <span>Drone / UAV Flight Approvals & Civil Aviation Clearance</span>
+          </div>
+        </div>
+        <div class="space-y-3 text-xs text-text-secondary">
+          <div class="flex items-center gap-2">
+            <span class="text-accent-himalaya">✦</span>
+            <span>Chartered AS350 B3e Helicopter Photo-Flights</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-accent-himalaya">✦</span>
+            <span>Multilingual Cultural Fixers & Field Interpreters</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-accent-himalaya">✦</span>
+            <span>Generators, Satellite InReach & High-Altitude Power</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Licensing Calculator Widget -->
+    <LicensingCalculator />
+
+    <!-- Commercial Inquiry Form -->
+    <div class="max-w-4xl mx-auto" id="commercial-inquire">
+      <InquiryForm expeditionTitle="Commercial Assignment / Media Production" />
+    </div>
+  </div>
+</BaseLayout>

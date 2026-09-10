@@ -1,0 +1,69 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ExpeditionCard from '../../components/expeditions/ExpeditionCard.astro';
+import { getCollection } from 'astro:content';
+
+const allExpeditions = await getCollection('expeditions');
+
+const seoJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Marga Photography Expeditions',
+  description: 'Specialist small-group photography expeditions across Nepal.',
+  itemListElement: allExpeditions.map((exp, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    url: `https://margaphotography.com/expeditions/${exp.id.replace(/\.(md|mdx|json)$/, '')}`,
+    name: exp.data.title,
+  })),
+};
+---
+
+<BaseLayout
+  title="Nepal Photography Expeditions 2026 | Small Group Masterclasses"
+  description="Explore our specialist photography expeditions in Nepal: Upper Mustang, Tiji Festival, Bardia Royal Bengal Tiger tracking, Gokyo Lakes, and Sacred Kathmandu Valley."
+  jsonLd={seoJsonLd}
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+    <!-- Header -->
+    <div class="max-w-3xl mb-16">
+      <span class="text-xs uppercase tracking-[0.25em] text-accent-himalaya font-sans font-semibold">
+        Curated Masterclasses & Field Fixers
+      </span>
+      <h1 class="font-editorial text-4xl sm:text-6xl font-medium text-text-primary mt-2 leading-tight">
+        Photography Expeditions in Nepal
+      </h1>
+      <p class="text-text-secondary text-sm sm:text-base leading-relaxed mt-4">
+        Every expedition is limited to strictly 4 to 6 photographers, guided by master documentary photographers, and supported by full expedition logistics from Marga Adventure.
+      </p>
+    </div>
+
+    <!-- Expedition Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {allExpeditions.map((exp) => (
+        <ExpeditionCard expedition={exp} />
+      ))}
+    </div>
+
+    <!-- Custom Expedition Banner -->
+    <div class="mt-20 p-8 sm:p-12 rounded-xl bg-canvas-surface border border-canvas-border flex flex-col md:flex-row items-center justify-between gap-8 shadow-md">
+      <div class="max-w-xl">
+        <span class="text-xs uppercase tracking-[0.2em] text-accent-himalaya font-semibold">
+          Bespoke Logistics & Fixers
+        </span>
+        <h2 class="font-editorial text-2xl sm:text-3xl text-text-primary font-medium mt-1">
+          Need a Private Expedition or Fixer?
+        </h2>
+        <p class="text-xs text-text-secondary mt-2 leading-relaxed">
+          We arrange customized solo or small-team scouting, permits, helicopter airlifts, and cultural fixers for professional photographers, editorial teams, and private groups.
+        </p>
+      </div>
+      <a
+        href="/contact?intent=custom"
+        class="shrink-0 px-8 py-3.5 bg-accent-himalaya hover:opacity-90 text-white dark:text-black font-semibold text-xs uppercase tracking-[0.2em] rounded transition-all shadow-md"
+      >
+        Plan Custom Expedition
+      </a>
+    </div>
+  </div>
+</BaseLayout>

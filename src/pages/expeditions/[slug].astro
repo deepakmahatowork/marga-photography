@@ -1,0 +1,265 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import InquiryForm from '../../components/forms/InquiryForm.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const expeditions = await getCollection('expeditions');
+  return expeditions.map((exp) => ({
+    params: { slug: exp.id.replace(/\.(md|mdx|json)$/, '') },
+    props: { expedition: exp },
+  }));
+}
+
+const { expedition } = Astro.props;
+const exp = expedition.data;
+const { Content } = await render(expedition);
+
+const tripJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'TouristTrip',
+  name: exp.title,
+  description: exp.tagline,
+  touristType: 'Photographers, visual artists, documentary filmmakers',
+  itinerary: exp.itinerary.map((item) => ({
+    '@type': 'Day',
+    name: `Days ${item.day}: ${item.title}`,
+    description: `${item.description} Photography Focus: ${item.photoFocus}`,
+  })),
+  offers: {
+    '@type': 'Offer',
+    price: exp.priceFrom.replace(/[^0-9]/g, ''),
+    priceCurrency: 'USD',
+    availability: 'https://schema.org/InStock',
+    url: Astro.url.href,
+  },
+};
+---
+
+<BaseLayout
+  title={`${exp.title} | Nepal Photography Expedition`}
+  description={exp.tagline}
+  image={exp.heroImage}
+  type="product"
+  jsonLd={tripJsonLd}
+>
+  <!-- 1. EXPEDITION HERO -->
+  <header class="relative min-h-[70vh] flex items-end overflow-hidden pb-16">
+    <div class="absolute inset-0 z-0">
+      <img
+        src={exp.heroImage}
+        alt={exp.title}
+        fetchpriority="high"
+        decoding="async"
+        class="w-full h-full object-cover object-center"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/50 to-black/30"></div>
+    </div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+      <div class="max-w-4xl">
+        <div class="flex flex-wrap items-center gap-2 mb-4">
+          <span class="px-3 py-1 bg-black/75 backdrop-blur-md border border-white/15 rounded text-[10px] uppercase tracking-[0.2em] font-semibold text-accent-himalaya">
+            {exp.category}
+          </span>
+          <span class="text-xs text-neutral-200 font-sans tracking-wider uppercase">
+            {exp.region}
+          </span>
+        </div>
+        <h1 class="font-editorial text-3xl sm:text-5xl lg:text-6xl font-medium text-white leading-tight">
+          {exp.title}
+        </h1>
+        <p class="text-base sm:text-lg text-neutral-200 mt-4 leading-relaxed max-w-3xl font-light drop-shadow-sm">
+          {exp.tagline}
+        </p>
+
+        <!-- Quick Facts Bar -->
+        <div class="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 rounded-lg bg-black/70 backdrop-blur-md border border-white/15 text-xs text-white">
+          <div>
+            <span class="block text-neutral-400 text-[10px] uppercase tracking-wider">Duration</span>
+            <span class="text-white font-medium">{exp.durationDays} Days</span>
+          </div>
+          <div>
+            <span class="block text-neutral-400 text-[10px] uppercase tracking-wider">Group Limit</span>
+            <span class="text-white font-medium">{exp.groupSize}</span>
+          </div>
+          <div>
+            <span class="block text-neutral-400 text-[10px] uppercase tracking-wider">Skill Level</span>
+            <span class="text-white font-medium">{exp.photographyLevel}</span>
+          </div>
+          <div>
+            <span class="block text-neutral-400 text-[10px] uppercase tracking-wider">Best Season</span>
+            <span class="text-white font-medium">{exp.bestSeason}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 2. EXPEDITION DETAILS & ITINERARY -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+      
+      <!-- Left Column: Itinerary, Photographic Focus, Equipment -->
+      <div class="lg:col-span-8 space-y-16">
+        
+        <!-- Overview Narrative -->
+        <div>
+          <span class="text-xs uppercase tracking-[0.2em] text-accent-himalaya font-semibold">
+            Visual Curatorial Notes
+          </span>
+          <h2 class="font-editorial text-3xl text-text-primary font-medium mt-1 mb-6">
+            The Journey & Photographic Vision
+          </h2>
+          <div class="prose max-w-none text-text-secondary text-sm leading-relaxed space-y-4">
+            <Content />
+          </div>
+        </div>
+
+        <!-- Photographic Highlights -->
+        <div class="p-8 rounded-xl bg-canvas-elevated border border-canvas-border shadow-sm">
+          <h3 class="font-editorial text-2xl text-text-primary font-medium mb-6">
+            Key Photographic Opportunities
+          </h3>
+          <ul class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {exp.photographicOpportunities.map((opp) => (
+              <li class="flex items-start gap-3 text-xs text-text-secondary">
+                <span class="text-accent-himalaya shrink-0 mt-0.5 font-bold">✦</span>
+                <span class="leading-relaxed">{opp}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Day by Day Photo Itinerary -->
+        <div>
+          <span class="text-xs uppercase tracking-[0.2em] text-accent-himalaya font-semibold">
+            Field Schedule
+          </span>
+          <h2 class="font-editorial text-3xl text-text-primary font-medium mt-1 mb-8">
+            Day-by-Day Photographic Itinerary
+          </h2>
+
+          <div class="space-y-8 relative before:absolute before:inset-0 before:left-3.5 before:w-0.5 before:bg-canvas-border">
+            {exp.itinerary.map((day) => (
+              <div class="relative pl-10">
+                <div class="absolute left-2 top-1.5 w-3.5 h-3.5 rounded-full bg-accent-himalaya border-4 border-canvas-bg"></div>
+                <div class="p-6 rounded-lg bg-canvas-elevated border border-canvas-border shadow-sm">
+                  <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                    <span class="text-[11px] font-mono uppercase tracking-widest text-accent-himalaya font-semibold">
+                      Day {day.day}
+                    </span>
+                    <span class="text-[11px] text-text-muted bg-canvas-surface border border-canvas-border px-2.5 py-0.5 rounded">
+                      Focus: {day.photoFocus}
+                    </span>
+                  </div>
+                  <h4 class="font-editorial text-xl text-text-primary font-medium">{day.title}</h4>
+                  <p class="text-xs text-text-secondary mt-2 leading-relaxed">
+                    {day.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Recommended Gear -->
+        <div class="p-8 rounded-xl bg-canvas-elevated border border-canvas-border shadow-sm">
+          <h3 class="font-editorial text-2xl text-text-primary font-medium mb-2">
+            Recommended Camera Equipment
+          </h3>
+          <p class="text-xs text-text-muted mb-6">
+            Tested in the field. Our expedition vehicles and porters are dedicated to transporting your professional optics safely.
+          </p>
+          <ul class="space-y-2.5">
+            {exp.equipmentRecommendations.map((gear) => (
+              <li class="flex items-center gap-3 text-xs text-text-secondary">
+                <svg class="w-4 h-4 text-accent-himalaya shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                <span>{gear}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Inclusions & Exclusions -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 pt-8 border-t border-canvas-border">
+          <div>
+            <h4 class="text-xs uppercase tracking-[0.2em] text-text-primary font-semibold mb-4">
+              What Is Included
+            </h4>
+            <ul class="space-y-2 text-xs text-text-secondary">
+              {exp.included.map((inc) => (
+                <li class="flex items-start gap-2">
+                  <span class="text-emerald-500 shrink-0">✓</span>
+                  <span>{inc}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-xs uppercase tracking-[0.2em] text-text-primary font-semibold mb-4">
+              What Is Excluded
+            </h4>
+            <ul class="space-y-2 text-xs text-text-muted">
+              {exp.excluded.map((exc) => (
+                <li class="flex items-start gap-2">
+                  <span class="text-text-muted shrink-0">✕</span>
+                  <span>{exc}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Column: Sticky Inquiry Box -->
+      <div class="lg:col-span-4 space-y-8">
+        <div class="sticky top-28 space-y-6">
+          <div class="p-6 rounded-xl bg-canvas-elevated border border-canvas-border text-center shadow-lg">
+            <span class="text-[10px] uppercase tracking-widest text-text-muted">Starting Investment</span>
+            <div class="font-editorial text-4xl text-accent-himalaya font-medium my-2">
+              {exp.priceFrom}
+            </div>
+            <p class="text-xs text-text-secondary mb-6 leading-relaxed">
+              Includes restricted permits, domestic flights, 4x4 vehicles, boutique accommodations & masterclass tuition.
+            </p>
+            <a
+              href="#inquire"
+              class="block w-full py-3 px-6 bg-accent-himalaya hover:opacity-90 text-white dark:text-black font-semibold text-xs uppercase tracking-[0.2em] rounded transition-all shadow-md"
+            >
+              Request Expedition Seat
+            </a>
+            <p class="text-[10px] text-text-muted mt-3">
+              Only 4 to 6 photographers per departure.
+            </p>
+          </div>
+
+          <!-- Sister Brand Assurance -->
+          <div class="p-5 rounded-lg bg-canvas-surface border border-canvas-border text-xs text-text-secondary space-y-2 shadow-sm">
+            <div class="text-text-primary font-medium flex items-center gap-2">
+              <svg class="w-4 h-4 text-accent-himalaya" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+              Logistical Guarantee
+            </div>
+            <p>
+              Operated with the full backing of Marga Adventure's licensed mountain rescue protocols and high-altitude emergency networks.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Inquiry Anchor -->
+    <div class="mt-24 pt-16 border-t border-canvas-border" id="inquire">
+      <div class="max-w-4xl mx-auto">
+        <InquiryForm expeditionTitle={exp.title} />
+      </div>
+    </div>
+  </div>
+</BaseLayout>

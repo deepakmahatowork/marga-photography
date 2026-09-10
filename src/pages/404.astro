@@ -1,0 +1,41 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="404 — Lost in the High Pass | Marga Photography"
+  description="The requested page could not be located in our Himalayan archives."
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-32 text-center">
+    <span class="font-mono text-xs uppercase tracking-[0.3em] text-accent-himalaya block mb-3">
+      404 Error • Path Not Found
+    </span>
+    <h1 class="font-editorial text-4xl sm:text-6xl font-medium text-text-primary mb-6">
+      Lost in the Mountain Mist
+    </h1>
+    <p class="text-text-secondary text-sm sm:text-base leading-relaxed mb-10 max-w-lg mx-auto">
+      The coordinates you requested do not exist in our visual archives. Perhaps the trail has shifted, or the light has moved to another valley.
+    </p>
+
+    <div class="flex flex-wrap items-center justify-center gap-4">
+      <a
+        href="/"
+        class="px-6 py-3 bg-accent-himalaya hover:opacity-90 text-white dark:text-black font-semibold text-xs uppercase tracking-[0.2em] rounded transition-all shadow-md"
+      >
+        Return to Home
+      </a>
+      <a
+        href="/expeditions"
+        class="px-6 py-3 bg-canvas-surface hover:bg-canvas-elevated text-text-primary font-medium text-xs uppercase tracking-[0.2em] rounded border border-canvas-border transition-all shadow-sm"
+      >
+        View Expeditions
+      </a>
+      <a
+        href="/explore/people"
+        class="px-6 py-3 bg-canvas-surface hover:bg-canvas-elevated text-text-primary font-medium text-xs uppercase tracking-[0.2em] rounded border border-canvas-border transition-all shadow-sm"
+      >
+        Explore Portfolios
+      </a>
+    </div>
+  </div>
+</BaseLayout>
