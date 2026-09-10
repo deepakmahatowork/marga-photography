@@ -1,0 +1,46 @@
+---
+import { getLocalizedPath, type Lang } from '../../i18n/ui';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+const currentPath = Astro.url.pathname;
+const isFrench = currentPath.startsWith('/fr');
+const currentLang: Lang = isFrench ? 'fr' : 'en';
+
+const enUrl = getLocalizedPath(currentPath, 'en');
+const frUrl = getLocalizedPath(currentPath, 'fr');
+---
+
+<div
+  class={`inline-flex items-center p-0.5 rounded-full border border-canvas-border bg-canvas-surface/80 backdrop-blur-sm text-[11px] font-semibold tracking-wider ${className}`}
+  role="group"
+  aria-label="Language Selector"
+>
+  <a
+    href={enUrl}
+    class={`px-2.5 py-1 rounded-full transition-all duration-200 cursor-pointer ${
+      currentLang === 'en'
+        ? 'bg-accent-himalaya text-white shadow-xs'
+        : 'text-text-muted hover:text-text-primary'
+    }`}
+    aria-label="Switch to English"
+    aria-current={currentLang === 'en' ? 'true' : undefined}
+  >
+    EN
+  </a>
+  <a
+    href={frUrl}
+    class={`px-2.5 py-1 rounded-full transition-all duration-200 cursor-pointer ${
+      currentLang === 'fr'
+        ? 'bg-accent-himalaya text-white shadow-xs'
+        : 'text-text-muted hover:text-text-primary'
+    }`}
+    aria-label="Passer en Français"
+    aria-current={currentLang === 'fr' ? 'true' : undefined}
+  >
+    FR
+  </a>
+</div>
