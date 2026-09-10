@@ -1,0 +1,240 @@
+---
+interface Props {
+  expeditionTitle?: string;
+  defaultCategory?: string;
+}
+
+const { expeditionTitle, defaultCategory } = Astro.props;
+---
+
+<div class="bg-canvas-elevated border border-canvas-border rounded-xl p-6 sm:p-10 shadow-xl relative">
+  <div class="mb-8 border-b border-canvas-border pb-6">
+    <span class="text-xs uppercase tracking-[0.25em] text-accent-himalaya font-sans font-semibold">
+      Direct Expedition Dispatch
+    </span>
+    <h3 class="font-editorial text-2xl sm:text-3xl font-medium text-text-primary mt-1">
+      {expeditionTitle ? `Request Expedition: ${expeditionTitle}` : 'Plan Your Nepal Photography Journey'}
+    </h3>
+    <p class="text-xs text-text-secondary mt-2 leading-relaxed">
+      Small-group masterclasses (4–6 photographers maximum) or bespoke private fixer logistics across Nepal.
+    </p>
+  </div>
+
+  <form id="inquiry-form" class="space-y-6">
+    <!-- Honeypot anti-spam trap (invisible to humans) -->
+    <div class="hidden" aria-hidden="true">
+      <label for="company_honeypot">Do not fill this field</label>
+      <input type="text" id="company_honeypot" name="company_honeypot" tabindex="-1" autocomplete="off" />
+    </div>
+
+    <!-- Hidden Expedition Context -->
+    <input type="hidden" name="expedition" value={expeditionTitle || 'General / Custom Expedition'} />
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <!-- Full Name -->
+      <div>
+        <label for="name" class="block text-xs uppercase tracking-wider text-text-secondary font-medium mb-2">
+          Full Name <span class="text-accent-himalaya">*</span>
+        </label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          required
+          placeholder="e.g. Elena Rostova"
+          class="w-full px-4 py-3 bg-canvas-surface border border-canvas-border rounded text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-accent-himalaya focus:ring-1 focus:ring-accent-himalaya transition-colors"
+        />
+      </div>
+
+      <!-- Email Address -->
+      <div>
+        <label for="email" class="block text-xs uppercase tracking-wider text-text-secondary font-medium mb-2">
+          Email Address <span class="text-accent-himalaya">*</span>
+        </label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          required
+          placeholder="elena@example.com"
+          class="w-full px-4 py-3 bg-canvas-surface border border-canvas-border rounded text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-accent-himalaya focus:ring-1 focus:ring-accent-himalaya transition-colors"
+        />
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <!-- Country of Residence -->
+      <div>
+        <label for="country" class="block text-xs uppercase tracking-wider text-text-secondary font-medium mb-2">
+          Country of Residence <span class="text-accent-himalaya">*</span>
+        </label>
+        <input
+          type="text"
+          id="country"
+          name="country"
+          required
+          placeholder="e.g. United Kingdom, USA, Germany"
+          class="w-full px-4 py-3 bg-canvas-surface border border-canvas-border rounded text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-accent-himalaya focus:ring-1 focus:ring-accent-himalaya transition-colors"
+        />
+      </div>
+
+      <!-- WhatsApp / Phone -->
+      <div>
+        <label for="phone" class="block text-xs uppercase tracking-wider text-text-secondary font-medium mb-2">
+          WhatsApp / Phone (with country code)
+        </label>
+        <input
+          type="tel"
+          id="phone"
+          name="phone"
+          placeholder="+44 7700 900077"
+          class="w-full px-4 py-3 bg-canvas-surface border border-canvas-border rounded text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-accent-himalaya focus:ring-1 focus:ring-accent-himalaya transition-colors"
+        />
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+      <!-- Photography Experience -->
+      <div>
+        <label for="experience" class="block text-xs uppercase tracking-wider text-text-secondary font-medium mb-2">
+          Experience Level
+        </label>
+        <select
+          id="experience"
+          name="experience"
+          class="w-full px-4 py-3 bg-canvas-surface border border-canvas-border rounded text-sm text-text-primary focus:outline-none focus:border-accent-himalaya focus:ring-1 focus:ring-accent-himalaya transition-colors"
+        >
+          <option value="Enthusiast / Serious Amateur">Enthusiast / Serious Amateur</option>
+          <option value="Advanced Photographer">Advanced Photographer</option>
+          <option value="Professional / Commercial">Professional / Commercial</option>
+          <option value="Beginner eager to learn">Beginner eager to learn</option>
+        </select>
+      </div>
+
+      <!-- Primary Camera System -->
+      <div>
+        <label for="camera_system" class="block text-xs uppercase tracking-wider text-text-secondary font-medium mb-2">
+          Camera System
+        </label>
+        <input
+          type="text"
+          id="camera_system"
+          name="camera_system"
+          placeholder="e.g. Sony A7R V, Leica M, Nikon Z8"
+          class="w-full px-4 py-3 bg-canvas-surface border border-canvas-border rounded text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-accent-himalaya focus:ring-1 focus:ring-accent-himalaya transition-colors"
+        />
+      </div>
+
+      <!-- Target Window / Dates -->
+      <div>
+        <label for="preferred_season" class="block text-xs uppercase tracking-wider text-text-secondary font-medium mb-2">
+          Target Dates / Season
+        </label>
+        <input
+          type="text"
+          id="preferred_season"
+          name="preferred_season"
+          placeholder="e.g. Spring 2026 / Autumn 2026"
+          class="w-full px-4 py-3 bg-canvas-surface border border-canvas-border rounded text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-accent-himalaya focus:ring-1 focus:ring-accent-himalaya transition-colors"
+        />
+      </div>
+    </div>
+
+    <!-- Notes & Goals -->
+    <div>
+      <label for="notes" class="block text-xs uppercase tracking-wider text-text-secondary font-medium mb-2">
+        Specific Goals or Custom Inquiries
+      </label>
+      <textarea
+        id="notes"
+        name="notes"
+        rows="4"
+        placeholder="Tell us what you hope to photograph in Nepal (e.g. specific festival dates, portrait access, wildlife goals, or private group arrangements)..."
+        class="w-full px-4 py-3 bg-canvas-surface border border-canvas-border rounded text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-accent-himalaya focus:ring-1 focus:ring-accent-himalaya transition-colors"
+      ></textarea>
+    </div>
+
+    <!-- Status feedback banner -->
+    <div id="form-status" class="hidden text-xs p-4 rounded border transition-all" role="alert" aria-live="polite"></div>
+
+    <!-- Submit Button -->
+    <div>
+      <button
+        type="submit"
+        id="submit-btn"
+        class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-3.5 bg-accent-himalaya hover:opacity-90 text-white dark:text-black font-semibold text-xs tracking-[0.2em] uppercase rounded transition-all shadow-lg hover:shadow-accent-himalaya/20 cursor-pointer"
+      >
+        <span id="btn-text">Submit Expedition Inquiry</span>
+        <svg id="btn-spinner" class="hidden animate-spin ml-2 h-4 w-4 text-white dark:text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+        </svg>
+      </button>
+      <p class="text-[11px] text-text-muted mt-3">
+        No payment required now. Our lead photography curator personally reviews every submission within 24 hours.
+      </p>
+    </div>
+  </form>
+</div>
+
+<script>
+  const form = document.getElementById('inquiry-form') as HTMLFormElement;
+  const statusDiv = document.getElementById('form-status');
+  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+  const btnText = document.getElementById('btn-text');
+  const btnSpinner = document.getElementById('btn-spinner');
+
+  if (form && statusDiv && submitBtn) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Client honeypot check
+      const honeypot = (form.elements.namedItem('company_honeypot') as HTMLInputElement)?.value;
+      if (honeypot) {
+        return; // Silent discard
+      }
+
+      // UI Loading State
+      submitBtn.disabled = true;
+      btnSpinner?.classList.remove('hidden');
+      if (btnText) btnText.textContent = 'Transmitting...';
+      statusDiv.classList.add('hidden');
+
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+
+      try {
+        const response = await fetch('/api/inquiry', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
+
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+          form.reset();
+          statusDiv.className = 'block p-4 rounded border bg-emerald-500/10 border-emerald-500/30 text-emerald-800 dark:text-emerald-200 text-xs';
+          statusDiv.innerHTML = `
+            <strong class="font-semibold block mb-1">✓ Inquiry Received Successfully</strong>
+            Thank you for reaching out to Marga Photography. Our expedition lead has received your details and will follow up directly with itinerary details and availability within 24 hours.
+          `;
+        } else {
+          throw new Error(result.message || 'Submission failed. Please verify your entries.');
+        }
+      } catch (err: any) {
+        statusDiv.className = 'block p-4 rounded border bg-rose-500/10 border-rose-500/30 text-rose-800 dark:text-rose-200 text-xs';
+        statusDiv.innerHTML = `
+          <strong class="font-semibold block mb-1">Notice:</strong>
+          ${err.message || 'Unable to submit at this moment. You can also write directly to expeditions@margaphotography.com.'}
+        `;
+      } finally {
+        submitBtn.disabled = false;
+        btnSpinner?.classList.add('hidden');
+        if (btnText) btnText.textContent = 'Submit Expedition Inquiry';
+      }
+    });
+  }
+</script>

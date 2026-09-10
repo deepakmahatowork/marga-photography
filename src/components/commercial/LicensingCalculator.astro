@@ -1,0 +1,99 @@
+---
+// Interactive Image Licensing & Fine Art Estimator Component
+---
+
+<div class="p-8 rounded-xl bg-canvas-elevated border border-canvas-border my-16 shadow-lg">
+  <div class="max-w-2xl mb-8">
+    <span class="text-xs uppercase tracking-[0.25em] text-accent-himalaya font-sans font-semibold">
+      Estimation Tool
+    </span>
+    <h3 class="font-editorial text-2xl sm:text-3xl text-text-primary font-medium mt-1">
+      Image Licensing & Archival Print Estimator
+    </h3>
+    <p class="text-xs text-text-secondary mt-2 leading-relaxed">
+      Configure usage parameters for commercial advertising, editorial publication, or museum-grade archival prints.
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <!-- License Type -->
+    <div>
+      <label for="calc-license-type" class="block text-xs uppercase tracking-wider text-text-secondary font-medium mb-2">
+        Licensing Scope
+      </label>
+      <select
+        id="calc-license-type"
+        class="w-full px-3 py-2.5 bg-canvas-surface border border-canvas-border rounded text-xs text-text-primary focus:outline-none focus:border-accent-himalaya transition-colors"
+      >
+        <option value="editorial">Editorial / Book / Magazine (1-Year)</option>
+        <option value="digital">Digital / Web & Social Campaign (1-Year)</option>
+        <option value="commercial">Global Commercial Advertising (Worldwide)</option>
+        <option value="print">Fine Art Museum Print (Limited Edition)</option>
+      </select>
+    </div>
+
+    <!-- Usage Duration / Size -->
+    <div>
+      <label for="calc-scope" class="block text-xs uppercase tracking-wider text-text-secondary font-medium mb-2">
+        Format / Scale
+      </label>
+      <select
+        id="calc-scope"
+        class="w-full px-3 py-2.5 bg-canvas-surface border border-canvas-border rounded text-xs text-text-primary focus:outline-none focus:border-accent-himalaya transition-colors"
+      >
+        <option value="standard">Standard Resolution (Web / 24" Print)</option>
+        <option value="high">Master TIFF 100MP (Global Print / 40" Print)</option>
+        <option value="exclusive">Exclusive Industry Rights (Multi-Year)</option>
+      </select>
+    </div>
+
+    <!-- Result Box -->
+    <div class="p-4 rounded-lg bg-canvas-surface border border-canvas-border flex flex-col justify-center text-center">
+      <span class="text-[10px] text-text-muted uppercase tracking-widest">Estimated Investment</span>
+      <div id="calc-result" class="font-editorial text-3xl text-accent-himalaya font-medium my-1">
+        $450 USD
+      </div>
+      <span class="text-[10px] text-text-muted">Includes master TIFF file & usage certificate</span>
+    </div>
+  </div>
+
+  <div class="flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-canvas-border">
+    <span class="text-xs text-text-secondary">
+      Need a multi-image licensing bundle or custom assignment quote?
+    </span>
+    <a
+      href="#commercial-inquire"
+      class="px-5 py-2.5 bg-accent-himalaya hover:opacity-90 text-white dark:text-black font-semibold text-xs uppercase tracking-wider rounded transition-all shadow-md"
+    >
+      Request Custom Licensing Proposal
+    </a>
+  </div>
+</div>
+
+<script>
+  const typeSelect = document.getElementById('calc-license-type') as HTMLSelectElement;
+  const scopeSelect = document.getElementById('calc-scope') as HTMLSelectElement;
+  const resultDisplay = document.getElementById('calc-result');
+
+  function calculateEstimate() {
+    if (!typeSelect || !scopeSelect || !resultDisplay) return;
+
+    const type = typeSelect.value;
+    const scope = scopeSelect.value;
+
+    let base = 450;
+
+    if (type === 'editorial') base = 350;
+    if (type === 'digital') base = 650;
+    if (type === 'commercial') base = 1800;
+    if (type === 'print') base = 850;
+
+    if (scope === 'high') base *= 1.5;
+    if (scope === 'exclusive') base *= 3.0;
+
+    resultDisplay.textContent = `$${Math.round(base).toLocaleString()} USD`;
+  }
+
+  typeSelect?.addEventListener('change', calculateEstimate);
+  scopeSelect?.addEventListener('change', calculateEstimate);
+</script>
