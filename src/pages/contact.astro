@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import InquiryForm from '../components/forms/InquiryForm.astro';
+import BusinessCard from '../components/common/BusinessCard.astro';
 
 const requestedIntent = Astro.url.searchParams.get('intent');
 const defaultTitle =
@@ -32,7 +33,13 @@ const defaultTitle =
           </p>
         </div>
 
-        <div class="space-y-4 pt-6 border-t border-canvas-border text-xs text-text-secondary">
+        <!-- Official Marga Adventure Business Card -->
+        <BusinessCard
+          title="Executive Leadership"
+          subtitle="Official credentials & direct contact for Marga Adventure"
+        />
+
+        <div class="space-y-4 pt-4 border-t border-canvas-border text-xs text-text-secondary">
           <div class="flex items-start gap-3">
             <span class="text-accent-himalaya font-bold mt-0.5">✦</span>
             <div>
@@ -44,7 +51,7 @@ const defaultTitle =
           <div class="flex items-start gap-3">
             <span class="text-accent-himalaya font-bold mt-0.5">✦</span>
             <div>
-              <strong class="text-text-primary block font-medium">Direct Email</strong>
+              <strong class="text-text-primary block font-medium">Direct Expedition Email</strong>
               <a href="mailto:expeditions@margaphotography.com" class="text-accent-himalaya hover:underline">
                 expeditions@margaphotography.com
               </a>
@@ -54,8 +61,8 @@ const defaultTitle =
           <div class="flex items-start gap-3">
             <span class="text-accent-himalaya font-bold mt-0.5">✦</span>
             <div>
-              <strong class="text-text-primary block font-medium">Logistics Partner</strong>
-              <span>Backed by Marga Adventure operational infrastructure</span>
+              <strong class="text-text-primary block font-medium">Logistics Guarantee</strong>
+              <span>Direct field backing by Marga Adventure high-altitude rescue and transport networks.</span>
             </div>
           </div>
         </div>

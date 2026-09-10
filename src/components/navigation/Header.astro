@@ -40,15 +40,12 @@ const navLinks = [
     
     <!-- Brand Logo & Title -->
     <a href={isFrench ? '/fr' : '/'} class="flex items-center gap-2.5 md:gap-4 group cursor-pointer">
-      <div class="w-9 h-9 md:w-11 md:h-11 rounded-full border border-canvas-border bg-canvas-elevated flex items-center justify-center transition-all duration-500 group-hover:rotate-12 group-hover:border-accent-himalaya shadow-sm shrink-0">
-        <!-- Mountain Aperture Icon -->
-        <svg class="w-5 h-5 md:w-6 md:h-6 text-accent-himalaya" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <circle cx="12" cy="12" r="9" />
-          <path d="M12 3l3 9h-6l3-9z" />
-          <path d="M12 21l-3-9h6l-3 9z" />
-          <path d="M3 12l9-3v6l-9-3z" />
-          <path d="M21 12l-9 3v-6l9 3z" />
-        </svg>
+      <div class="w-10 h-10 md:w-12 md:h-12 rounded-full border border-canvas-border bg-white dark:bg-canvas-elevated flex items-center justify-center transition-all duration-500 group-hover:scale-105 group-hover:border-accent-himalaya shadow-sm shrink-0 p-1.5 overflow-hidden">
+        <img
+          src="/images/marga_photography_logo.png"
+          alt="Marga Photography Logo"
+          class="w-full h-full object-contain"
+        />
       </div>
       <span class="font-bold tracking-tighter text-lg sm:text-xl md:text-2xl transition-colors duration-500 font-sans text-text-primary">
         Marga <span class="font-light text-accent-himalaya">Photography</span>
@@ -104,12 +101,12 @@ const navLinks = [
   <div class="w-full max-w-[1920px] mx-auto px-4 sm:px-6 md:px-10 lg:px-16 py-5 md:py-8 flex justify-between items-center border-b border-canvas-border">
     <!-- Brand in Menu -->
     <a href={isFrench ? '/fr' : '/'} class="flex items-center gap-3 group menu-link">
-      <div class="w-9 h-9 rounded-full border border-canvas-border bg-canvas-elevated flex items-center justify-center text-accent-himalaya shrink-0">
-        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <circle cx="12" cy="12" r="9" />
-          <path d="M12 3l3 9h-6l3-9z" />
-          <path d="M12 21l-3-9h6l-3 9z" />
-        </svg>
+      <div class="w-10 h-10 rounded-full border border-canvas-border bg-white dark:bg-canvas-elevated flex items-center justify-center shrink-0 p-1.5 overflow-hidden group-hover:border-accent-himalaya transition-colors shadow-sm">
+        <img
+          src="/images/marga_photography_logo.png"
+          alt="Marga Photography Logo"
+          class="w-full h-full object-contain"
+        />
       </div>
       <span class="font-bold tracking-tighter text-lg sm:text-xl text-text-primary">
         Marga <span class="font-light text-accent-himalaya">Photography</span>
