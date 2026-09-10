@@ -1,0 +1,141 @@
+@import "tailwindcss";
+
+:root {
+  /* Canvas & Surfaces (Warm Fine-Art Gallery Light) */
+  --color-canvas-bg: #fcfbf9;
+  --color-canvas-surface: #f5f3eb;
+  --color-canvas-elevated: #ffffff;
+  --color-canvas-border: rgba(28, 25, 23, 0.09);
+  --color-canvas-subtle: rgba(28, 25, 23, 0.03);
+
+  /* Accents */
+  --color-accent-himalaya: #a67728;
+  --color-accent-amber: #c97720;
+  --color-accent-prayer-red: #9e2a2b;
+  --color-accent-ochre: #b37e33;
+
+  /* Typography */
+  --color-text-primary: #18181b;
+  --color-text-secondary: #52525b;
+  --color-text-muted: #71717a;
+
+  /* Glassmorphic & Shadows */
+  --color-glass-bg: rgba(252, 251, 249, 0.88);
+  --color-glass-border: rgba(28, 25, 23, 0.08);
+  --card-shadow: 0 4px 20px -2px rgba(28, 25, 23, 0.05);
+
+  --font-serif: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+[data-theme="dark"] {
+  /* Canvas & Surfaces (Midnight Obsidian Dark) */
+  --color-canvas-bg: #0b0d10;
+  --color-canvas-surface: #12151b;
+  --color-canvas-elevated: #1a1e26;
+  --color-canvas-border: rgba(255, 255, 255, 0.08);
+  --color-canvas-subtle: rgba(255, 255, 255, 0.03);
+
+  /* Accents */
+  --color-accent-himalaya: #d4a359;
+  --color-accent-amber: #e89838;
+  --color-accent-prayer-red: #b9382e;
+  --color-accent-ochre: #c58f46;
+
+  /* Typography */
+  --color-text-primary: #f8fafc;
+  --color-text-secondary: #94a3b8;
+  --color-text-muted: #64748b;
+
+  /* Glassmorphic & Shadows */
+  --color-glass-bg: rgba(18, 21, 27, 0.85);
+  --color-glass-border: rgba(255, 255, 255, 0.08);
+  --card-shadow: none;
+}
+
+@theme {
+  --color-canvas-bg: var(--color-canvas-bg);
+  --color-canvas-surface: var(--color-canvas-surface);
+  --color-canvas-elevated: var(--color-canvas-elevated);
+  --color-canvas-border: var(--color-canvas-border);
+  --color-canvas-subtle: var(--color-canvas-subtle);
+
+  --color-accent-himalaya: var(--color-accent-himalaya);
+  --color-accent-amber: var(--color-accent-amber);
+  --color-accent-prayer-red: var(--color-accent-prayer-red);
+  --color-accent-ochre: var(--color-accent-ochre);
+
+  --color-text-primary: var(--color-text-primary);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-text-muted: var(--color-text-muted);
+
+  --font-serif: var(--font-serif);
+  --font-sans: var(--font-sans);
+}
+
+@layer base {
+  html {
+    color-scheme: light dark;
+    background-color: var(--color-canvas-bg);
+    color: var(--color-text-primary);
+    font-family: var(--font-sans);
+    scroll-behavior: smooth;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+
+  ::selection {
+    background-color: rgba(166, 119, 40, 0.25);
+    color: var(--color-text-primary);
+  }
+
+  [data-theme="dark"] ::selection {
+    background-color: rgba(212, 163, 89, 0.3);
+    color: #f8fafc;
+  }
+
+  /* Custom subtle scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-canvas-bg);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-canvas-border);
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-accent-himalaya);
+  }
+}
+
+/* Editorial typography utilities */
+.font-editorial {
+  font-family: var(--font-serif);
+}
+
+.text-gold-gradient {
+  background: linear-gradient(135deg, var(--color-text-primary) 30%, var(--color-accent-himalaya) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.glass-panel {
+  background: var(--color-glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--color-glass-border);
+}
+
+.card-hover-border {
+  transition: border-color 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+  box-shadow: var(--card-shadow);
+}
+
+.card-hover-border:hover {
+  border-color: var(--color-accent-himalaya);
+  transform: translateY(-2px);
+}
