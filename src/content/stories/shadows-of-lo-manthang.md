@@ -1,7 +1,7 @@
 ---
 title: "Shadows and Silk: Inside the Walled Kingdom of Lo Manthang"
 subtitle: "A visual meditation on Buddhist ritual, monastic devotion, and timeless life in Upper Mustang."
-photographer: "Pemba Dorje Sherpa"
+photographer: "Patrick Frilet"
 location: "Lo Manthang, Upper Mustang"
 date: "2025-10-18"
 heroImage: "/images/tiji_festival_dance.jpg"

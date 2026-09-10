@@ -1,7 +1,7 @@
 ---
 title: "The Silent Watcher: Tracking Tigers on Foot in Bardia"
 subtitle: "Six hours of breathless stillness along the Geruwa River before the king emerges from the morning mist."
-photographer: "Arun Maharjan"
+photographer: "Patrick Frilet"
 location: "Bardia National Park, Terai"
 date: "2025-11-04"
 heroImage: "/images/bardia_tiger_morning.jpg"

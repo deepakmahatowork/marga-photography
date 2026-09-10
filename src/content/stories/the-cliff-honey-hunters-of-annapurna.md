@@ -1,7 +1,7 @@
 ---
 title: "The Smoke and the Void: Gurung Honey Hunters"
 subtitle: "Documenting the ancient, perilous ritual of harvesting cliff honey suspended hundreds of feet above Himalayan gorges."
-photographer: "Pemba Dorje Sherpa"
+photographer: "Patrick Frilet"
 location: "Lamjung, Annapurna Foothills"
 date: "2025-09-22"
 heroImage: "/images/honey_hunter_cliff.jpg"

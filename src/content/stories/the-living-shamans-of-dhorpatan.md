@@ -1,7 +1,7 @@
 ---
 title: "The Heartbeat of the Dhyangro: Shamans of the Dhorpatan Wilds"
 subtitle: "An intimate documentation of ancient animist trances, pheasant feather crowns, and hereditary healers in the Kham Magar highlands."
-photographer: "Arun Maharjan"
+photographer: "Patrick Frilet"
 location: "Dhorpatan & Burtibang, Western Nepal"
 date: "2026-01-14"
 heroImage: "/images/shaman_leader_dhyangro.png"
