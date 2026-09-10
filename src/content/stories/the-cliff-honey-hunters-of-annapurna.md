@@ -4,7 +4,7 @@ subtitle: "Documenting the ancient, perilous ritual of harvesting cliff honey su
 photographer: "Patrick Frilet"
 location: "Lamjung, Annapurna Foothills"
 date: "2025-09-22"
-heroImage: "/images/honey_hunter_cliff.jpg"
+heroImage: "/images/dhorpatan_valley_landscape.jpg"
 category: "Culture & People"
 tags: ["Annapurna", "Gurung", "Honey Hunters", "Documentary"]
 relatedExpeditionSlug: "sacred-nepal-culture-people"
