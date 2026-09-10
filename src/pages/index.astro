@@ -59,16 +59,16 @@ const homeJsonLd = {
         </p>
 
         <!-- CTAs -->
-        <div class="mt-6 flex flex-wrap items-center gap-3.5">
+        <div class="mt-6 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5">
           <a
             href="/expeditions"
-            class="px-6 py-3 bg-accent-himalaya hover:opacity-90 text-white dark:text-black font-semibold text-xs uppercase tracking-[0.2em] rounded transition-all shadow-md hover:shadow-accent-himalaya/20"
+            class="px-6 py-3.5 bg-accent-himalaya hover:opacity-90 text-white dark:text-black font-semibold text-xs uppercase tracking-[0.2em] rounded transition-all shadow-md hover:shadow-accent-himalaya/20 text-center justify-center"
           >
             Explore 2026 Expeditions
           </a>
           <a
             href="#portfolio"
-            class="px-6 py-3 bg-canvas-surface hover:bg-canvas-elevated border border-canvas-border text-text-primary font-medium text-xs uppercase tracking-[0.2em] rounded transition-all shadow-sm"
+            class="px-6 py-3.5 bg-canvas-surface hover:bg-canvas-elevated border border-canvas-border text-text-primary font-medium text-xs uppercase tracking-[0.2em] rounded transition-all shadow-sm text-center justify-center"
           >
             View Portfolio
           </a>
@@ -90,7 +90,7 @@ const homeJsonLd = {
   <section id="portfolio" class="py-24 sm:py-32 bg-canvas-bg border-t border-canvas-border transition-colors duration-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <!-- Section Header -->
-      <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-16 gap-6">
         <div>
           <span class="text-xs uppercase tracking-[0.25em] text-accent-himalaya font-sans font-semibold">
             Curated Visual Archive
@@ -99,21 +99,21 @@ const homeJsonLd = {
             The Five Realms of Nepal
           </h2>
         </div>
-        <!-- Filter Tabs -->
-        <div class="flex flex-wrap items-center gap-2 text-xs uppercase tracking-widest">
-          <a href="/explore/people" class="px-3.5 py-1.5 rounded-full bg-canvas-surface hover:bg-accent-himalaya hover:text-white dark:hover:text-black transition-colors border border-canvas-border text-text-secondary">
+        <!-- Filter Tabs (Horizontal touch scroll on mobile, flex-wrap on desktop) -->
+        <div class="flex items-center gap-2 text-xs uppercase tracking-widest overflow-x-auto no-scrollbar pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap">
+          <a href="/explore/people" class="whitespace-nowrap px-3.5 py-1.5 rounded-full bg-canvas-surface hover:bg-accent-himalaya hover:text-white dark:hover:text-black transition-colors border border-canvas-border text-text-secondary">
             People
           </a>
-          <a href="/explore/culture" class="px-3.5 py-1.5 rounded-full bg-canvas-surface hover:bg-accent-himalaya hover:text-white dark:hover:text-black transition-colors border border-canvas-border text-text-secondary">
+          <a href="/explore/culture" class="whitespace-nowrap px-3.5 py-1.5 rounded-full bg-canvas-surface hover:bg-accent-himalaya hover:text-white dark:hover:text-black transition-colors border border-canvas-border text-text-secondary">
             Culture
           </a>
-          <a href="/explore/festivals" class="px-3.5 py-1.5 rounded-full bg-canvas-surface hover:bg-accent-himalaya hover:text-white dark:hover:text-black transition-colors border border-canvas-border text-text-secondary">
+          <a href="/explore/festivals" class="whitespace-nowrap px-3.5 py-1.5 rounded-full bg-canvas-surface hover:bg-accent-himalaya hover:text-white dark:hover:text-black transition-colors border border-canvas-border text-text-secondary">
             Festivals
           </a>
-          <a href="/explore/wildlife" class="px-3.5 py-1.5 rounded-full bg-canvas-surface hover:bg-accent-himalaya hover:text-white dark:hover:text-black transition-colors border border-canvas-border text-text-secondary">
+          <a href="/explore/wildlife" class="whitespace-nowrap px-3.5 py-1.5 rounded-full bg-canvas-surface hover:bg-accent-himalaya hover:text-white dark:hover:text-black transition-colors border border-canvas-border text-text-secondary">
             Wildlife
           </a>
-          <a href="/explore/landscapes" class="px-3.5 py-1.5 rounded-full bg-canvas-surface hover:bg-accent-himalaya hover:text-white dark:hover:text-black transition-colors border border-canvas-border text-text-secondary">
+          <a href="/explore/landscapes" class="whitespace-nowrap px-3.5 py-1.5 rounded-full bg-canvas-surface hover:bg-accent-himalaya hover:text-white dark:hover:text-black transition-colors border border-canvas-border text-text-secondary">
             Landscapes
           </a>
         </div>

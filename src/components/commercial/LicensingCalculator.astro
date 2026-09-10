@@ -2,7 +2,7 @@
 // Interactive Image Licensing & Fine Art Estimator Component
 ---
 
-<div class="p-8 rounded-xl bg-canvas-elevated border border-canvas-border my-16 shadow-lg">
+<div class="p-5 sm:p-8 rounded-xl bg-canvas-elevated border border-canvas-border my-12 sm:my-16 shadow-lg">
   <div class="max-w-2xl mb-8">
     <span class="text-xs uppercase tracking-[0.25em] text-accent-himalaya font-sans font-semibold">
       Estimation Tool
@@ -23,7 +23,7 @@
       </label>
       <select
         id="calc-license-type"
-        class="w-full px-3 py-2.5 bg-canvas-surface border border-canvas-border rounded text-xs text-text-primary focus:outline-none focus:border-accent-himalaya transition-colors"
+        class="w-full px-3 py-2.5 bg-canvas-surface border border-canvas-border rounded text-base sm:text-xs text-text-primary focus:outline-none focus:border-accent-himalaya transition-colors"
       >
         <option value="editorial">Editorial / Book / Magazine (1-Year)</option>
         <option value="digital">Digital / Web & Social Campaign (1-Year)</option>
@@ -39,7 +39,7 @@
       </label>
       <select
         id="calc-scope"
-        class="w-full px-3 py-2.5 bg-canvas-surface border border-canvas-border rounded text-xs text-text-primary focus:outline-none focus:border-accent-himalaya transition-colors"
+        class="w-full px-3 py-2.5 bg-canvas-surface border border-canvas-border rounded text-base sm:text-xs text-text-primary focus:outline-none focus:border-accent-himalaya transition-colors"
       >
         <option value="standard">Standard Resolution (Web / 24" Print)</option>
         <option value="high">Master TIFF 100MP (Global Print / 40" Print)</option>
@@ -57,13 +57,13 @@
     </div>
   </div>
 
-  <div class="flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-canvas-border">
+  <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-6 border-t border-canvas-border">
     <span class="text-xs text-text-secondary">
       Need a multi-image licensing bundle or custom assignment quote?
     </span>
     <a
       href="#commercial-inquire"
-      class="px-5 py-2.5 bg-accent-himalaya hover:opacity-90 text-white dark:text-black font-semibold text-xs uppercase tracking-wider rounded transition-all shadow-md"
+      class="w-full sm:w-auto text-center px-5 py-2.5 bg-accent-himalaya hover:opacity-90 text-white dark:text-black font-semibold text-xs uppercase tracking-wider rounded transition-all shadow-md"
     >
       Request Custom Licensing Proposal
     </a>

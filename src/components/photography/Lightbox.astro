@@ -1,0 +1,205 @@
+---
+// Accessible Lightbox Island
+---
+
+<div
+  id="photo-lightbox"
+  class="fixed inset-0 z-50 hidden bg-black/95 backdrop-blur-md flex flex-col items-center justify-between p-4 sm:p-6"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Image Viewer"
+>
+  <!-- Top Bar: Title & Close -->
+  <div class="w-full flex items-center justify-between max-w-7xl">
+    <div class="text-left">
+      <h2 id="lightbox-title" class="font-editorial text-xl sm:text-2xl text-white font-medium"></h2>
+      <p id="lightbox-location" class="text-xs text-neutral-400 font-sans tracking-widest uppercase"></p>
+    </div>
+    <button
+      id="lightbox-close-btn"
+      class="p-2 text-neutral-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-accent-himalaya rounded"
+      aria-label="Close image viewer"
+    >
+      <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Center: Image & Navigation Arrows -->
+  <div class="relative w-full max-w-6xl flex-grow flex items-center justify-center my-4 overflow-hidden">
+    <button
+      id="lightbox-prev-btn"
+      class="absolute left-2 sm:left-4 z-10 p-3 text-white/70 hover:text-white bg-black/50 hover:bg-black/80 rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-accent-himalaya"
+      aria-label="Previous photograph"
+    >
+      <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+    </button>
+
+    <div class="max-h-[72vh] flex items-center justify-center">
+      <img
+        id="lightbox-img"
+        src=""
+        alt=""
+        class="max-h-[72vh] max-w-full object-contain rounded shadow-2xl transition-opacity duration-300"
+      />
+    </div>
+
+    <button
+      id="lightbox-next-btn"
+      class="absolute right-2 sm:right-4 z-10 p-3 text-white/70 hover:text-white bg-black/50 hover:bg-black/80 rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-accent-himalaya"
+      aria-label="Next photograph"
+    >
+      <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Bottom: Technical EXIF Bar & Photographer Credit -->
+  <div class="w-full max-w-5xl flex flex-col sm:flex-row items-center justify-between text-xs text-neutral-400 border-t border-white/10 pt-3 gap-2">
+    <div id="lightbox-caption" class="text-neutral-300 italic text-center sm:text-left"></div>
+    <div id="lightbox-exif" class="flex flex-wrap items-center justify-center gap-3 font-mono text-[11px] text-accent-himalaya/90 bg-white/5 px-3 py-1.5 rounded border border-white/5"></div>
+    <div id="lightbox-credit" class="text-[11px] tracking-wider text-neutral-400"></div>
+  </div>
+</div>
+
+<script>
+  let activeIndex = 0;
+  let items: Array<{
+    src: string;
+    title: string;
+    location: string;
+    caption: string;
+    exif: string;
+    credit: string;
+  }> = [];
+
+  const lightbox = document.getElementById('photo-lightbox');
+  const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement;
+  const lightboxTitle = document.getElementById('lightbox-title');
+  const lightboxLocation = document.getElementById('lightbox-location');
+  const lightboxCaption = document.getElementById('lightbox-caption');
+  const lightboxExif = document.getElementById('lightbox-exif');
+  const lightboxCredit = document.getElementById('lightbox-credit');
+  const closeBtn = document.getElementById('lightbox-close-btn');
+  const prevBtn = document.getElementById('lightbox-prev-btn');
+  const nextBtn = document.getElementById('lightbox-next-btn');
+
+  function openLightbox(index: number) {
+    activeIndex = index;
+    updateLightbox();
+    lightbox?.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+    closeBtn?.focus();
+  }
+
+  function closeLightbox() {
+    lightbox?.classList.add('hidden');
+    document.body.style.overflow = '';
+  }
+
+  function updateLightbox() {
+    if (!items[activeIndex] || !lightboxImg) return;
+    const current = items[activeIndex];
+    lightboxImg.src = current.src;
+    lightboxImg.alt = current.title;
+    if (lightboxTitle) lightboxTitle.textContent = current.title;
+    if (lightboxLocation) lightboxLocation.textContent = current.location;
+    if (lightboxCaption) lightboxCaption.textContent = current.caption;
+    if (lightboxExif) lightboxExif.innerHTML = current.exif;
+    if (lightboxCredit) lightboxCredit.textContent = current.credit;
+  }
+
+  function prevImage() {
+    activeIndex = (activeIndex - 1 + items.length) % items.length;
+    updateLightbox();
+  }
+
+  function nextImage() {
+    activeIndex = (activeIndex + 1) % items.length;
+    updateLightbox();
+  }
+
+  // Bind trigger buttons across the page
+  document.addEventListener('DOMContentLoaded', () => {
+    const triggerElements = document.querySelectorAll<HTMLElement>('[data-lightbox-trigger]');
+    items = Array.from(triggerElements).map((el) => ({
+      src: el.dataset.src || '',
+      title: el.dataset.title || '',
+      location: el.dataset.location || '',
+      caption: el.dataset.caption || '',
+      exif: el.dataset.exif || '',
+      credit: el.dataset.credit || '',
+    }));
+
+    triggerElements.forEach((el, idx) => {
+      el.addEventListener('click', () => openLightbox(idx));
+      el.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openLightbox(idx);
+        }
+      });
+    });
+
+    closeBtn?.addEventListener('click', closeLightbox);
+    prevBtn?.addEventListener('click', prevImage);
+    nextBtn?.addEventListener('click', nextImage);
+
+    // Close when tapping outside the image
+    lightbox?.addEventListener('click', (e) => {
+      if (e.target === lightbox || (e.target as HTMLElement)?.id === 'lightbox-center-container') {
+        closeLightbox();
+      }
+    });
+
+    // Mobile touch swipe gestures
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchEndX = 0;
+    let touchEndY = 0;
+
+    lightbox?.addEventListener(
+      'touchstart',
+      (e: TouchEvent) => {
+        touchStartX = e.changedTouches[0].screenX;
+        touchStartY = e.changedTouches[0].screenY;
+      },
+      { passive: true }
+    );
+
+    lightbox?.addEventListener(
+      'touchend',
+      (e: TouchEvent) => {
+        touchEndX = e.changedTouches[0].screenX;
+        touchEndY = e.changedTouches[0].screenY;
+        handleSwipe();
+      },
+      { passive: true }
+    );
+
+    function handleSwipe() {
+      const diffX = touchEndX - touchStartX;
+      const diffY = touchEndY - touchStartY;
+      // Only horizontal swipes (not vertical scroll attempts)
+      if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 45) {
+        if (diffX < 0) {
+          nextImage(); // Swiped left -> next
+        } else {
+          prevImage(); // Swiped right -> prev
+        }
+      }
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (lightbox && !lightbox.classList.contains('hidden')) {
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') prevImage();
+        if (e.key === 'ArrowRight') nextImage();
+      }
+    });
+  });
+</script>

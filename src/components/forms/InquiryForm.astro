@@ -7,7 +7,7 @@ interface Props {
 const { expeditionTitle, defaultCategory } = Astro.props;
 ---
 
-<div class="bg-canvas-elevated border border-canvas-border rounded-xl p-6 sm:p-10 shadow-xl relative">
+<div class="bg-canvas-elevated border border-canvas-border rounded-xl p-5 sm:p-10 shadow-xl relative">
   <div class="mb-8 border-b border-canvas-border pb-6">
     <span class="text-xs uppercase tracking-[0.25em] text-accent-himalaya font-sans font-semibold">
       Direct Expedition Dispatch
@@ -42,7 +42,7 @@ const { expeditionTitle, defaultCategory } = Astro.props;
           name="name"
           required
           placeholder="e.g. Elena Rostova"
-          class="w-full px-4 py-3 bg-canvas-surface border border-canvas-border rounded text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-accent-himalaya focus:ring-1 focus:ring-accent-himalaya transition-colors"
+          class="w-full px-4 py-3 bg-canvas-surface border border-canvas-border rounded text-base sm:text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-accent-himalaya focus:ring-1 focus:ring-accent-himalaya transition-colors"
         />
       </div>
 
@@ -57,7 +57,7 @@ const { expeditionTitle, defaultCategory } = Astro.props;
           name="email"
           required
           placeholder="elena@example.com"
-          class="w-full px-4 py-3 bg-canvas-surface border border-canvas-border rounded text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-accent-himalaya focus:ring-1 focus:ring-accent-himalaya transition-colors"
+          class="w-full px-4 py-3 bg-canvas-surface border border-canvas-border rounded text-base sm:text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-accent-himalaya focus:ring-1 focus:ring-accent-himalaya transition-colors"
         />
       </div>
     </div>
@@ -74,7 +74,7 @@ const { expeditionTitle, defaultCategory } = Astro.props;
           name="country"
           required
           placeholder="e.g. United Kingdom, USA, Germany"
-          class="w-full px-4 py-3 bg-canvas-surface border border-canvas-border rounded text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-accent-himalaya focus:ring-1 focus:ring-accent-himalaya transition-colors"
+          class="w-full px-4 py-3 bg-canvas-surface border border-canvas-border rounded text-base sm:text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-accent-himalaya focus:ring-1 focus:ring-accent-himalaya transition-colors"
         />
       </div>
 
@@ -88,7 +88,7 @@ const { expeditionTitle, defaultCategory } = Astro.props;
           id="phone"
           name="phone"
           placeholder="+44 7700 900077"
-          class="w-full px-4 py-3 bg-canvas-surface border border-canvas-border rounded text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-accent-himalaya focus:ring-1 focus:ring-accent-himalaya transition-colors"
+          class="w-full px-4 py-3 bg-canvas-surface border border-canvas-border rounded text-base sm:text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-accent-himalaya focus:ring-1 focus:ring-accent-himalaya transition-colors"
         />
       </div>
     </div>
@@ -102,7 +102,7 @@ const { expeditionTitle, defaultCategory } = Astro.props;
         <select
           id="experience"
           name="experience"
-          class="w-full px-4 py-3 bg-canvas-surface border border-canvas-border rounded text-sm text-text-primary focus:outline-none focus:border-accent-himalaya focus:ring-1 focus:ring-accent-himalaya transition-colors"
+          class="w-full px-4 py-3 bg-canvas-surface border border-canvas-border rounded text-base sm:text-sm text-text-primary focus:outline-none focus:border-accent-himalaya focus:ring-1 focus:ring-accent-himalaya transition-colors"
         >
           <option value="Enthusiast / Serious Amateur">Enthusiast / Serious Amateur</option>
           <option value="Advanced Photographer">Advanced Photographer</option>
@@ -121,7 +121,7 @@ const { expeditionTitle, defaultCategory } = Astro.props;
           id="camera_system"
           name="camera_system"
           placeholder="e.g. Sony A7R V, Leica M, Nikon Z8"
-          class="w-full px-4 py-3 bg-canvas-surface border border-canvas-border rounded text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-accent-himalaya focus:ring-1 focus:ring-accent-himalaya transition-colors"
+          class="w-full px-4 py-3 bg-canvas-surface border border-canvas-border rounded text-base sm:text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-accent-himalaya focus:ring-1 focus:ring-accent-himalaya transition-colors"
         />
       </div>
 
@@ -135,7 +135,7 @@ const { expeditionTitle, defaultCategory } = Astro.props;
           id="preferred_season"
           name="preferred_season"
           placeholder="e.g. Spring 2026 / Autumn 2026"
-          class="w-full px-4 py-3 bg-canvas-surface border border-canvas-border rounded text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-accent-himalaya focus:ring-1 focus:ring-accent-himalaya transition-colors"
+          class="w-full px-4 py-3 bg-canvas-surface border border-canvas-border rounded text-base sm:text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-accent-himalaya focus:ring-1 focus:ring-accent-himalaya transition-colors"
         />
       </div>
     </div>
@@ -150,7 +150,7 @@ const { expeditionTitle, defaultCategory } = Astro.props;
         name="notes"
         rows="4"
         placeholder="Tell us what you hope to photograph in Nepal (e.g. specific festival dates, portrait access, wildlife goals, or private group arrangements)..."
-        class="w-full px-4 py-3 bg-canvas-surface border border-canvas-border rounded text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-accent-himalaya focus:ring-1 focus:ring-accent-himalaya transition-colors"
+        class="w-full px-4 py-3 bg-canvas-surface border border-canvas-border rounded text-base sm:text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-accent-himalaya focus:ring-1 focus:ring-accent-himalaya transition-colors"
       ></textarea>
     </div>
 

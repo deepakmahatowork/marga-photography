@@ -83,10 +83,10 @@ const relatedExpeditions = allExpeditions.filter((e) => {
     </div>
 
     <!-- Category Nav Pills -->
-    <div class="flex flex-wrap items-center gap-2 mb-16 pb-6 border-b border-canvas-border text-xs uppercase tracking-widest">
+    <div class="flex items-center gap-2 mb-12 sm:mb-16 pb-4 sm:pb-6 border-b border-canvas-border text-xs uppercase tracking-widest overflow-x-auto no-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap">
       <a
         href="/explore/people"
-        class={`px-4 py-2 rounded-full border transition-colors ${
+        class={`whitespace-nowrap px-4 py-2 rounded-full border transition-colors ${
           categorySlug === 'people'
             ? 'bg-accent-himalaya text-white dark:text-black border-accent-himalaya font-semibold'
             : 'bg-canvas-surface text-text-secondary border-canvas-border hover:border-accent-himalaya'
@@ -96,7 +96,7 @@ const relatedExpeditions = allExpeditions.filter((e) => {
       </a>
       <a
         href="/explore/culture"
-        class={`px-4 py-2 rounded-full border transition-colors ${
+        class={`whitespace-nowrap px-4 py-2 rounded-full border transition-colors ${
           categorySlug === 'culture'
             ? 'bg-accent-himalaya text-white dark:text-black border-accent-himalaya font-semibold'
             : 'bg-canvas-surface text-text-secondary border-canvas-border hover:border-accent-himalaya'
@@ -106,7 +106,7 @@ const relatedExpeditions = allExpeditions.filter((e) => {
       </a>
       <a
         href="/explore/festivals"
-        class={`px-4 py-2 rounded-full border transition-colors ${
+        class={`whitespace-nowrap px-4 py-2 rounded-full border transition-colors ${
           categorySlug === 'festivals'
             ? 'bg-accent-himalaya text-white dark:text-black border-accent-himalaya font-semibold'
             : 'bg-canvas-surface text-text-secondary border-canvas-border hover:border-accent-himalaya'
@@ -116,7 +116,7 @@ const relatedExpeditions = allExpeditions.filter((e) => {
       </a>
       <a
         href="/explore/wildlife"
-        class={`px-4 py-2 rounded-full border transition-colors ${
+        class={`whitespace-nowrap px-4 py-2 rounded-full border transition-colors ${
           categorySlug === 'wildlife'
             ? 'bg-accent-himalaya text-white dark:text-black border-accent-himalaya font-semibold'
             : 'bg-canvas-surface text-text-secondary border-canvas-border hover:border-accent-himalaya'
@@ -126,7 +126,7 @@ const relatedExpeditions = allExpeditions.filter((e) => {
       </a>
       <a
         href="/explore/landscapes"
-        class={`px-4 py-2 rounded-full border transition-colors ${
+        class={`whitespace-nowrap px-4 py-2 rounded-full border transition-colors ${
           categorySlug === 'landscapes'
             ? 'bg-accent-himalaya text-white dark:text-black border-accent-himalaya font-semibold'
             : 'bg-canvas-surface text-text-secondary border-canvas-border hover:border-accent-himalaya'
