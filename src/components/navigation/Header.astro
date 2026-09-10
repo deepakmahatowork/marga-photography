@@ -2,118 +2,281 @@
 import ThemeToggle from './ThemeToggle.astro';
 
 const navLinks = [
-  { href: '/expeditions', label: 'Expeditions' },
-  { href: '/stories', label: 'Stories' },
-  { href: '/explore/people', label: 'Explore' },
-  { href: '/commercial', label: 'Commercial' },
-  { href: '/about', label: 'About' },
+  { href: '/', label: 'Home', number: '01' },
+  { href: '/expeditions', label: 'Expeditions', number: '02' },
+  {
+    href: '/explore/people',
+    label: 'Portfolios',
+    number: '03',
+    children: [
+      { href: '/explore/people', label: 'People & Portraits' },
+      { href: '/explore/culture', label: 'Living Culture' },
+      { href: '/explore/festivals', label: 'Sacred Festivals' },
+      { href: '/explore/wildlife', label: 'Royal Bengal Wildlife' },
+      { href: '/explore/landscapes', label: 'High Himalaya' },
+    ],
+  },
+  { href: '/stories', label: 'Field Notes', number: '04' },
+  { href: '/commercial', label: 'Commercial', number: '05' },
+  { href: '/about', label: 'About', number: '06' },
+  { href: '/contact', label: 'Contact', number: '07' },
 ];
 
 const currentPath = Astro.url.pathname;
 ---
 
-<header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 glass-panel border-b border-canvas-border" id="site-header">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-    <!-- Brand -->
-    <a href="/" class="group flex flex-col focus:outline-none focus:ring-2 focus:ring-accent-himalaya rounded p-1">
-      <span class="font-editorial text-xl sm:text-2xl font-bold tracking-[0.2em] text-text-primary group-hover:text-accent-himalaya transition-colors uppercase">
-        Marga Photography
-      </span>
-      <span class="text-[10px] tracking-[0.3em] text-text-muted font-sans uppercase -mt-1">
-        Nepal • Specialist Expeditions
+<!-- Fixed Top Navigation Bar (Marga Adventure Style) -->
+<nav
+  id="main-navbar"
+  class="fixed top-0 left-0 w-full z-50 transition-all duration-500 will-change-transform transform-gpu bg-transparent py-5 md:py-7"
+>
+  <div class="w-full max-w-[1920px] mx-auto px-6 md:px-10 lg:px-16 flex justify-between items-center">
+    
+    <!-- Brand Logo & Title -->
+    <a href="/" class="flex items-center gap-3 md:gap-4 group cursor-pointer">
+      <div class="w-9 h-9 md:w-11 md:h-11 rounded-full border border-canvas-border bg-canvas-elevated flex items-center justify-center transition-all duration-500 group-hover:rotate-12 group-hover:border-accent-himalaya shadow-sm">
+        <!-- Mountain Aperture Icon -->
+        <svg class="w-5 h-5 md:w-6 md:h-6 text-accent-himalaya" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="12" cy="12" r="9" />
+          <path d="M12 3l3 9h-6l3-9z" />
+          <path d="M12 21l-3-9h6l-3 9z" />
+          <path d="M3 12l9-3v6l-9-3z" />
+          <path d="M21 12l-9 3v-6l9 3z" />
+        </svg>
+      </div>
+      <span class="font-bold tracking-tighter text-xl md:text-2xl transition-colors duration-500 font-sans text-text-primary">
+        Marga <span class="font-light text-accent-himalaya">Photography</span>
       </span>
     </a>
 
-    <!-- Desktop Navigation -->
-    <nav class="hidden md:flex items-center space-x-8" aria-label="Main Navigation">
-      {navLinks.map((link) => {
-        const isActive = currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href));
-        return (
-          <a
-            href={link.href}
-            class={`text-xs uppercase tracking-[0.2em] font-medium transition-colors py-2 border-b-2 ${
-              isActive
-                ? 'text-accent-himalaya border-accent-himalaya'
-                : 'text-text-secondary border-transparent hover:text-text-primary hover:border-canvas-border'
-            }`}
-          >
-            {link.label}
-          </a>
-        );
-      })}
-    </nav>
-
-    <!-- Header Actions -->
-    <div class="hidden md:flex items-center space-x-4">
+    <!-- Right Controls -->
+    <div class="flex items-center gap-4 md:gap-8">
+      <!-- Theme Switcher -->
       <ThemeToggle id="theme-toggle-btn" />
+
+      <!-- Direct Expedition CTA -->
       <a
         href="/contact?intent=expedition"
-        class="inline-flex items-center justify-center px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.15em] text-white dark:text-black bg-accent-himalaya hover:opacity-90 transition-all rounded shadow-md hover:shadow-accent-himalaya/20"
+        class="hidden sm:inline-flex items-center justify-center px-4 md:px-5 py-2 text-xs font-semibold uppercase tracking-[0.15em] text-white dark:text-black bg-accent-himalaya hover:opacity-90 transition-all rounded-full shadow-sm"
       >
         Request Expedition
       </a>
-    </div>
 
-    <!-- Mobile Menu Toggle & Theme Button -->
-    <div class="flex items-center space-x-2 md:hidden">
-      <ThemeToggle id="mobile-theme-toggle-btn" />
+      <!-- The Signature Marga Adventure Hamburger Button -->
       <button
+        id="hamburger-menu-btn"
         type="button"
-        id="mobile-menu-btn"
-        class="p-2 text-text-secondary hover:text-text-primary focus:outline-none focus:ring-2 focus:ring-accent-himalaya rounded"
+        class="flex items-center gap-3 md:gap-4 group p-2 md:p-3 cursor-pointer select-none focus:outline-none focus:ring-2 focus:ring-accent-himalaya rounded-lg"
+        aria-label="Open main navigation menu"
         aria-expanded="false"
-        aria-controls="mobile-menu"
-        aria-label="Open primary navigation menu"
       >
-        <svg class="w-6 h-6 block" id="menu-icon-open" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-        <svg class="w-6 h-6 hidden" id="menu-icon-close" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
-        </svg>
+        <span class="text-[10px] font-bold uppercase tracking-[0.5em] transition-all duration-500 hidden lg:block text-text-muted group-hover:text-accent-himalaya">
+          NAVIGATION
+        </span>
+        <div class="flex flex-col gap-1.5 p-1 transition-all">
+          <div class="h-0.5 transition-all duration-300 bg-text-primary w-6 md:w-8 group-hover:w-5 md:group-hover:w-6"></div>
+          <div class="h-0.5 transition-all duration-300 bg-text-primary w-5 md:w-6 group-hover:w-6 md:group-hover:w-8"></div>
+          <div class="h-0.5 transition-all duration-300 bg-text-primary w-3 md:w-4 group-hover:w-6 md:group-hover:w-8"></div>
+        </div>
       </button>
     </div>
   </div>
+</nav>
 
-  <!-- Mobile Menu Drawer -->
-  <div
-    id="mobile-menu"
-    class="hidden md:hidden bg-canvas-bg/98 border-b border-canvas-border px-4 pt-4 pb-8 space-y-4 backdrop-blur-lg"
-  >
-    <nav class="flex flex-col space-y-3" aria-label="Mobile Navigation">
-      {navLinks.map((link) => (
-        <a
-          href={link.href}
-          class="text-sm uppercase tracking-[0.2em] text-text-secondary hover:text-accent-himalaya py-2 border-b border-canvas-border"
-        >
-          {link.label}
-        </a>
-      ))}
-      <div class="pt-2">
-        <a
-          href="/contact?intent=expedition"
-          class="block w-full text-center py-3 text-xs font-semibold uppercase tracking-[0.15em] text-white dark:text-black bg-accent-himalaya hover:opacity-90 rounded"
-        >
-          Request Expedition
-        </a>
+<!-- Full-Screen Navigation Overlay Modal (Marga Adventure Style) -->
+<div
+  id="fullscreen-menu"
+  class="fixed inset-0 z-[100] bg-canvas-bg/98 backdrop-blur-2xl text-text-primary overflow-hidden hidden flex-col font-sans transition-opacity duration-500"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Navigation Menu"
+>
+  <!-- Top Bar with Close Button -->
+  <div class="w-full max-w-[1920px] mx-auto px-6 md:px-10 lg:px-16 py-6 md:py-8 flex justify-between items-center border-b border-canvas-border">
+    <!-- Brand in Menu -->
+    <a href="/" class="flex items-center gap-3 group menu-link">
+      <div class="w-9 h-9 rounded-full border border-canvas-border bg-canvas-elevated flex items-center justify-center text-accent-himalaya">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="12" cy="12" r="9" />
+          <path d="M12 3l3 9h-6l3-9z" />
+          <path d="M12 21l-3-9h6l-3 9z" />
+        </svg>
       </div>
-    </nav>
+      <span class="font-bold tracking-tighter text-xl text-text-primary">
+        Marga <span class="font-light text-accent-himalaya">Photography</span>
+      </span>
+    </a>
+
+    <!-- Close Button -->
+    <button
+      id="close-menu-btn"
+      type="button"
+      class="group flex items-center gap-3 p-2 cursor-pointer focus:outline-none focus:ring-2 focus:ring-accent-himalaya rounded-full"
+      aria-label="Close navigation menu"
+    >
+      <span class="text-[10px] font-bold uppercase tracking-[0.4em] text-text-muted group-hover:text-text-primary hidden sm:block">
+        CLOSE
+      </span>
+      <div class="w-11 h-11 border border-canvas-border rounded-full flex items-center justify-center group-hover:bg-accent-himalaya group-hover:text-white dark:group-hover:text-black group-hover:border-accent-himalaya transition-all text-text-primary shadow-sm">
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </div>
+    </button>
   </div>
-</header>
+
+  <!-- Menu Body Layout (Split Columns) -->
+  <div class="flex-1 flex flex-col xl:flex-row relative z-10 overflow-hidden">
+    
+    <!-- Left Column: Primary Navigation Items -->
+    <div class="w-full xl:w-[42%] flex flex-col justify-between pl-8 pr-8 md:pl-16 lg:pl-24 gap-8 overflow-y-auto h-full pt-8 pb-12 border-r border-canvas-border">
+      <nav class="flex flex-col space-y-4 md:space-y-6" aria-label="Overlay Navigation">
+        {navLinks.map((item) => {
+          const isActive = currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href));
+          return (
+            <div class="group/item">
+              <div class="flex items-baseline gap-4">
+                <span class="font-mono text-xs text-text-muted group-hover/item:text-accent-himalaya transition-colors">
+                  {item.number}
+                </span>
+                <a
+                  href={item.href}
+                  class={`menu-link font-editorial text-2xl sm:text-4xl lg:text-5xl font-normal transition-all duration-300 hover:translate-x-2 ${
+                    isActive ? 'text-accent-himalaya' : 'text-text-primary hover:text-accent-himalaya'
+                  }`}
+                >
+                  {item.label}
+                </a>
+              </div>
+
+              {/* Submenu for Portfolios */}
+              {item.children && (
+                <div class="pl-10 mt-3 flex flex-wrap gap-x-4 gap-y-2">
+                  {item.children.map((sub) => (
+                    <a
+                      href={sub.href}
+                      class="menu-link text-xs uppercase tracking-wider text-text-muted hover:text-accent-himalaya transition-colors"
+                    >
+                      {sub.label}
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </nav>
+
+      <!-- Bottom Quick Contact in Drawer -->
+      <div class="pt-6 border-t border-canvas-border flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs text-text-muted">
+        <div>
+          <span>Direct Dispatch: </span>
+          <a href="mailto:expeditions@margaphotography.com" class="text-accent-himalaya hover:underline font-medium">
+            expeditions@margaphotography.com
+          </a>
+        </div>
+        <div>
+          <span>Partner: </span>
+          <a href="https://margaadventure.com" target="_blank" rel="noopener noreferrer" class="hover:text-text-primary underline">
+            Marga Adventure
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column: Visual Showcase Card (Desktop) -->
+    <div class="hidden xl:flex flex-1 relative overflow-hidden items-center justify-center p-12 lg:p-16 bg-canvas-surface/40">
+      <div class="max-w-md w-full p-8 rounded-2xl bg-canvas-elevated border border-canvas-border shadow-2xl space-y-6">
+        <div class="aspect-[16/10] rounded-xl overflow-hidden relative">
+          <img
+            src="/images/himalaya_morning_light.jpg"
+            alt="High Himalaya Sanctuary"
+            class="w-full h-full object-cover"
+          />
+          <div class="absolute top-3 left-3 px-2.5 py-1 bg-black/70 backdrop-blur-md rounded text-[10px] uppercase tracking-widest text-accent-himalaya font-semibold border border-white/10">
+            2026 Expeditions Open
+          </div>
+        </div>
+
+        <div>
+          <span class="text-xs uppercase tracking-[0.2em] text-accent-himalaya font-semibold block mb-1">
+            Intimate Field Masterclasses
+          </span>
+          <h4 class="font-editorial text-2xl text-text-primary font-medium">
+            Strictly 4 to 6 Photographers
+          </h4>
+          <p class="text-xs text-text-secondary leading-relaxed mt-2">
+            Every departure is scheduled precisely around sacred seasonal calendar dates and optimum Himalayan light windows.
+          </p>
+        </div>
+
+        <div class="pt-4 border-t border-canvas-border flex items-center justify-between">
+          <a
+            href="/expeditions"
+            class="menu-link px-6 py-2.5 bg-accent-himalaya hover:opacity-90 text-white dark:text-black font-semibold text-xs uppercase tracking-widest rounded-full transition-all shadow-md"
+          >
+            Explore Itineraries →
+          </a>
+          <span class="text-xs font-mono text-text-muted">Nepal • Bhutan • Tibet</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
 
 <script>
-  const menuBtn = document.getElementById('mobile-menu-btn');
-  const mobileMenu = document.getElementById('mobile-menu');
-  const iconOpen = document.getElementById('menu-icon-open');
-  const iconClose = document.getElementById('menu-icon-close');
-
-  if (menuBtn && mobileMenu && iconOpen && iconClose) {
-    menuBtn.addEventListener('click', () => {
-      const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
-      menuBtn.setAttribute('aria-expanded', (!isExpanded).toString());
-      mobileMenu.classList.toggle('hidden');
-      iconOpen.classList.toggle('hidden');
-      iconClose.classList.toggle('hidden');
-    });
+  // Scroll reactive navbar (transparent at top, frosted on scroll)
+  const navbar = document.getElementById('main-navbar');
+  
+  function handleScroll() {
+    if (!navbar) return;
+    if (window.scrollY > 50) {
+      navbar.classList.add('glass-panel', 'py-3', 'md:py-4', 'shadow-sm', 'border-b', 'border-canvas-border');
+      navbar.classList.remove('bg-transparent', 'py-5', 'md:py-7');
+    } else {
+      navbar.classList.remove('glass-panel', 'py-3', 'md:py-4', 'shadow-sm', 'border-b', 'border-canvas-border');
+      navbar.classList.add('bg-transparent', 'py-5', 'md:py-7');
+    }
   }
+
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  handleScroll();
+
+  // Full-screen Menu Open / Close logic
+  const menuBtn = document.getElementById('hamburger-menu-btn');
+  const closeBtn = document.getElementById('close-menu-btn');
+  const fullscreenMenu = document.getElementById('fullscreen-menu');
+  const menuLinks = document.querySelectorAll('.menu-link');
+
+  function openMenu() {
+    if (!fullscreenMenu) return;
+    fullscreenMenu.classList.remove('hidden');
+    fullscreenMenu.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+    menuBtn?.setAttribute('aria-expanded', 'true');
+    closeBtn?.focus();
+  }
+
+  function closeMenu() {
+    if (!fullscreenMenu) return;
+    fullscreenMenu.classList.add('hidden');
+    fullscreenMenu.classList.remove('flex');
+    document.body.style.overflow = '';
+    menuBtn?.setAttribute('aria-expanded', 'false');
+    menuBtn?.focus();
+  }
+
+  menuBtn?.addEventListener('click', openMenu);
+  closeBtn?.addEventListener('click', closeMenu);
+
+  menuLinks.forEach((link) => {
+    link.addEventListener('click', closeMenu);
+  });
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && fullscreenMenu && !fullscreenMenu.classList.contains('hidden')) {
+      closeMenu();
+    }
+  });
 </script>
