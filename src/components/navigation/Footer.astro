@@ -1,0 +1,85 @@
+---
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="bg-canvas-surface border-t border-canvas-border text-text-secondary text-sm transition-colors duration-200">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8">
+      
+      <!-- Brand & Positioning Column -->
+      <div class="lg:col-span-2 space-y-6">
+        <a href="/" class="block">
+          <span class="font-editorial text-2xl font-bold tracking-[0.2em] text-text-primary uppercase">
+            Marga Photography
+          </span>
+          <span class="block text-xs tracking-[0.25em] text-accent-himalaya font-sans uppercase mt-1">
+            Nepal • Specialist Visual Expeditions
+          </span>
+        </a>
+        <p class="text-text-secondary text-sm leading-relaxed max-w-sm">
+          We create documentary and photography masterclass expeditions into the people, ancient rituals, living cultures, wilderness, and high Himalayan sanctuaries of Nepal.
+        </p>
+        <div class="pt-2 text-xs text-text-muted leading-relaxed border-t border-canvas-border max-w-sm">
+          <p>
+            <strong class="text-text-primary">Operational Partnership:</strong> Marga Photography operates as a specialist expedition collective supported by the logistical infrastructure of <a href="https://margaadventure.com" target="_blank" rel="noopener noreferrer" class="text-accent-himalaya hover:underline">Marga Adventure</a>.
+          </p>
+        </div>
+      </div>
+
+      <!-- Categories Column -->
+      <div>
+        <h3 class="text-xs font-semibold tracking-[0.2em] text-text-primary uppercase mb-4">
+          Core Portfolios
+        </h3>
+        <ul class="space-y-2.5 text-xs tracking-wider uppercase">
+          <li><a href="/explore/people" class="hover:text-accent-himalaya transition-colors">People & Portraits</a></li>
+          <li><a href="/explore/culture" class="hover:text-accent-himalaya transition-colors">Living Culture</a></li>
+          <li><a href="/explore/festivals" class="hover:text-accent-himalaya transition-colors">Sacred Festivals</a></li>
+          <li><a href="/explore/wildlife" class="hover:text-accent-himalaya transition-colors">Royal Bengal Wildlife</a></li>
+          <li><a href="/explore/landscapes" class="hover:text-accent-himalaya transition-colors">High Himalaya</a></li>
+        </ul>
+      </div>
+
+      <!-- Expeditions & Services -->
+      <div>
+        <h3 class="text-xs font-semibold tracking-[0.2em] text-text-primary uppercase mb-4">
+          Expeditions & Services
+        </h3>
+        <ul class="space-y-2.5 text-xs tracking-wider uppercase">
+          <li><a href="/expeditions" class="hover:text-accent-himalaya transition-colors">All Expeditions</a></li>
+          <li><a href="/stories" class="hover:text-accent-himalaya transition-colors">Photo Essays</a></li>
+          <li><a href="/commercial" class="hover:text-accent-himalaya transition-colors">Commercial & Editorial</a></li>
+          <li><a href="/contact?intent=custom" class="hover:text-accent-himalaya transition-colors">Custom Expeditions</a></li>
+          <li><a href="/about" class="hover:text-accent-himalaya transition-colors">Our Photographers</a></li>
+        </ul>
+      </div>
+
+      <!-- Lead / Newsletter Column -->
+      <div>
+        <h3 class="text-xs font-semibold tracking-[0.2em] text-text-primary uppercase mb-4">
+          Direct Inquiries
+        </h3>
+        <p class="text-xs text-text-muted mb-4 leading-relaxed">
+          Small teams strictly capped at 4 to 6 photographers per journey. Receive early dispatch notices for upcoming seasonal dates.
+        </p>
+        <a
+          href="/contact"
+          class="inline-block w-full text-center py-2.5 px-4 bg-canvas-elevated hover:bg-accent-himalaya hover:text-white dark:hover:text-black transition-all border border-canvas-border rounded text-xs uppercase tracking-widest font-semibold text-text-primary shadow-sm"
+        >
+          Contact Fixers & Guides
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="mt-16 pt-8 border-t border-canvas-border flex flex-col sm:flex-row items-center justify-between text-xs text-text-muted space-y-4 sm:space-y-0">
+      <p>© {currentYear} Marga Photography. All photographs and rights reserved by the respective contributing artists.</p>
+      <div class="flex space-x-6">
+        <span class="hover:text-text-primary transition-colors">Kathmandu, Nepal</span>
+        <span>•</span>
+        <a href="/contact" class="hover:text-accent-himalaya transition-colors">Permits & Fixers</a>
+      </div>
+    </div>
+  </div>
+</footer>
