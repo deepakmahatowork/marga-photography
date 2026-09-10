@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  marga-photography:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: marga_photography_app
+    restart: always
+    ports:
+      - "4321:4321"
+    environment:
+      - NODE_ENV=production
+      - HOST=0.0.0.0
+      - PORT=4321
+      - PUBLIC_SITE_URL=https://margaphotography.com
+      - RESEND_API_KEY=${RESEND_API_KEY}
+      - INQUIRY_NOTIFICATION_EMAIL=expeditions@margaphotography.com
+      - CRM_WEBHOOK_URL=${CRM_WEBHOOK_URL}
+    env_file:
+      - .env.example
