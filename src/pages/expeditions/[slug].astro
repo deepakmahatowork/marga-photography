@@ -28,8 +28,6 @@ const tripJsonLd = {
   })),
   offers: {
     '@type': 'Offer',
-    price: exp.priceFrom.replace(/[^0-9]/g, ''),
-    priceCurrency: 'USD',
     availability: 'https://schema.org/InStock',
     url: Astro.url.href,
   },
@@ -220,21 +218,21 @@ const tripJsonLd = {
       <div class="lg:col-span-4 space-y-8">
         <div class="sticky top-28 space-y-6">
           <div class="p-6 rounded-xl bg-canvas-elevated border border-canvas-border text-center shadow-lg">
-            <span class="text-[10px] uppercase tracking-widest text-text-muted">Starting Investment</span>
-            <div class="font-editorial text-4xl text-accent-himalaya font-medium my-2">
-              {exp.priceFrom}
+            <span class="text-[10px] uppercase tracking-widest text-text-muted">Expedition Status</span>
+            <div class="font-editorial text-2xl text-accent-himalaya font-medium my-2">
+              2026 Departures Open
             </div>
             <p class="text-xs text-text-secondary mb-6 leading-relaxed">
               Includes restricted permits, domestic flights, 4x4 vehicles, boutique accommodations & masterclass tuition.
             </p>
             <a
               href="#inquire"
-              class="block w-full py-3 px-6 bg-accent-himalaya hover:opacity-90 text-white dark:text-black font-semibold text-xs uppercase tracking-[0.2em] rounded transition-all shadow-md"
+              class="block w-full py-3.5 px-6 bg-accent-himalaya hover:bg-brand-dark text-white font-semibold text-xs uppercase tracking-[0.2em] rounded-full transition-all shadow-md text-center"
             >
               Request Expedition Seat
             </a>
             <p class="text-[10px] text-text-muted mt-3">
-              Only 4 to 6 photographers per departure.
+              Strictly 4 to 6 photographers per departure.
             </p>
           </div>
 

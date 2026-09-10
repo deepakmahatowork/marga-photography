@@ -5,13 +5,13 @@
 <div class="p-5 sm:p-8 rounded-xl bg-canvas-elevated border border-canvas-border my-12 sm:my-16 shadow-lg">
   <div class="max-w-2xl mb-8">
     <span class="text-xs uppercase tracking-[0.25em] text-accent-himalaya font-sans font-semibold">
-      Estimation Tool
+      Rights & Delivery Specifier
     </span>
     <h3 class="font-editorial text-2xl sm:text-3xl text-text-primary font-medium mt-1">
-      Image Licensing & Archival Print Estimator
+      Image Licensing & Archival Rights
     </h3>
     <p class="text-xs text-text-secondary mt-2 leading-relaxed">
-      Configure usage parameters for commercial advertising, editorial publication, or museum-grade archival prints.
+      Specify usage parameters for commercial advertising, editorial publication, or museum-grade archival prints.
     </p>
   </div>
 
@@ -25,9 +25,9 @@
         id="calc-license-type"
         class="w-full px-3 py-2.5 bg-canvas-surface border border-canvas-border rounded text-base sm:text-xs text-text-primary focus:outline-none focus:border-accent-himalaya transition-colors"
       >
-        <option value="editorial">Editorial / Book / Magazine (1-Year)</option>
-        <option value="digital">Digital / Web & Social Campaign (1-Year)</option>
-        <option value="commercial">Global Commercial Advertising (Worldwide)</option>
+        <option value="editorial">Editorial / Book / Magazine</option>
+        <option value="digital">Digital / Web & Social Campaign</option>
+        <option value="commercial">Global Commercial Advertising</option>
         <option value="print">Fine Art Museum Print (Limited Edition)</option>
       </select>
     </div>
@@ -49,11 +49,11 @@
 
     <!-- Result Box -->
     <div class="p-4 rounded-lg bg-canvas-surface border border-canvas-border flex flex-col justify-center text-center">
-      <span class="text-[10px] text-text-muted uppercase tracking-widest">Estimated Investment</span>
-      <div id="calc-result" class="font-editorial text-3xl text-accent-himalaya font-medium my-1">
-        $450 USD
+      <span class="text-[10px] text-text-muted uppercase tracking-widest">Rights Specification</span>
+      <div id="calc-result" class="font-editorial text-lg text-accent-himalaya font-semibold my-1 leading-snug">
+        Editorial Master License
       </div>
-      <span class="text-[10px] text-text-muted">Includes master TIFF file & usage certificate</span>
+      <span id="calc-subtext" class="text-[10px] text-text-muted">Includes master TIFF file & usage certificate</span>
     </div>
   </div>
 
@@ -63,7 +63,7 @@
     </span>
     <a
       href="#commercial-inquire"
-      class="w-full sm:w-auto text-center px-5 py-2.5 bg-accent-himalaya hover:opacity-90 text-white dark:text-black font-semibold text-xs uppercase tracking-wider rounded transition-all shadow-md"
+      class="w-full sm:w-auto text-center px-6 py-3 bg-accent-himalaya hover:bg-brand-dark text-white font-semibold text-xs uppercase tracking-wider rounded-full transition-all shadow-md"
     >
       Request Custom Licensing Proposal
     </a>
@@ -74,26 +74,36 @@
   const typeSelect = document.getElementById('calc-license-type') as HTMLSelectElement;
   const scopeSelect = document.getElementById('calc-scope') as HTMLSelectElement;
   const resultDisplay = document.getElementById('calc-result');
+  const subtextDisplay = document.getElementById('calc-subtext');
 
-  function calculateEstimate() {
+  function updateScopeDescription() {
     if (!typeSelect || !scopeSelect || !resultDisplay) return;
 
     const type = typeSelect.value;
     const scope = scopeSelect.value;
 
-    let base = 450;
+    let spec = 'Editorial Master License';
+    let sub = 'Includes high-res master file & publication certificate';
 
-    if (type === 'editorial') base = 350;
-    if (type === 'digital') base = 650;
-    if (type === 'commercial') base = 1800;
-    if (type === 'print') base = 850;
+    if (type === 'editorial') {
+      spec = scope === 'high' ? 'Global Editorial Master (100MP TIFF)' : scope === 'exclusive' ? 'Exclusive Editorial Feature' : 'Editorial Press License';
+      sub = 'Approved for books, national magazines & editorial series';
+    } else if (type === 'digital') {
+      spec = scope === 'exclusive' ? 'Exclusive Digital Brand Campaign' : 'Digital & Social Media License';
+      sub = 'Optimized for cross-platform web, app & digital media campaigns';
+    } else if (type === 'commercial') {
+      spec = scope === 'exclusive' ? 'Global Exclusive Commercial Rights' : scope === 'high' ? 'Worldwide Master Commercial License' : 'Commercial Advertising License';
+      sub = 'Full commercial indemnity, raw color-graded masters & worldwide media rights';
+    } else if (type === 'print') {
+      spec = scope === 'high' ? 'Exhibition-Grade Archival Master' : 'Limited Edition Fine Art Print';
+      sub = 'Hand-inspected archival print on Hahnemühle paper with signed certificate';
+    }
 
-    if (scope === 'high') base *= 1.5;
-    if (scope === 'exclusive') base *= 3.0;
-
-    resultDisplay.textContent = `$${Math.round(base).toLocaleString()} USD`;
+    resultDisplay.textContent = spec;
+    if (subtextDisplay) subtextDisplay.textContent = sub;
   }
 
-  typeSelect?.addEventListener('change', calculateEstimate);
-  scopeSelect?.addEventListener('change', calculateEstimate);
+  typeSelect?.addEventListener('change', updateScopeDescription);
+  scopeSelect?.addEventListener('change', updateScopeDescription);
+  updateScopeDescription();
 </script>
