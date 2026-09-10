@@ -1,0 +1,84 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  canonicalURL?: string;
+  type?: 'website' | 'article' | 'product';
+  jsonLd?: Record<string, any>;
+}
+
+const {
+  title,
+  description,
+  image = '/images/gokyo_himalaya_sunrise.jpg',
+  canonicalURL = Astro.url.href,
+  type = 'website',
+  jsonLd,
+} = Astro.props;
+
+const siteName = 'Marga Photography | Specialist Nepal Expeditions';
+const fullTitle = title.includes('Marga Photography') ? title : `${title} — Marga Photography`;
+const resolvedImage = new URL(image, Astro.site || 'https://margaphotography.com').href;
+
+const defaultOrgSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Marga Photography',
+  url: 'https://margaphotography.com',
+  logo: 'https://margaphotography.com/images/gokyo_himalaya_sunrise.jpg',
+  description: 'Specialist photography expeditions into the people, cultures, festivals, wildlife, and landscapes of Nepal.',
+  parentOrganization: {
+    '@type': 'Organization',
+    name: 'Marga Adventure',
+    url: 'https://margaadventure.com',
+  },
+  sameAs: [
+    'https://instagram.com/margaphotography',
+  ],
+};
+---
+
+<!-- Global Metadata -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<meta name="generator" content={Astro.generator} />
+
+<!-- Canonical URL -->
+<link rel="canonical" href={canonicalURL} />
+
+<!-- Primary SEO Meta Tags -->
+<title>{fullTitle}</title>
+<meta name="title" content={fullTitle} />
+<meta name="description" content={description} />
+<meta name="keywords" content="Nepal photography expeditions, Himalayan landscape photography, Tiji festival photography tour, Nepal wildlife tiger photography, Kathmandu portrait workshop" />
+<meta name="author" content="Marga Photography" />
+<meta name="theme-color" content="#0b0d10" />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content={type} />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={resolvedImage} />
+<meta property="og:site_name" content={siteName} />
+
+<!-- Twitter / X -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content={canonicalURL} />
+<meta property="twitter:title" content={fullTitle} />
+<meta property="twitter:description" content={description} />
+<meta property="twitter:image" content={resolvedImage} />
+
+<!-- Google Fonts Preconnect -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+  rel="stylesheet"
+/>
+
+<!-- Structured Data (JSON-LD) -->
+<script type="application/ld+json" set:html={JSON.stringify(defaultOrgSchema)} />
+{jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}

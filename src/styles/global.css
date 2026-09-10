@@ -1,46 +1,53 @@
 @import "tailwindcss";
 
 :root {
-  /* Canvas & Surfaces (Warm Fine-Art Gallery Light) */
-  --color-canvas-bg: #fcfbf9;
-  --color-canvas-surface: #f5f3eb;
+  /* Canvas & Surfaces (Marga Adventure Light) */
+  --color-canvas-bg: #f8fafc;
+  --color-canvas-surface: #ffffff;
   --color-canvas-elevated: #ffffff;
-  --color-canvas-border: rgba(28, 25, 23, 0.09);
-  --color-canvas-subtle: rgba(28, 25, 23, 0.03);
+  --color-canvas-border: #e2e8f0;
+  --color-canvas-subtle: #f1f5f9;
 
-  /* Accents */
-  --color-accent-himalaya: #a67728;
-  --color-accent-amber: #c97720;
-  --color-accent-prayer-red: #9e2a2b;
-  --color-accent-ochre: #b37e33;
+  /* Marga Adventure Brand Colors */
+  --color-brand: #1e73be;
+  --color-brand-dark: #165a94;
+  --color-brand-light: #5a9dc9;
+  --color-accent-himalaya: #1e73be;
+  --color-accent-amber: #d4a359;
+  --color-accent-prayer-red: #e11d48;
+  --color-accent-ochre: #ca8a04;
 
   /* Typography */
-  --color-text-primary: #18181b;
-  --color-text-secondary: #52525b;
-  --color-text-muted: #71717a;
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #475569;
+  --color-text-muted: #94a3b8;
 
   /* Glassmorphic & Shadows */
-  --color-glass-bg: rgba(252, 251, 249, 0.88);
-  --color-glass-border: rgba(28, 25, 23, 0.08);
-  --card-shadow: 0 4px 20px -2px rgba(28, 25, 23, 0.05);
+  --color-glass-bg: rgba(255, 255, 255, 0.88);
+  --color-glass-border: rgba(30, 115, 190, 0.12);
+  --card-shadow: 0 4px 20px -2px rgba(30, 115, 190, 0.08);
 
-  --font-serif: "Cormorant Garamond", Georgia, serif;
-  --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-heading: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-sans: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-serif: "Plus Jakarta Sans", "Montserrat", sans-serif;
 }
 
 [data-theme="dark"] {
-  /* Canvas & Surfaces (Midnight Obsidian Dark) */
-  --color-canvas-bg: #0b0d10;
-  --color-canvas-surface: #12151b;
-  --color-canvas-elevated: #1a1e26;
+  /* Canvas & Surfaces (Marga Adventure Midnight Obsidian) */
+  --color-canvas-bg: #0b0f19;
+  --color-canvas-surface: #111827;
+  --color-canvas-elevated: #1e293b;
   --color-canvas-border: rgba(255, 255, 255, 0.08);
   --color-canvas-subtle: rgba(255, 255, 255, 0.03);
 
-  /* Accents */
-  --color-accent-himalaya: #d4a359;
-  --color-accent-amber: #e89838;
-  --color-accent-prayer-red: #b9382e;
-  --color-accent-ochre: #c58f46;
+  /* Marga Adventure Brand Colors in Dark */
+  --color-brand: #38bdf8;
+  --color-brand-dark: #1e73be;
+  --color-brand-light: #7dd3fc;
+  --color-accent-himalaya: #38bdf8;
+  --color-accent-amber: #fbbf24;
+  --color-accent-prayer-red: #f43f5e;
+  --color-accent-ochre: #facc15;
 
   /* Typography */
   --color-text-primary: #f8fafc;
@@ -48,8 +55,8 @@
   --color-text-muted: #64748b;
 
   /* Glassmorphic & Shadows */
-  --color-glass-bg: rgba(18, 21, 27, 0.85);
-  --color-glass-border: rgba(255, 255, 255, 0.08);
+  --color-glass-bg: rgba(17, 24, 39, 0.88);
+  --color-glass-border: rgba(56, 189, 248, 0.15);
   --card-shadow: none;
 }
 
@@ -60,6 +67,10 @@
   --color-canvas-border: var(--color-canvas-border);
   --color-canvas-subtle: var(--color-canvas-subtle);
 
+  --color-brand: var(--color-brand);
+  --color-brand-dark: var(--color-brand-dark);
+  --color-brand-light: var(--color-brand-light);
+
   --color-accent-himalaya: var(--color-accent-himalaya);
   --color-accent-amber: var(--color-accent-amber);
   --color-accent-prayer-red: var(--color-accent-prayer-red);
@@ -69,6 +80,7 @@
   --color-text-secondary: var(--color-text-secondary);
   --color-text-muted: var(--color-text-muted);
 
+  --font-heading: var(--font-heading);
   --font-serif: var(--font-serif);
   --font-sans: var(--font-sans);
 }
@@ -86,12 +98,12 @@
   }
 
   ::selection {
-    background-color: rgba(166, 119, 40, 0.25);
-    color: var(--color-text-primary);
+    background-color: rgba(30, 115, 190, 0.18);
+    color: var(--color-brand);
   }
 
   [data-theme="dark"] ::selection {
-    background-color: rgba(212, 163, 89, 0.3);
+    background-color: rgba(56, 189, 248, 0.25);
     color: #f8fafc;
   }
 
@@ -104,17 +116,24 @@
     background: var(--color-canvas-bg);
   }
   ::-webkit-scrollbar-thumb {
-    background: var(--color-canvas-border);
-    border-radius: 3px;
+    background: var(--color-brand);
+    border-radius: 10px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: var(--color-accent-himalaya);
+    background: var(--color-brand-dark);
   }
 }
 
 /* Editorial typography utilities */
 .font-editorial {
-  font-family: var(--font-serif);
+  font-family: var(--font-heading);
+  letter-spacing: -0.02em;
+}
+
+.text-brand-gradient {
+  background: linear-gradient(135deg, var(--color-brand) 0%, var(--color-brand-light) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .text-gold-gradient {
