@@ -1,0 +1,82 @@
+---
+interface Props {
+  id?: string;
+  class?: string;
+}
+
+const { id = 'theme-toggle-btn', class: className = '' } = Astro.props;
+---
+
+<button
+  type="button"
+  id={id}
+  class={`p-2 rounded-full border border-canvas-border bg-canvas-surface/80 hover:bg-canvas-elevated text-text-secondary hover:text-text-primary transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-accent-himalaya flex items-center justify-center cursor-pointer ${className}`}
+  aria-label="Toggle color theme"
+  title="Switch between Light and Dark mode"
+>
+  <!-- Sun Icon (shown in Dark mode to switch to Light) -->
+  <svg
+    class="w-4 h-4 hidden dark-icon"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.5"
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+  >
+    <circle cx="12" cy="12" r="4" />
+    <path stroke-linecap="round" d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41m14.14-14.14l-1.41 1.41" />
+  </svg>
+
+  <!-- Moon Icon (shown in Light mode to switch to Dark) -->
+  <svg
+    class="w-4 h-4 block light-icon"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.5"
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      d="M21.752 15.002A9.72 9.72 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"
+    />
+  </svg>
+</button>
+
+<script>
+  function setupThemeToggle(btnId: string) {
+    const btn = document.getElementById(btnId);
+    if (!btn) return;
+
+    function updateIcons() {
+      const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+      const darkIcons = btn?.querySelectorAll('.dark-icon');
+      const lightIcons = btn?.querySelectorAll('.light-icon');
+
+      if (currentTheme === 'dark') {
+        darkIcons?.forEach((el) => el.classList.remove('hidden'));
+        lightIcons?.forEach((el) => el.classList.add('hidden'));
+      } else {
+        darkIcons?.forEach((el) => el.classList.add('hidden'));
+        lightIcons?.forEach((el) => el.classList.remove('hidden'));
+      }
+    }
+
+    btn.addEventListener('click', () => {
+      const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+      const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', nextTheme);
+      localStorage.setItem('theme', nextTheme);
+      window.dispatchEvent(new CustomEvent('theme-change', { detail: { theme: nextTheme } }));
+      updateIcons();
+    });
+
+    window.addEventListener('theme-change', updateIcons);
+    updateIcons();
+  }
+
+  // Initialize both desktop and mobile toggle buttons if present
+  setupThemeToggle('theme-toggle-btn');
+  setupThemeToggle('mobile-theme-toggle-btn');
+</script>

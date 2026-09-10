@@ -1,0 +1,119 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+
+const navLinks = [
+  { href: '/expeditions', label: 'Expeditions' },
+  { href: '/stories', label: 'Stories' },
+  { href: '/explore/people', label: 'Explore' },
+  { href: '/commercial', label: 'Commercial' },
+  { href: '/about', label: 'About' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 glass-panel border-b border-canvas-border" id="site-header">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+    <!-- Brand -->
+    <a href="/" class="group flex flex-col focus:outline-none focus:ring-2 focus:ring-accent-himalaya rounded p-1">
+      <span class="font-editorial text-xl sm:text-2xl font-bold tracking-[0.2em] text-text-primary group-hover:text-accent-himalaya transition-colors uppercase">
+        Marga Photography
+      </span>
+      <span class="text-[10px] tracking-[0.3em] text-text-muted font-sans uppercase -mt-1">
+        Nepal • Specialist Expeditions
+      </span>
+    </a>
+
+    <!-- Desktop Navigation -->
+    <nav class="hidden md:flex items-center space-x-8" aria-label="Main Navigation">
+      {navLinks.map((link) => {
+        const isActive = currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href));
+        return (
+          <a
+            href={link.href}
+            class={`text-xs uppercase tracking-[0.2em] font-medium transition-colors py-2 border-b-2 ${
+              isActive
+                ? 'text-accent-himalaya border-accent-himalaya'
+                : 'text-text-secondary border-transparent hover:text-text-primary hover:border-canvas-border'
+            }`}
+          >
+            {link.label}
+          </a>
+        );
+      })}
+    </nav>
+
+    <!-- Header Actions -->
+    <div class="hidden md:flex items-center space-x-4">
+      <ThemeToggle id="theme-toggle-btn" />
+      <a
+        href="/contact?intent=expedition"
+        class="inline-flex items-center justify-center px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.15em] text-white dark:text-black bg-accent-himalaya hover:opacity-90 transition-all rounded shadow-md hover:shadow-accent-himalaya/20"
+      >
+        Request Expedition
+      </a>
+    </div>
+
+    <!-- Mobile Menu Toggle & Theme Button -->
+    <div class="flex items-center space-x-2 md:hidden">
+      <ThemeToggle id="mobile-theme-toggle-btn" />
+      <button
+        type="button"
+        id="mobile-menu-btn"
+        class="p-2 text-text-secondary hover:text-text-primary focus:outline-none focus:ring-2 focus:ring-accent-himalaya rounded"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        aria-label="Open primary navigation menu"
+      >
+        <svg class="w-6 h-6 block" id="menu-icon-open" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <svg class="w-6 h-6 hidden" id="menu-icon-close" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu Drawer -->
+  <div
+    id="mobile-menu"
+    class="hidden md:hidden bg-canvas-bg/98 border-b border-canvas-border px-4 pt-4 pb-8 space-y-4 backdrop-blur-lg"
+  >
+    <nav class="flex flex-col space-y-3" aria-label="Mobile Navigation">
+      {navLinks.map((link) => (
+        <a
+          href={link.href}
+          class="text-sm uppercase tracking-[0.2em] text-text-secondary hover:text-accent-himalaya py-2 border-b border-canvas-border"
+        >
+          {link.label}
+        </a>
+      ))}
+      <div class="pt-2">
+        <a
+          href="/contact?intent=expedition"
+          class="block w-full text-center py-3 text-xs font-semibold uppercase tracking-[0.15em] text-white dark:text-black bg-accent-himalaya hover:opacity-90 rounded"
+        >
+          Request Expedition
+        </a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const menuBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const iconOpen = document.getElementById('menu-icon-open');
+  const iconClose = document.getElementById('menu-icon-close');
+
+  if (menuBtn && mobileMenu && iconOpen && iconClose) {
+    menuBtn.addEventListener('click', () => {
+      const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
+      menuBtn.setAttribute('aria-expanded', (!isExpanded).toString());
+      mobileMenu.classList.toggle('hidden');
+      iconOpen.classList.toggle('hidden');
+      iconClose.classList.toggle('hidden');
+    });
+  }
+</script>
