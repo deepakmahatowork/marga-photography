@@ -34,24 +34,24 @@ const navLinks = [
 <!-- Fixed Top Navigation Bar (Marga Adventure Style) -->
 <nav
   id="main-navbar"
-  class="fixed top-0 left-0 w-full z-50 transition-all duration-500 will-change-transform transform-gpu bg-transparent py-4 md:py-7"
+  class="fixed top-0 left-0 w-full z-50 transition-all duration-300 will-change-transform transform-gpu bg-canvas-bg/90 backdrop-blur-md border-b border-canvas-border/60 py-3 sm:py-4 md:py-6 shadow-xs"
 >
   <div class="w-full max-w-[1920px] mx-auto px-4 sm:px-6 md:px-10 lg:px-16 flex justify-between items-center">
     
     <!-- Brand Logo & Title -->
-    <a href={isFrench ? '/fr' : '/'} class="flex items-center gap-2.5 md:gap-3.5 group cursor-pointer">
+    <a href={isFrench ? '/fr' : '/'} class="flex items-center gap-2 sm:gap-3 md:gap-3.5 group cursor-pointer shrink min-w-0">
       <img
         src="/images/marga_photography_logo.png"
         alt="Marga Photography Logo"
-        class="w-10 h-10 md:w-12 md:h-12 object-contain transition-transform duration-300 group-hover:scale-105 shrink-0"
+        class="w-9 h-9 sm:w-10 sm:h-10 md:w-12 md:h-12 object-contain transition-transform duration-300 group-hover:scale-105 shrink-0"
       />
-      <span class="font-bold tracking-tighter text-lg sm:text-xl md:text-2xl transition-colors duration-500 font-sans text-text-primary">
+      <span class="font-bold tracking-tight text-base sm:text-xl md:text-2xl transition-colors duration-500 font-sans text-text-primary truncate">
         Marga <span class="font-light text-accent-himalaya">Photography</span>
       </span>
     </a>
 
     <!-- Right Controls -->
-    <div class="flex items-center gap-2.5 sm:gap-3 md:gap-6">
+    <div class="flex items-center gap-2 sm:gap-3 md:gap-6 shrink-0">
       <!-- Language Switcher (EN / FR) -->
       <LanguageSwitcher />
 
@@ -70,14 +70,14 @@ const navLinks = [
       <button
         id="hamburger-menu-btn"
         type="button"
-        class="flex items-center gap-2.5 md:gap-4 group p-2 md:p-3 cursor-pointer select-none focus:outline-none focus:ring-2 focus:ring-accent-himalaya rounded-lg"
+        class="flex items-center gap-2 md:gap-4 group p-2 sm:p-2.5 md:p-3 cursor-pointer select-none focus:outline-none focus:ring-2 focus:ring-accent-himalaya rounded-lg shrink-0 min-w-[44px] min-h-[44px] justify-center touch-manipulation"
         aria-label="Open main navigation menu"
         aria-expanded="false"
       >
         <span class="text-[10px] font-bold uppercase tracking-[0.5em] transition-all duration-500 hidden lg:block text-text-muted group-hover:text-accent-himalaya">
           {t('nav.navigation')}
         </span>
-        <div class="flex flex-col gap-1.5 p-1 transition-all">
+        <div class="flex flex-col gap-1.5 p-1 transition-all pointer-events-none">
           <div class="h-0.5 transition-all duration-300 bg-text-primary w-6 md:w-8 group-hover:w-5 md:group-hover:w-6"></div>
           <div class="h-0.5 transition-all duration-300 bg-text-primary w-5 md:w-6 group-hover:w-6 md:group-hover:w-8"></div>
           <div class="h-0.5 transition-all duration-300 bg-text-primary w-3 md:w-4 group-hover:w-6 md:group-hover:w-8"></div>
@@ -90,40 +90,40 @@ const navLinks = [
 <!-- Full-Screen Navigation Overlay Modal (Marga Adventure Style) -->
 <div
   id="fullscreen-menu"
-  class="fixed inset-0 z-[100] bg-canvas-bg/98 backdrop-blur-2xl text-text-primary overflow-hidden hidden flex-col font-sans transition-opacity duration-500"
+  class="fixed inset-0 h-[100dvh] z-[100] bg-canvas-bg/98 backdrop-blur-2xl text-text-primary hidden flex-col font-sans transition-opacity duration-300"
   role="dialog"
   aria-modal="true"
   aria-label="Navigation Menu"
 >
   <!-- Top Bar with Close Button -->
-  <div class="w-full max-w-[1920px] mx-auto px-4 sm:px-6 md:px-10 lg:px-16 py-5 md:py-8 flex justify-between items-center border-b border-canvas-border">
+  <div class="w-full max-w-[1920px] mx-auto px-4 sm:px-6 md:px-10 lg:px-16 py-4 sm:py-5 md:py-8 flex justify-between items-center border-b border-canvas-border shrink-0">
     <!-- Brand in Menu -->
     <a href={isFrench ? '/fr' : '/'} class="flex items-center gap-3 group menu-link">
       <img
         src="/images/marga_photography_logo.png"
         alt="Marga Photography Logo"
-        class="w-10 h-10 object-contain shrink-0"
+        class="w-9 h-9 sm:w-10 sm:h-10 object-contain shrink-0"
       />
-      <span class="font-bold tracking-tighter text-lg sm:text-xl text-text-primary">
+      <span class="font-bold tracking-tight text-lg sm:text-xl text-text-primary">
         Marga <span class="font-light text-accent-himalaya">Photography</span>
       </span>
     </a>
 
     <!-- Close Controls -->
-    <div class="flex items-center gap-3 sm:gap-6">
+    <div class="flex items-center gap-2 sm:gap-6">
       <LanguageSwitcher />
 
       <!-- Close Button -->
       <button
         id="close-menu-btn"
         type="button"
-        class="group flex items-center gap-3 p-2 cursor-pointer focus:outline-none focus:ring-2 focus:ring-accent-himalaya rounded-full"
+        class="group flex items-center gap-2 sm:gap-3 p-2 cursor-pointer focus:outline-none focus:ring-2 focus:ring-accent-himalaya rounded-full shrink-0 min-w-[44px] min-h-[44px] justify-center touch-manipulation"
         aria-label="Close navigation menu"
       >
         <span class="text-[10px] font-bold uppercase tracking-[0.4em] text-text-muted group-hover:text-text-primary hidden sm:block">
           {t('nav.close')}
         </span>
-        <div class="w-10 h-10 md:w-11 md:h-11 border border-canvas-border rounded-full flex items-center justify-center group-hover:bg-accent-himalaya group-hover:text-white group-hover:border-accent-himalaya transition-all text-text-primary shadow-sm">
+        <div class="w-10 h-10 md:w-11 md:h-11 border border-canvas-border rounded-full flex items-center justify-center group-hover:bg-accent-himalaya group-hover:text-white group-hover:border-accent-himalaya transition-all text-text-primary shadow-sm pointer-events-none">
           <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
           </svg>
@@ -133,11 +133,11 @@ const navLinks = [
   </div>
 
   <!-- Menu Body Layout (Split Columns) -->
-  <div class="flex-1 flex flex-col xl:flex-row relative z-10 overflow-hidden">
+  <div class="flex-1 min-h-0 flex flex-col xl:flex-row relative z-10 overflow-hidden">
     
     <!-- Left Column: Primary Navigation Items -->
-    <div class="w-full xl:w-[42%] flex flex-col justify-between px-6 sm:px-10 md:pl-16 lg:pl-24 gap-8 overflow-y-auto h-full pt-6 md:pt-8 pb-12 border-r border-canvas-border">
-      <nav class="flex flex-col space-y-4 md:space-y-6" aria-label="Overlay Navigation">
+    <div class="w-full xl:w-[45%] flex flex-col justify-between px-6 sm:px-10 md:pl-16 lg:pl-24 gap-8 overflow-y-auto min-h-0 flex-1 overscroll-contain pt-6 md:pt-8 pb-12 border-r border-canvas-border">
+      <nav class="flex flex-col space-y-4 md:space-y-6 shrink-0" aria-label="Overlay Navigation">
         {navLinks.map((item) => {
           const isActive = currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href));
           return (
@@ -158,11 +158,11 @@ const navLinks = [
 
               {/* Submenu for Portfolios */}
               {item.children && (
-                <div class="pl-10 mt-3 flex flex-wrap gap-x-4 gap-y-2">
+                <div class="pl-8 sm:pl-10 mt-3 flex flex-wrap gap-2 sm:gap-x-4 sm:gap-y-2">
                   {item.children.map((sub) => (
                     <a
                       href={sub.href}
-                      class="menu-link text-xs uppercase tracking-wider text-text-muted hover:text-accent-himalaya transition-colors"
+                      class="menu-link text-xs uppercase tracking-wider py-1.5 px-3 rounded-full bg-canvas-surface/80 border border-canvas-border hover:border-accent-himalaya hover:text-accent-himalaya active:bg-accent-himalaya active:text-white transition-all touch-manipulation"
                     >
                       {sub.label}
                     </a>
@@ -175,7 +175,7 @@ const navLinks = [
       </nav>
 
       <!-- Bottom Quick Contact in Drawer -->
-      <div class="pt-6 border-t border-canvas-border flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs text-text-muted">
+      <div class="pt-6 border-t border-canvas-border flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs text-text-muted shrink-0 pb-6">
         <div>
           <span>Direct Dispatch: </span>
           <a href="mailto:expeditions@margaphotography.com" class="text-accent-himalaya hover:underline font-medium">
@@ -233,17 +233,17 @@ const navLinks = [
 </div>
 
 <script>
-  // Scroll reactive navbar (transparent at top, frosted on scroll)
+  // Scroll reactive navbar
   const navbar = document.getElementById('main-navbar');
   
   function handleScroll() {
     if (!navbar) return;
-    if (window.scrollY > 50) {
-      navbar.classList.add('glass-panel', 'py-3', 'md:py-4', 'shadow-sm', 'border-b', 'border-canvas-border');
-      navbar.classList.remove('bg-transparent', 'py-5', 'md:py-7');
+    if (window.scrollY > 20) {
+      navbar.classList.add('shadow-md', 'border-canvas-border');
+      navbar.classList.remove('border-canvas-border/60');
     } else {
-      navbar.classList.remove('glass-panel', 'py-3', 'md:py-4', 'shadow-sm', 'border-b', 'border-canvas-border');
-      navbar.classList.add('bg-transparent', 'py-5', 'md:py-7');
+      navbar.classList.remove('shadow-md');
+      navbar.classList.add('border-canvas-border/60');
     }
   }
 
@@ -277,8 +277,22 @@ const navLinks = [
   menuBtn?.addEventListener('click', openMenu);
   closeBtn?.addEventListener('click', closeMenu);
 
+  // Close menu only for hash anchors or when clicking the current page's own link
   menuLinks.forEach((link) => {
-    link.addEventListener('click', closeMenu);
+    link.addEventListener('click', () => {
+      const href = link.getAttribute('href');
+      if (!href) return;
+      const current = window.location.pathname;
+      if (
+        href.startsWith('#') ||
+        href === current ||
+        href === current + '/' ||
+        href === current.replace(/\/$/, '')
+      ) {
+        closeMenu();
+      }
+      // For cross-page navigation, allow the browser to follow the link naturally
+    });
   });
 
   window.addEventListener('keydown', (e) => {
