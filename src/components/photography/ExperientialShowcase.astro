@@ -2,193 +2,172 @@
 interface Slide {
   id: string;
   title: string;
+  scriptQuote: string;
   subtitle: string;
   description: string;
   location: string;
   image: string;
+  bgImage: string;
 }
 
 const slides: Slide[] = [
   {
     id: 'slide-1',
     title: 'WE FRAME EMOTION',
-    subtitle: 'Because feeling is the finest luxury',
-    description: 'In the remote highlands of Western Nepal, the boundary between the unseen and the physical dissolves into sacred ritual, resonant drumming, and hypnotic trance.',
+    scriptQuote: 'Because feeling is the finest luxury',
+    subtitle: 'Ancestral animist trances in the Western Highlands',
+    description: 'In the remote highland valleys of Western Nepal, the boundary between the unseen and the physical dissolves into sacred ritual, resonant drumming, and hypnotic trance.',
     location: 'KHAM MAGAR · WESTERN NEPAL',
     image: '/images/shaman_apprentice_trance.jpeg',
+    bgImage: '/images/dhorpatan_valley_landscape.jpg',
   },
   {
     id: 'slide-2',
     title: 'SACRED RITUALS UNSEEN',
-    subtitle: 'Where time slows and the ancient awakens',
-    description: 'Dusk falls over Bhaktapur pottery square as thousands of clay butter lamps illuminate centuries-old terracotta carvings in silent golden devotion.',
+    scriptQuote: 'Where time slows and the ancient awakens',
+    subtitle: 'Living terracotta devotion in Bhaktapur',
+    description: 'Dusk falls over medieval pottery squares as thousands of clay butter lamps illuminate centuries-old carvings in silent golden devotion.',
     location: 'BHAKTAPUR · KATHMANDU VALLEY',
     image: '/images/bhaktapur_heritage_lamps.jpg',
+    bgImage: '/images/bhaktapur_heritage_lamps.jpg',
   },
   {
     id: 'slide-3',
     title: 'THE WILD BENGAL CORRIDORS',
-    subtitle: 'In the deep silence of riverine sal forests',
+    scriptQuote: 'In the deep silence of riverine sal forests',
+    subtitle: 'Tracking apex predators on foot in silent sal forests',
     description: 'Tracking the solitary Royal Bengal Tiger on foot through the misty early morning grasslands and braided Geruwa river channels of Bardia.',
     location: 'BARDIA NATIONAL PARK · TERAI',
     image: '/images/bardia_tiger_morning.jpg',
+    bgImage: '/images/bardia_tiger_morning.jpg',
   },
   {
     id: 'slide-4',
     title: 'SOLITUDE AT 5,000 METERS',
-    subtitle: 'Light and stone stripped of noise',
+    scriptQuote: 'Light and stone stripped of noise',
+    subtitle: 'High alpine silence above Ngozumpa Glacier',
     description: 'The turquoise alpine sanctuary of Gokyo Ri at first blue-hour light, overlooking the vast Ngozumpa Glacier and the silent summits of the high Himalaya.',
     location: 'GOKYO RI · SOLUKHUMBU',
     image: '/images/gokyo_himalaya_sunrise.jpg',
+    bgImage: '/images/himalaya_dramatic_sunrise.jpg',
   },
 ];
 ---
 
 <section
   id="experiential-showcase"
-  class="relative min-h-[90vh] py-24 sm:py-32 bg-[#0B0D12] text-white overflow-hidden flex flex-col justify-center select-none"
+  class="relative min-h-[100vh] py-28 sm:py-36 bg-[#161616] text-white overflow-hidden flex flex-col justify-center select-none"
   aria-label="Experiential Photography Showcase"
 >
-  <!-- Background Ambience (Crossfaded per active slide) -->
+  <!-- Fullscreen Atmospheric Background (Crossfades per active slide) -->
   <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
     {slides.map((slide, index) => (
       <div
         class={`showcase-bg-slide absolute inset-0 transition-opacity duration-1000 ease-out ${
-          index === 0 ? 'opacity-25' : 'opacity-0'
+          index === 0 ? 'opacity-35' : 'opacity-0'
         }`}
         data-bg-index={index}
       >
         <img
-          src={slide.image}
+          src={slide.bgImage}
           alt={slide.title}
-          class="w-full h-full object-cover filter blur-2xl scale-110"
+          class="w-full h-full object-cover filter blur-[2px] brightness-[0.55] scale-105 transition-transform duration-[8000ms] ease-out"
           loading="lazy"
         />
       </div>
     ))}
-    <div class="absolute inset-0 bg-radial from-transparent via-[#0B0D12]/60 to-[#0B0D12]"></div>
-    <div class="absolute inset-0 bg-gradient-to-t from-[#0B0D12] via-transparent to-[#0B0D12]"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-[#161616] via-transparent to-[#161616]/80"></div>
+    <div class="absolute inset-0 bg-radial from-transparent via-[#161616]/40 to-[#161616]"></div>
   </div>
 
-  <div class="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 w-full">
-    <!-- Section Top Marker -->
-    <div class="flex items-center justify-between border-b border-white/10 pb-6 mb-12 sm:mb-16">
-      <div class="flex items-center gap-3">
-        <span class="w-2 h-2 rounded-full bg-[#D4A359]"></span>
-        <span class="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.35em] text-[#D4A359]">
-          The Master Experience
-        </span>
-      </div>
-      <div class="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.3em] text-white/40">
-        <span id="showcase-current-num">01</span> / 04
-      </div>
-    </div>
+  <!-- Wireframe Floating Circular Navigation Arrows (Snami Travel signature) -->
+  <button
+    type="button"
+    id="showcase-prev-btn"
+    class="snami-wire-arrow absolute left-4 sm:left-10 md:left-16 top-1/2 -translate-y-1/2 z-30"
+    aria-label="Previous Slide"
+  >
+    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5m0 0l7 7m-7-7l7-7" />
+    </svg>
+  </button>
 
-    <!-- Slides Container -->
-    <div class="relative min-h-[520px] sm:min-h-[580px]">
+  <button
+    type="button"
+    id="showcase-next-btn"
+    class="snami-wire-arrow absolute right-4 sm:right-10 md:right-16 top-1/2 -translate-y-1/2 z-30"
+    aria-label="Next Slide"
+  >
+    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m0 0l-7-7m7 7l-7 7" />
+    </svg>
+  </button>
+
+  <div class="relative z-10 max-w-5xl mx-auto px-6 sm:px-10 w-full flex flex-col items-center">
+    
+    <!-- Slides Presentation Container -->
+    <div class="relative w-full min-h-[580px] sm:min-h-[640px] flex items-center justify-center">
       {slides.map((slide, index) => (
         <div
-          class={`showcase-content-slide absolute inset-0 transition-all duration-700 ease-out grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center ${
-            index === 0 ? 'opacity-100 pointer-events-auto translate-y-0' : 'opacity-0 pointer-events-none translate-y-6'
+          class={`showcase-content-slide absolute inset-0 transition-all duration-700 ease-out flex flex-col items-center justify-center ${
+            index === 0 ? 'opacity-100 pointer-events-auto scale-100' : 'opacity-0 pointer-events-none scale-98'
           }`}
           data-slide-index={index}
         >
-          <!-- Left Text Column -->
-          <div class="lg:col-span-6 flex flex-col justify-center space-y-6">
-            <span class="font-mono text-[10px] uppercase tracking-[0.3em] text-[#D4A359]">
-              {slide.location}
+          <!-- Floating Overlapping Cursive Script Title (Snami signature "Because feeling is the finest luxury") -->
+          <div class="z-30 -mb-6 sm:-mb-10 text-center pointer-events-none px-4">
+            <span class="font-script text-[clamp(2rem,5.5vw,4.5rem)] text-white/95 drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)] tracking-wide block">
+              {slide.scriptQuote}
             </span>
-
-            <h2 class="font-editorial text-4xl sm:text-5xl lg:text-6xl font-light text-white leading-[1.08] tracking-tight uppercase">
-              {slide.title}
-            </h2>
-
-            <p class="font-editorial text-xl sm:text-2xl text-[#D4A359] italic font-light tracking-wide">
-              "{slide.subtitle}"
-            </p>
-
-            <p class="text-xs sm:text-sm text-white/70 leading-relaxed font-light max-w-lg">
-              {slide.description}
-            </p>
-
-            <div class="pt-4 flex items-center gap-6">
-              <a
-                href="/expeditions"
-                class="feather-arrow-link text-white hover:text-[#D4A359] text-[11px]"
-              >
-                <span>Curated Expeditions</span>
-                <svg width="36" height="12" viewBox="0 0 50 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M0 7H48" stroke="currentColor" stroke-width="1.5" />
-                  <path d="M42 1L48 7L42 13" stroke="currentColor" stroke-width="1.5" />
-                </svg>
-              </a>
-            </div>
           </div>
 
-          <!-- Right Visual Frame -->
-          <div class="lg:col-span-6 flex justify-center lg:justify-end">
-            <div class="relative w-full max-w-lg aspect-[4/5] rounded-xl overflow-hidden shadow-2xl border border-white/10 editorial-img-frame group">
-              <img
-                src={slide.image}
-                alt={slide.title}
-                class="w-full h-full object-cover"
-                loading={index === 0 ? 'eager' : 'lazy'}
-              />
-              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
-              <div class="absolute bottom-5 left-5 right-5 flex justify-between items-end text-white text-[10px] font-mono tracking-widest uppercase">
-                <span class="bg-black/60 backdrop-blur-md px-3 py-1 rounded border border-white/10">
-                  {slide.location}
-                </span>
-                <span class="text-[#D4A359]">
-                  Marga Archive
-                </span>
-              </div>
+          <!-- Centered Framed Portrait Card (Snami aspect-3/4 framed center visual) -->
+          <div class="relative w-full max-w-[340px] sm:max-w-[390px] aspect-[3/4] rounded-none sm:rounded-sm overflow-hidden shadow-2xl border border-white/20 bg-black/40 editorial-img-frame z-10">
+            <img
+              src={slide.image}
+              alt={slide.title}
+              class="w-full h-full object-cover"
+              loading={index === 0 ? 'eager' : 'lazy'}
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-40"></div>
+          </div>
+
+          <!-- Bottom Text Meta & Narrative -->
+          <div class="mt-8 text-center max-w-xl space-y-3 z-20">
+            <span class="font-mono text-[10px] uppercase tracking-[0.35em] text-[#bea380] block">
+              {slide.location}
+            </span>
+            <h3 class="font-dream text-2xl sm:text-3xl text-white font-light tracking-wide uppercase">
+              {slide.title}
+            </h3>
+            <p class="text-xs sm:text-sm text-neutral-300 font-light leading-relaxed max-w-md mx-auto line-clamp-2">
+              {slide.description}
+            </p>
+            <div class="pt-2">
+              <a href="/expeditions" class="snami-arrow-link text-[#bea380] hover:text-white">
+                <span>Experience</span>
+                <span class="arrow-line"></span>
+              </a>
             </div>
           </div>
         </div>
       ))}
     </div>
 
-    <!-- Bottom Controls & Pagination -->
-    <div class="mt-12 sm:mt-16 flex items-center justify-between border-t border-white/10 pt-8">
-      <!-- Dots -->
-      <div class="flex items-center gap-3" id="showcase-dots">
-        {slides.map((_, index) => (
-          <button
-            type="button"
-            class={`showcase-dot h-1 rounded-full transition-all duration-500 cursor-pointer ${
-              index === 0 ? 'w-10 bg-[#D4A359]' : 'w-3 bg-white/25 hover:bg-white/50'
-            }`}
-            data-dot-index={index}
-            aria-label={`Go to slide ${index + 1}`}
-          />
-        ))}
-      </div>
-
-      <!-- Arrow Buttons -->
-      <div class="flex items-center gap-3">
+    <!-- Bottom Slide Indicator Dots -->
+    <div class="mt-8 flex items-center gap-3" id="showcase-dots">
+      {slides.map((_, index) => (
         <button
           type="button"
-          id="showcase-prev-btn"
-          class="w-11 h-11 rounded-full border border-white/20 flex items-center justify-center text-white/80 hover:text-black hover:bg-[#D4A359] hover:border-[#D4A359] transition-all duration-300 cursor-pointer"
-          aria-label="Previous Slide"
-        >
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
-          </svg>
-        </button>
-        <button
-          type="button"
-          id="showcase-next-btn"
-          class="w-11 h-11 rounded-full border border-white/20 flex items-center justify-center text-white/80 hover:text-black hover:bg-[#D4A359] hover:border-[#D4A359] transition-all duration-300 cursor-pointer"
-          aria-label="Next Slide"
-        >
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-          </svg>
-        </button>
-      </div>
+          class={`showcase-dot h-1 rounded-full transition-all duration-500 cursor-pointer ${
+            index === 0 ? 'w-10 bg-[#bea380]' : 'w-2.5 bg-white/25 hover:bg-white/50'
+          }`}
+          data-dot-index={index}
+          aria-label={`Slide ${index + 1}`}
+        />
+      ))}
     </div>
+
   </div>
 </section>
 
@@ -199,7 +178,6 @@ const slides: Slide[] = [
     const dots = document.querySelectorAll('.showcase-dot');
     const prevBtn = document.getElementById('showcase-prev-btn');
     const nextBtn = document.getElementById('showcase-next-btn');
-    const currentNumEl = document.getElementById('showcase-current-num');
 
     if (!slides.length) return;
 
@@ -212,43 +190,35 @@ const slides: Slide[] = [
 
       currentIndex = index;
 
-      // Update content slides
       slides.forEach((slide, i) => {
         if (i === currentIndex) {
-          slide.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-6');
-          slide.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+          slide.classList.remove('opacity-0', 'pointer-events-none', 'scale-98');
+          slide.classList.add('opacity-100', 'pointer-events-auto', 'scale-100');
         } else {
-          slide.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
-          slide.classList.add('opacity-0', 'pointer-events-none', 'translate-y-6');
+          slide.classList.remove('opacity-100', 'pointer-events-auto', 'scale-100');
+          slide.classList.add('opacity-0', 'pointer-events-none', 'scale-98');
         }
       });
 
-      // Update bg slides
       bgSlides.forEach((bg, i) => {
         if (i === currentIndex) {
           bg.classList.remove('opacity-0');
-          bg.classList.add('opacity-25');
+          bg.classList.add('opacity-35');
         } else {
-          bg.classList.remove('opacity-25');
+          bg.classList.remove('opacity-35');
           bg.classList.add('opacity-0');
         }
       });
 
-      // Update dots
       dots.forEach((dot, i) => {
         if (i === currentIndex) {
-          dot.classList.remove('w-3', 'bg-white/25');
-          dot.classList.add('w-10', 'bg-[#D4A359]');
+          dot.classList.remove('w-2.5', 'bg-white/25');
+          dot.classList.add('w-10', 'bg-[#bea380]');
         } else {
-          dot.classList.remove('w-10', 'bg-[#D4A359]');
-          dot.classList.add('w-3', 'bg-white/25');
+          dot.classList.remove('w-10', 'bg-[#bea380]');
+          dot.classList.add('w-2.5', 'bg-white/25');
         }
       });
-
-      // Update number
-      if (currentNumEl) {
-        currentNumEl.textContent = String(currentIndex + 1).padStart(2, '0');
-      }
     }
 
     prevBtn?.addEventListener('click', () => goToSlide(currentIndex - 1));
@@ -261,7 +231,6 @@ const slides: Slide[] = [
       });
     });
 
-    // Touch swipe handling
     const container = document.getElementById('experiential-showcase');
     let startX = 0;
     let endX = 0;
@@ -280,7 +249,6 @@ const slides: Slide[] = [
     }, { passive: true });
   }
 
-  // Setup on page load
   setupShowcase();
   document.addEventListener('astro:page-load', setupShowcase);
 </script>

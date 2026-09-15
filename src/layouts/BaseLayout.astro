@@ -17,10 +17,12 @@ interface Props {
   type?: 'website' | 'article' | 'product';
   jsonLd?: Record<string, any>;
   breadcrumbs?: BreadcrumbItem[];
+  transparentHeader?: boolean;
 }
 
-const { title, description, image, canonicalURL, type, jsonLd, breadcrumbs } = Astro.props;
+const { title, description, image, canonicalURL, type, jsonLd, breadcrumbs, transparentHeader = false } = Astro.props;
 const isFrench = Astro.url.pathname.startsWith('/fr');
+const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '/fr' || Astro.url.pathname === '/fr/';
 const currentLang = isFrench ? 'fr' : 'en';
 ---
 
@@ -56,7 +58,7 @@ const currentLang = isFrench ? 'fr' : 'en';
 
     <Header />
 
-    <main id="main-content" class="flex-grow pt-20">
+    <main id="main-content" class={`flex-grow ${isHome || transparentHeader ? 'pt-0' : 'pt-20'}`}>
       <slot />
     </main>
 
