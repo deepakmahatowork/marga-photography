@@ -32,22 +32,22 @@ const navLinks = [
   id="main-navbar"
   class="fixed top-0 left-0 w-full z-50 transition-all duration-500 will-change-transform transform-gpu bg-transparent py-4 sm:py-6 text-white"
 >
-  <div class="w-full max-w-[1920px] mx-auto px-5 sm:px-8 md:px-12 lg:px-16 flex justify-between items-center">
+  <div class="w-full max-w-[1920px] mx-auto px-4 sm:px-8 md:px-12 lg:px-16 flex justify-between items-center gap-2">
     
     <!-- Brand Logo & Name Only -->
-    <a href="/" class="flex items-center gap-2.5 sm:gap-3 group cursor-pointer shrink min-w-0" aria-label="Marga Photography Home">
+    <a href="/" class="flex items-center gap-2 sm:gap-3 group cursor-pointer shrink min-w-0" aria-label="Marga Photography Home">
       <img
         src="/images/marga_photography_logo.png"
         alt="Marga Photography Logo"
-        class="w-7 h-7 sm:w-9 sm:h-9 object-contain shrink-0 transition-transform duration-300 group-hover:scale-105"
+        class="w-6 h-6 sm:w-9 sm:h-9 object-contain shrink-0 transition-transform duration-300 group-hover:scale-105"
       />
-      <span class="font-editorial text-base sm:text-xl font-medium tracking-[0.14em] text-white uppercase whitespace-nowrap">
+      <span class="font-editorial text-sm sm:text-xl font-medium tracking-[0.12em] sm:tracking-[0.14em] text-white uppercase whitespace-nowrap navbar-brand-text">
         Marga <span class="font-light text-[#bea380]">Photography</span>
       </span>
     </a>
 
     <!-- Right Controls -->
-    <div class="flex items-center gap-3 sm:gap-5 md:gap-8 shrink-0">
+    <div class="flex items-center gap-2 sm:gap-5 md:gap-8 shrink-0">
       <!-- Phone Call Link (Snami Telephone Icon) -->
       <a
         href="tel:+9779800000000"
@@ -72,8 +72,8 @@ const navLinks = [
         aria-expanded="false"
       >
         <div class="flex flex-col gap-1.5 p-1 transition-all pointer-events-none">
-          <div class="h-[1.5px] transition-all duration-300 bg-white w-7 sm:w-8 group-hover:bg-[#bea380]"></div>
-          <div class="h-[1.5px] transition-all duration-300 bg-white w-7 sm:w-8 group-hover:bg-[#bea380]"></div>
+          <div class="h-[1.5px] transition-all duration-300 bg-white w-6 sm:w-8 group-hover:bg-[#bea380] hamburger-line"></div>
+          <div class="h-[1.5px] transition-all duration-300 bg-white w-6 sm:w-8 group-hover:bg-[#bea380] hamburger-line"></div>
         </div>
       </button>
 
@@ -240,11 +240,9 @@ const navLinks = [
   function handleScroll() {
     if (!navbar) return;
     if (window.scrollY > 20) {
-      navbar.classList.add('shadow-md', 'border-canvas-border');
-      navbar.classList.remove('border-canvas-border/60');
+      navbar.classList.add('navbar-scrolled');
     } else {
-      navbar.classList.remove('shadow-md');
-      navbar.classList.add('border-canvas-border/60');
+      navbar.classList.remove('navbar-scrolled');
     }
   }
 
