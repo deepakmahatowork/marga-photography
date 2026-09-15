@@ -1,0 +1,297 @@
+---
+interface Region {
+  id: string;
+  name: string;
+  subhead: string;
+  coordinates: string;
+  elevation: string;
+  description: string;
+  image: string;
+  link: string;
+}
+
+const regions: Region[] = [
+  {
+    id: 'mustang',
+    name: 'Upper Mustang',
+    subhead: 'The Forbidden Kingdom of Lo',
+    coordinates: "29°10' N, 83°57' E",
+    elevation: '3,840m · Trans-Himalaya',
+    description: 'Walled Tibetan citadels, dramatic wind-carved red clay canyons, and centuries-old Tantric masked ritual dramas during the sacred Tiji festival.',
+    image: '/images/tiji_festival_dance.jpg',
+    link: '/expeditions/tiji-festival-upper-mustang',
+  },
+  {
+    id: 'solukhumbu',
+    name: 'Solukhumbu & Gokyo',
+    subhead: 'High Alpine Sanctuaries',
+    coordinates: "27°59' N, 86°43' E",
+    elevation: '4,790m · Sagarmatha',
+    description: 'Turquoise glacial lakes, stone Sherpa settlements, and staggering vantage points facing Cho Oyu, Everest, and pristine mountain light.',
+    image: '/images/gokyo_himalaya_sunrise.jpg',
+    link: '/expeditions/gokyo-everest-high-himalaya',
+  },
+  {
+    id: 'bardia',
+    name: 'Bardia & Terai Corridors',
+    subhead: 'The Wild Riverine Frontier',
+    coordinates: "28°27' N, 81°18' E",
+    elevation: '152m · Lowland Sal Forest',
+    description: 'Tracking the solitary Royal Bengal Tiger, wild Asian elephants, and prehistoric one-horned rhinos on unhurried walking safaris with master trackers.',
+    image: '/images/bardia_tiger_morning.jpg',
+    link: '/expeditions/bardia-chitwan-wildlife-expedition',
+  },
+  {
+    id: 'kathmandu',
+    name: 'Kathmandu Sacred Valley',
+    subhead: 'Living Gods & Medieval Foundries',
+    coordinates: "27°42' N, 85°19' E",
+    elevation: '1,400m · Newar Kingdom',
+    description: 'Flickering terracotta oil lamp nights in Bhaktapur, hidden Tantric courtyard monasteries, and private master artisan ateliers in Patan.',
+    image: '/images/bhaktapur_heritage_lamps.jpg',
+    link: '/expeditions/sacred-nepal-culture-people',
+  },
+  {
+    id: 'dhorpatan',
+    name: 'Dhorpatan & Kham Magar',
+    subhead: 'The Living Shamanic Highland',
+    coordinates: "28°29' N, 83°03' E",
+    elevation: '2,850m · Western High Valley',
+    description: 'Deep ancestral mountain valleys where living animist shamans channel spirits through resonant dhyangro drums, peacock feathers, and sacred incantations.',
+    image: '/images/dhorpatan_valley_landscape.jpg',
+    link: '/expeditions/sacred-shamans-of-nepal',
+  },
+];
+---
+
+<section
+  id="regions-explorer"
+  class="relative min-h-[85vh] py-24 sm:py-32 bg-[#0B0D12] text-white overflow-hidden flex flex-col justify-center"
+  aria-label="Sacred Regions Explorer"
+>
+  <!-- Background Image Cross-Fade Engine -->
+  <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+    {regions.map((region, index) => (
+      <div
+        class={`region-bg-frame absolute inset-0 transition-opacity duration-700 ease-out ${
+          index === 0 ? 'opacity-40' : 'opacity-0'
+        }`}
+        data-region-bg={region.id}
+      >
+        <img
+          src={region.image}
+          alt={region.name}
+          class="w-full h-full object-cover filter brightness-75 scale-105 transition-transform duration-1000 ease-out"
+          loading="lazy"
+        />
+      </div>
+    ))}
+    <!-- Dark Vignette Overlay -->
+    <div class="absolute inset-0 bg-gradient-to-t from-[#0B0D12] via-[#0B0D12]/40 to-[#0B0D12]"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-[#0B0D12]/90 via-transparent to-[#0B0D12]/90"></div>
+  </div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 w-full">
+    <!-- Header -->
+    <div class="mb-14 sm:mb-20 text-center max-w-3xl mx-auto">
+      <span class="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.4em] text-[#D4A359] block mb-3">
+        Geographic Sanctuaries
+      </span>
+      <h2 class="font-editorial text-3xl sm:text-5xl lg:text-6xl font-light uppercase text-white tracking-tight leading-tight">
+        Explore Sacred Regions
+      </h2>
+      <p class="mt-4 text-xs sm:text-sm text-white/60 font-light max-w-lg mx-auto leading-relaxed">
+        Hover through our primary expedition regions across the diverse ecological zones of Nepal.
+      </p>
+    </div>
+
+    <!-- Interactive Grid / Accordion Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+      
+      <!-- Left Column: Region Navigation Items -->
+      <div class="lg:col-span-6 space-y-2">
+        {regions.map((region, index) => (
+          <div
+            class={`region-item group p-5 sm:p-6 rounded-xl border transition-all duration-300 cursor-pointer ${
+              index === 0
+                ? 'bg-white/10 border-[#D4A359]/60 shadow-lg'
+                : 'bg-white/5 border-white/10 hover:border-white/30 hover:bg-white/10'
+            }`}
+            data-region-target={region.id}
+            data-region-index={index}
+          >
+            <div class="flex items-baseline justify-between">
+              <div class="flex items-baseline gap-4 sm:gap-6">
+                <span class="font-mono text-xs text-[#D4A359]/80 group-hover:text-[#D4A359] transition-colors">
+                  0{index + 1}
+                </span>
+                <h3 class="font-editorial text-2xl sm:text-3xl text-white font-light uppercase tracking-tight group-hover:text-[#D4A359] transition-colors">
+                  {region.name}
+                </h3>
+              </div>
+              <span class="font-mono text-[10px] uppercase tracking-widest text-white/40 group-hover:text-white transition-colors hidden sm:inline">
+                {region.elevation.split('·')[0]}
+              </span>
+            </div>
+            <p class="text-xs text-white/50 font-light mt-1.5 pl-8 sm:pl-10">
+              {region.subhead}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      <!-- Right Column: Active Region Dossier Card -->
+      <div class="lg:col-span-6">
+        <div class="relative bg-[#141822]/90 backdrop-blur-xl border border-white/15 rounded-2xl p-8 sm:p-10 shadow-2xl space-y-6">
+          <div class="flex items-center justify-between border-b border-white/10 pb-4 text-[10px] font-mono uppercase tracking-widest text-[#D4A359]">
+            <span id="region-dossier-coords">{regions[0].coordinates}</span>
+            <span id="region-dossier-elev">{regions[0].elevation}</span>
+          </div>
+
+          <div class="space-y-3">
+            <span class="font-mono text-[9px] uppercase tracking-[0.3em] text-white/40 block" id="region-dossier-subhead">
+              {regions[0].subhead}
+            </span>
+            <h4 class="font-editorial text-3xl sm:text-4xl text-white font-light uppercase tracking-tight" id="region-dossier-title">
+              {regions[0].name}
+            </h4>
+            <p class="text-xs sm:text-sm text-white/70 leading-relaxed font-light" id="region-dossier-desc">
+              {regions[0].description}
+            </p>
+          </div>
+
+          <div class="pt-4 border-t border-white/10 flex items-center justify-between">
+            <a
+              id="region-dossier-link"
+              href={regions[0].link}
+              class="feather-arrow-link text-[#D4A359] hover:text-white text-[11px]"
+            >
+              <span>Explore Expeditions</span>
+              <svg width="36" height="12" viewBox="0 0 50 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 7H48" stroke="currentColor" stroke-width="1.5" />
+                <path d="M42 1L48 7L42 13" stroke="currentColor" stroke-width="1.5" />
+              </svg>
+            </a>
+            <span class="text-[10px] font-mono text-white/30 tracking-widest uppercase">
+              Field Access
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+  interface RegionData {
+    name: string;
+    subhead: string;
+    coordinates: string;
+    elevation: string;
+    description: string;
+    link: string;
+  }
+
+  const regionDataMap: Record<string, RegionData> = {
+    mustang: {
+      name: 'Upper Mustang',
+      subhead: 'The Forbidden Kingdom of Lo',
+      coordinates: "29°10' N, 83°57' E",
+      elevation: '3,840m · Trans-Himalaya',
+      description: 'Walled Tibetan citadels, dramatic wind-carved red clay canyons, and centuries-old Tantric masked ritual dramas during the sacred Tiji festival.',
+      link: '/expeditions/tiji-festival-upper-mustang',
+    },
+    solukhumbu: {
+      name: 'Solukhumbu & Gokyo',
+      subhead: 'High Alpine Sanctuaries',
+      coordinates: "27°59' N, 86°43' E",
+      elevation: '4,790m · Sagarmatha',
+      description: 'Turquoise glacial lakes, stone Sherpa settlements, and staggering vantage points facing Cho Oyu, Everest, and pristine mountain light.',
+      link: '/expeditions/gokyo-everest-high-himalaya',
+    },
+    bardia: {
+      name: 'Bardia & Terai Corridors',
+      subhead: 'The Wild Riverine Frontier',
+      coordinates: "28°27' N, 81°18' E",
+      elevation: '152m · Lowland Sal Forest',
+      description: 'Tracking the solitary Royal Bengal Tiger, wild Asian elephants, and prehistoric one-horned rhinos on unhurried walking safaris with master trackers.',
+      link: '/expeditions/bardia-chitwan-wildlife-expedition',
+    },
+    kathmandu: {
+      name: 'Kathmandu Sacred Valley',
+      subhead: 'Living Gods & Medieval Foundries',
+      coordinates: "27°42' N, 85°19' E",
+      elevation: '1,400m · Newar Kingdom',
+      description: 'Flickering terracotta oil lamp nights in Bhaktapur, hidden Tantric courtyard monasteries, and private master artisan ateliers in Patan.',
+      link: '/expeditions/sacred-nepal-culture-people',
+    },
+    dhorpatan: {
+      name: 'Dhorpatan & Kham Magar',
+      subhead: 'The Living Shamanic Highland',
+      coordinates: "28°29' N, 83°03' E",
+      elevation: '2,850m · Western High Valley',
+      description: 'Deep ancestral mountain valleys where living animist shamans channel spirits through resonant dhyangro drums, peacock feathers, and sacred incantations.',
+      link: '/expeditions/sacred-shamans-of-nepal',
+    },
+  };
+
+  function setupRegionsExplorer() {
+    const items = document.querySelectorAll('.region-item');
+    const bgFrames = document.querySelectorAll('.region-bg-frame');
+    const titleEl = document.getElementById('region-dossier-title');
+    const subheadEl = document.getElementById('region-dossier-subhead');
+    const coordsEl = document.getElementById('region-dossier-coords');
+    const elevEl = document.getElementById('region-dossier-elev');
+    const descEl = document.getElementById('region-dossier-desc');
+    const linkEl = document.getElementById('region-dossier-link') as HTMLAnchorElement;
+
+    if (!items.length) return;
+
+    function selectRegion(regionId: string) {
+      const data = regionDataMap[regionId];
+      if (!data) return;
+
+      // Update background frame opacities
+      bgFrames.forEach((bg) => {
+        if (bg.getAttribute('data-region-bg') === regionId) {
+          bg.classList.remove('opacity-0');
+          bg.classList.add('opacity-40');
+        } else {
+          bg.classList.remove('opacity-40');
+          bg.classList.add('opacity-0');
+        }
+      });
+
+      // Update items active state
+      items.forEach((item) => {
+        if (item.getAttribute('data-region-target') === regionId) {
+          item.classList.add('bg-white/10', 'border-[#D4A359]/60', 'shadow-lg');
+          item.classList.remove('bg-white/5', 'border-white/10');
+        } else {
+          item.classList.remove('bg-white/10', 'border-[#D4A359]/60', 'shadow-lg');
+          item.classList.add('bg-white/5', 'border-white/10');
+        }
+      });
+
+      // Update dossier card content with smooth fade
+      if (titleEl) titleEl.textContent = data.name;
+      if (subheadEl) subheadEl.textContent = data.subhead;
+      if (coordsEl) coordsEl.textContent = data.coordinates;
+      if (elevEl) elevEl.textContent = data.elevation;
+      if (descEl) descEl.textContent = data.description;
+      if (linkEl) linkEl.href = data.link;
+    }
+
+    items.forEach((item) => {
+      const regionId = item.getAttribute('data-region-target');
+      if (!regionId) return;
+
+      item.addEventListener('mouseenter', () => selectRegion(regionId));
+      item.addEventListener('click', () => selectRegion(regionId));
+    });
+  }
+
+  setupRegionsExplorer();
+  document.addEventListener('astro:page-load', setupRegionsExplorer);
+</script>
