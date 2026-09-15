@@ -26,14 +26,9 @@ const {
 
 const siteUrl = Astro.site?.toString().replace(/\/$/, '') || 'https://margaphotography.com';
 const pathname = Astro.url.pathname;
-const isFrench = pathname.startsWith('/fr');
-
-// Derive clean canonical and multi-language hreflang alternate URLs
-const pathWithoutFr = pathname.replace(/^\/fr(\/|$)/, '$1') || '/';
-const normalizedPath = pathWithoutFr.startsWith('/') ? pathWithoutFr : `/${pathWithoutFr}`;
+const normalizedPath = pathname.startsWith('/') ? pathname : `/${pathname}`;
 const enCanonical = new URL(normalizedPath, siteUrl).href;
-const frCanonical = new URL(`/fr${normalizedPath === '/' ? '' : normalizedPath}`, siteUrl).href;
-const activeCanonical = canonicalURL || (isFrench ? frCanonical : enCanonical);
+const activeCanonical = canonicalURL || enCanonical;
 
 const siteName = 'Marga Photography | Specialist Nepal Expeditions';
 const fullTitle = title.includes('Marga Photography') ? title : `${title} — Marga Photography`;
@@ -98,7 +93,6 @@ const breadcrumbSchema = breadcrumbs && breadcrumbs.length > 0 ? {
 
 <!-- Multi-Language Hreflang Alternates (SEO i18n) -->
 <link rel="alternate" hreflang="en" href={enCanonical} />
-<link rel="alternate" hreflang="fr" href={frCanonical} />
 <link rel="alternate" hreflang="x-default" href={enCanonical} />
 
 <!-- Primary Search Engine & Crawler Directives -->
@@ -128,7 +122,7 @@ const breadcrumbSchema = breadcrumbs && breadcrumbs.length > 0 ? {
 <meta property="og:image:height" content="630" />
 <meta property="og:image:alt" content={fullTitle} />
 <meta property="og:site_name" content={siteName} />
-<meta property="og:locale" content={isFrench ? "fr_FR" : "en_US"} />
+<meta property="og:locale" content="en_US" />
 
 <!-- Twitter / X -->
 <meta property="twitter:card" content="summary_large_image" />

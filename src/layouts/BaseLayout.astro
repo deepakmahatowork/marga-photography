@@ -21,13 +21,11 @@ interface Props {
 }
 
 const { title, description, image, canonicalURL, type, jsonLd, breadcrumbs, transparentHeader = false } = Astro.props;
-const isFrench = Astro.url.pathname.startsWith('/fr');
-const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '/fr' || Astro.url.pathname === '/fr/';
-const currentLang = isFrench ? 'fr' : 'en';
+const isHome = Astro.url.pathname === '/';
 ---
 
 <!doctype html>
-<html lang={currentLang} class="scroll-smooth">
+<html lang="en" class="scroll-smooth">
   <head>
     <meta name="color-scheme" content="light dark" />
     <script is:inline>

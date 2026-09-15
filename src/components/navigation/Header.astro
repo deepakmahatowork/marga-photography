@@ -1,33 +1,29 @@
 ---
 import ThemeToggle from './ThemeToggle.astro';
-import LanguageSwitcher from './LanguageSwitcher.astro';
-import { useTranslations, type Lang } from '../../i18n/ui';
+import { useTranslations } from '../../i18n/ui';
 
 const currentPath = Astro.url.pathname;
-const isFrench = currentPath.startsWith('/fr');
-const lang: Lang = isFrench ? 'fr' : 'en';
-const t = useTranslations(lang);
-const langPrefix = isFrench ? '/fr' : '';
+const t = useTranslations('en');
 
 const navLinks = [
-  { href: isFrench ? '/fr' : '/', label: t('nav.home'), number: '01' },
-  { href: `${langPrefix}/expeditions`, label: t('nav.expeditions'), number: '02' },
+  { href: '/', label: t('nav.home'), number: '01' },
+  { href: '/expeditions', label: t('nav.expeditions'), number: '02' },
   {
-    href: `${langPrefix}/explore/people`,
+    href: '/explore/people',
     label: t('nav.portfolios'),
     number: '03',
     children: [
-      { href: `${langPrefix}/explore/people`, label: isFrench ? 'Portraits & Peuples' : 'People & Portraits' },
-      { href: `${langPrefix}/explore/culture`, label: isFrench ? 'Cultures Vivantes' : 'Living Culture' },
-      { href: `${langPrefix}/explore/festivals`, label: isFrench ? 'Festivals Sacrés' : 'Sacred Festivals' },
-      { href: `${langPrefix}/explore/wildlife`, label: isFrench ? 'Faune Royale du Bengale' : 'Royal Bengal Wildlife' },
-      { href: `${langPrefix}/explore/landscapes`, label: isFrench ? 'Haute Himalaya' : 'High Himalaya' },
+      { href: '/explore/people', label: 'People & Portraits' },
+      { href: '/explore/culture', label: 'Living Culture' },
+      { href: '/explore/festivals', label: 'Sacred Festivals' },
+      { href: '/explore/wildlife', label: 'Royal Bengal Wildlife' },
+      { href: '/explore/landscapes', label: 'High Himalaya' },
     ],
   },
-  { href: `${langPrefix}/stories`, label: t('nav.stories'), number: '04' },
-  { href: `${langPrefix}/commercial`, label: t('nav.commercial'), number: '05' },
-  { href: `${langPrefix}/about`, label: t('nav.about'), number: '06' },
-  { href: `${langPrefix}/contact`, label: t('nav.contact'), number: '07' },
+  { href: '/stories', label: t('nav.stories'), number: '04' },
+  { href: '/commercial', label: t('nav.commercial'), number: '05' },
+  { href: '/about', label: t('nav.about'), number: '06' },
+  { href: '/contact', label: t('nav.contact'), number: '07' },
 ];
 ---
 
@@ -39,7 +35,7 @@ const navLinks = [
   <div class="w-full max-w-[1920px] mx-auto px-5 sm:px-8 md:px-12 lg:px-16 flex justify-between items-center">
     
     <!-- Brand Logo & Title (Snami Minimalist Wordmark) -->
-    <a href={isFrench ? '/fr' : '/'} class="flex flex-col group cursor-pointer shrink min-w-0">
+    <a href="/" class="flex flex-col group cursor-pointer shrink min-w-0">
       <span class="font-sans font-bold tracking-tight text-xl sm:text-2xl text-white lowercase">
         marga
       </span>
@@ -61,8 +57,6 @@ const navLinks = [
         </svg>
       </a>
 
-      <!-- Language Switcher (EN / FR) -->
-      <LanguageSwitcher />
 
       <!-- Theme Switcher -->
       <ThemeToggle id="theme-toggle-btn" />
@@ -83,10 +77,10 @@ const navLinks = [
 
       <!-- The Iconic Snami Circular REQUEST Button -->
       <a
-        href={`${langPrefix}/contact?intent=expedition`}
+        href="/contact?intent=expedition"
         class="snami-circle-btn w-[78px] h-[78px] sm:w-[96px] sm:h-[96px] md:w-[108px] md:h-[108px]"
       >
-        <span>{isFrench ? 'RÉSERVER' : 'REQUEST'}</span>
+        <span>REQUEST</span>
       </a>
     </div>
   </div>
@@ -103,7 +97,7 @@ const navLinks = [
   <!-- Top Bar with Close Button -->
   <div class="w-full max-w-[1920px] mx-auto px-5 sm:px-8 md:px-12 lg:px-16 py-5 sm:py-6 flex justify-between items-center border-b border-white/10 shrink-0">
     <!-- Brand in Menu -->
-    <a href={isFrench ? '/fr' : '/'} class="flex items-center gap-3 group menu-link">
+    <a href="/" class="flex items-center gap-3 group menu-link">
       <img
         src="/images/marga_photography_logo.png"
         alt="Marga Photography Logo"
@@ -116,7 +110,6 @@ const navLinks = [
 
     <!-- Close Controls -->
     <div class="flex items-center gap-3 sm:gap-6">
-      <LanguageSwitcher />
 
       <!-- Close Button -->
       <button
@@ -224,7 +217,7 @@ const navLinks = [
 
         <div class="pt-4 border-t border-white/10 flex items-center justify-between">
           <a
-            href={`${langPrefix}/expeditions`}
+            href="/expeditions"
             class="menu-link px-6 py-2.5 bg-[#D4A359] hover:bg-white text-black font-semibold text-[11px] uppercase tracking-[0.2em] rounded-full transition-all duration-300 shadow-md"
           >
             Explore Itineraries →
