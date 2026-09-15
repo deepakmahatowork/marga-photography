@@ -34,13 +34,15 @@ const navLinks = [
 >
   <div class="w-full max-w-[1920px] mx-auto px-5 sm:px-8 md:px-12 lg:px-16 flex justify-between items-center">
     
-    <!-- Brand Logo & Title (Snami Minimalist Wordmark) -->
-    <a href="/" class="flex flex-col group cursor-pointer shrink min-w-0">
-      <span class="font-sans font-bold tracking-tight text-xl sm:text-2xl text-white lowercase">
-        marga
-      </span>
-      <span class="font-mono text-[9px] uppercase tracking-[0.3em] text-white/60 group-hover:text-[#bea380] transition-colors">
-        Himalayan Storytelling Redefined
+    <!-- Brand Logo & Name Only -->
+    <a href="/" class="flex items-center gap-2.5 sm:gap-3 group cursor-pointer shrink min-w-0" aria-label="Marga Photography Home">
+      <img
+        src="/images/marga_photography_logo.png"
+        alt="Marga Photography Logo"
+        class="w-7 h-7 sm:w-9 sm:h-9 object-contain shrink-0 transition-transform duration-300 group-hover:scale-105"
+      />
+      <span class="font-editorial text-base sm:text-xl font-medium tracking-[0.14em] text-white uppercase whitespace-nowrap">
+        Marga <span class="font-light text-[#bea380]">Photography</span>
       </span>
     </a>
 
@@ -78,7 +80,8 @@ const navLinks = [
       <!-- The Iconic Snami Circular REQUEST Button -->
       <a
         href="/contact?intent=expedition"
-        class="snami-circle-btn w-[78px] h-[78px] sm:w-[96px] sm:h-[96px] md:w-[108px] md:h-[108px]"
+        class="snami-circle-btn"
+        aria-label="Request an Expedition"
       >
         <span>REQUEST</span>
       </a>
@@ -101,10 +104,10 @@ const navLinks = [
       <img
         src="/images/marga_photography_logo.png"
         alt="Marga Photography Logo"
-        class="w-8 h-8 sm:w-9 sm:h-9 object-contain shrink-0 invert brightness-200"
+        class="w-8 h-8 sm:w-9 sm:h-9 object-contain shrink-0"
       />
-      <span class="font-serif tracking-[0.18em] text-lg font-medium text-white uppercase">
-        Marga <span class="font-light italic text-[#D4A359] lowercase">photography</span>
+      <span class="font-editorial text-base sm:text-xl font-medium tracking-[0.14em] text-white uppercase whitespace-nowrap">
+        Marga <span class="font-light text-[#bea380]">Photography</span>
       </span>
     </a>
 

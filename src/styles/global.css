@@ -292,29 +292,56 @@
   font-family: "Dream Avenue", "Cormorant Garamond", Georgia, serif;
 }
 
-/* Snami Circular Request Button (Floating Top Right) */
+/* Snami Circular / Pill Request Button */
 .snami-circle-btn {
-  width: 105px;
-  height: 105px;
-  border-radius: 50%;
+  border-radius: 9999px;
   background-color: #bea380;
   color: #1a1a1a;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   font-family: var(--font-sans);
-  font-size: 0.72rem;
   font-weight: 600;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease;
-  box-shadow: 0 10px 30px -5px rgba(190, 163, 128, 0.35);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease;
+  box-shadow: 0 4px 20px -2px rgba(190, 163, 128, 0.35);
   cursor: pointer;
   text-decoration: none;
   flex-shrink: 0;
+  white-space: nowrap;
 }
+
+@media (max-width: 639px) {
+  .snami-circle-btn {
+    height: 34px;
+    padding: 0 14px;
+    font-size: 0.65rem;
+    letter-spacing: 0.14em;
+  }
+}
+
+@media (min-width: 640px) {
+  .snami-circle-btn {
+    width: 88px;
+    height: 88px;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    border-radius: 50%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .snami-circle-btn {
+    width: 102px;
+    height: 102px;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+  }
+}
+
 .snami-circle-btn:hover {
-  transform: scale(1.08);
+  transform: scale(1.06);
   background-color: #cbb497;
 }
 
