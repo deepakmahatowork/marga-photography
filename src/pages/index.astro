@@ -1,9 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PhotoGrid from '../components/photography/PhotoGrid.astro';
-import Lightbox from '../components/photography/Lightbox.astro';
+import EditorialGrid from '../components/photography/EditorialGrid.astro';
+import ExperientialShowcase from '../components/photography/ExperientialShowcase.astro';
+import RegionsExplorer from '../components/expeditions/RegionsExplorer.astro';
 import ExpeditionCard from '../components/expeditions/ExpeditionCard.astro';
 import InquiryForm from '../components/forms/InquiryForm.astro';
+import Lightbox from '../components/photography/Lightbox.astro';
 import { getCollection } from 'astro:content';
 
 const allPhotos = await getCollection('photographs');
@@ -12,244 +14,498 @@ const featuredPhotos = allPhotos.filter((p) => p.data.featured);
 const allExpeditions = await getCollection('expeditions');
 const featuredExpeditions = allExpeditions.filter((e) => e.data.featured);
 
+const heroSlides = [
+  {
+    image: '/images/himalaya_dramatic_sunrise.jpg',
+    alt: 'Dramatic golden sunrise over the High Himalaya Range in Nepal',
+    location: 'KHUMBU · 5,364M',
+    tagline: 'High Alpine Light',
+  },
+  {
+    image: '/images/tiji_festival_dance.jpg',
+    alt: 'Sacred masked monks dancing at Tiji Festival in Lo Manthang Upper Mustang',
+    location: 'UPPER MUSTANG · 3,840M',
+    tagline: 'Ancient Tantric Rituals',
+  },
+  {
+    image: '/images/kham_magar_shaman_phephur.jpg',
+    alt: 'Kham Magar Shaman in trance with sacred phephur bone flute',
+    location: 'WESTERN HIGHLANDS · 2,850M',
+    tagline: 'Living Shamanic Heritage',
+  },
+];
+
 const homeJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
   name: 'Marga Photography',
   url: 'https://margaphotography.com',
-  description: 'Specialist photography expeditions into the people, cultures, festivals, wildlife, and landscapes of Nepal.',
+  description: 'Specialist masterclass photography expeditions into the sacred rituals, living cultures, wild corridors, and high Himalayan landscapes of Nepal.',
 };
 ---
 
 <BaseLayout
-  title="Specialist Nepal Photography Expeditions & Visual Storytelling"
-  description="Marga Photography creates bespoke, masterclass photography expeditions into the people, ancient rituals, living cultures, wildlife, and high Himalayan landscapes of Nepal."
+  title="Marga Photography — Luxury Himalayan Photography Expeditions & Visual Storytelling"
+  description="Masterclass photography expeditions into sacred rituals, wild tiger corridors, and high Himalayan sanctuaries in Nepal. Strictly 4 to 6 photographers per group."
   jsonLd={homeJsonLd}
 >
-  <!-- ══════════════════════════════════════════
-       HERO — Cinematic full-bleed with editorial overlay
-       ══════════════════════════════════════════ -->
-  <section class="hero-section relative min-h-screen flex flex-col overflow-hidden">
-    <!-- Background Image -->
-    <div class="absolute inset-0 z-0">
-      <img
-        src="/images/himalaya_dramatic_sunrise.jpg"
-        alt="Dramatic sunrise over the Himalayan mountain range in Nepal"
-        fetchpriority="high"
-        decoding="async"
-        class="w-full h-full object-cover"
-      />
-      <!-- Cinematic gradient — dark at bottom for text legibility -->
-      <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+  <!-- ══════════════════════════════════════════════════════════════
+       1. HERO SECTION (100vh) — Snami Cinematic Banner with Cross-Fade
+       ══════════════════════════════════════════════════════════════ -->
+  <section class="relative h-[100dvh] w-full flex flex-col justify-between overflow-hidden bg-[#0B0D12] text-white select-none">
+    <!-- Rotating Background Images -->
+    <div class="absolute inset-0 z-0 overflow-hidden" id="hero-carousel">
+      {heroSlides.map((slide, index) => (
+        <div
+          class={`hero-slide absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+            index === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'
+          }`}
+          data-hero-slide={index}
+        >
+          <img
+            src={slide.image}
+            alt={slide.alt}
+            fetchpriority={index === 0 ? 'high' : 'low'}
+            loading={index === 0 ? 'eager' : 'lazy'}
+            decoding="async"
+            class="w-full h-full object-cover filter brightness-[0.78] scale-105 transition-transform duration-[12000ms] ease-out hero-zoom-effect"
+          />
+        </div>
+      ))}
+      <!-- Multi-Stop Cinematic Editorial Vignette -->
+      <div class="absolute inset-0 z-10 bg-gradient-to-t from-[#0B0D12] via-black/35 to-black/50"></div>
+      <div class="absolute inset-0 z-10 bg-radial from-transparent via-[#0B0D12]/30 to-[#0B0D12]/80"></div>
     </div>
 
-    <!-- Top Bar — Minimal branding -->
-    <div class="relative z-10 flex items-center justify-between px-6 sm:px-10 pt-24 pb-4">
-      <span class="text-[10px] uppercase tracking-[0.35em] text-white/50 font-mono">
-        Kathmandu, Nepal
-      </span>
-      <span class="text-[10px] uppercase tracking-[0.35em] text-white/50 font-mono hidden sm:block">
-        4–6 Photographers Per Expedition
-      </span>
-    </div>
-
-    <!-- Main Hero Content — Bottom-aligned, editorial -->
-    <div class="relative z-10 mt-auto px-6 sm:px-10 pb-16 sm:pb-20 max-w-6xl">
-      <!-- Eyebrow -->
-      <div class="flex items-center gap-3 mb-5">
-        <span class="w-8 h-px bg-accent-himalaya"></span>
-        <span class="text-[11px] uppercase tracking-[0.3em] text-accent-himalaya font-semibold">
-          Photography Expeditions
+    <!-- Hero Top Meta Bar -->
+    <div class="relative z-20 flex items-center justify-between px-6 sm:px-12 md:px-16 pt-28 sm:pt-32">
+      <div class="flex items-center gap-3">
+        <span class="w-1.5 h-1.5 rounded-full bg-[#D4A359] animate-ping"></span>
+        <span class="text-[10px] sm:text-[11px] uppercase tracking-[0.35em] text-[#D4A359] font-mono">
+          Kathmandu, Nepal
         </span>
       </div>
-
-      <!-- Headline -->
-      <h1 class="font-editorial text-[clamp(2.5rem,7vw,5.5rem)] font-light text-white leading-[1.05] tracking-tight max-w-4xl">
-        Into the Heart<br />
-        of <em class="not-italic text-accent-himalaya">Nepal</em>
-      </h1>
-
-      <!-- Subhead -->
-      <p class="mt-5 text-base sm:text-lg text-white/70 font-light leading-relaxed max-w-xl">
-        Small-group visual expeditions into sacred rituals, wild tiger corridors, and the high Himalayan landscapes that no tour operator reaches.
-      </p>
-
-      <!-- CTAs -->
-      <div class="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-        <a
-          href="/expeditions"
-          class="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-accent-himalaya text-white font-semibold text-xs uppercase tracking-[0.2em] rounded transition-all hover:brightness-110 shadow-lg shadow-accent-himalaya/20"
-        >
-          2026 Expeditions
-          <span class="transition-transform group-hover:translate-x-1">→</span>
-        </a>
-        <a
-          href="#portfolio"
-          class="inline-flex items-center justify-center px-8 py-4 border border-white/25 text-white/90 font-medium text-xs uppercase tracking-[0.2em] rounded transition-all hover:border-white/60 hover:text-white"
-        >
-          View Portfolio
-        </a>
-      </div>
-
-      <!-- Social Proof -->
-      <div class="mt-10 flex items-center gap-6 text-[10px] uppercase tracking-[0.2em] text-white/40 font-mono">
+      <div class="hidden sm:flex items-center gap-6 text-[10px] sm:text-[11px] uppercase tracking-[0.35em] text-white/50 font-mono">
         <span>5 Years of Field Expertise</span>
-        <span class="w-1 h-1 rounded-full bg-white/20"></span>
-        <span>Nepal · Mustang · Khumbu · Terai</span>
+        <span class="w-1 h-1 rounded-full bg-white/30"></span>
+        <span>4–6 Photographers</span>
       </div>
     </div>
 
-    <!-- Scroll Indicator -->
-    <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2">
-      <span class="text-[9px] uppercase tracking-[0.3em] text-white/30">Scroll</span>
-      <div class="w-px h-8 bg-gradient-to-b from-white/30 to-transparent hero-scroll-line"></div>
+    <!-- Hero Center & Bottom Editorial Typography -->
+    <div class="relative z-20 max-w-6xl mx-auto px-6 sm:px-12 md:px-16 w-full pb-16 sm:pb-24">
+      <div class="max-w-4xl space-y-6">
+        <!-- Eyebrow Tag -->
+        <div class="flex items-center gap-3">
+          <span class="w-8 h-px bg-[#D4A359]"></span>
+          <span class="text-[10px] sm:text-[11px] uppercase tracking-[0.35em] text-[#D4A359] font-semibold font-mono">
+            Himalayan Visual Storytelling
+          </span>
+        </div>
+
+        <!-- Big Display Headline (Snami 'GRECIAN TRAVEL REDEFINED' counterpart) -->
+        <h1 class="font-editorial text-[clamp(2.75rem,7.5vw,6.5rem)] font-light text-white leading-[1.04] tracking-tight uppercase hero-rise">
+          Himalayan Storytelling<br />
+          <em class="font-light italic text-[#D4A359] lowercase">redefined.</em>
+        </h1>
+
+        <!-- Subhead -->
+        <p class="text-sm sm:text-base md:text-lg text-white/80 font-light leading-relaxed max-w-2xl">
+          Masterclass photography expeditions into sacred rituals, wild tiger corridors, and the high Himalayan sanctuaries that no tour operator reaches.
+        </p>
+
+        <!-- CTAs (Snami Editorial Button) -->
+        <div class="pt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-4 sm:gap-6">
+          <a
+            href="#expeditions"
+            class="theme-btn-editorial"
+          >
+            <span>Define Your Expedition</span>
+          </a>
+          <a
+            href="#portfolio"
+            class="inline-flex items-center justify-center px-8 py-4 border border-white/25 hover:border-[#D4A359] text-white/80 hover:text-white font-mono text-[11px] uppercase tracking-[0.25em] rounded-full transition-all duration-300"
+          >
+            Explore Portfolio
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Scroll Indicator & Slide Dots -->
+    <div class="relative z-20 px-6 sm:px-12 md:px-16 pb-8 flex items-end justify-between">
+      <!-- Carousel Dots -->
+      <div class="flex items-center gap-2.5" id="hero-dots">
+        {heroSlides.map((slide, index) => (
+          <button
+            type="button"
+            class={`hero-dot h-1 rounded-full transition-all duration-500 cursor-pointer ${
+              index === 0 ? 'w-8 bg-[#D4A359]' : 'w-2.5 bg-white/30 hover:bg-white/60'
+            }`}
+            data-hero-dot={index}
+            aria-label={`Slide ${index + 1}: ${slide.tagline}`}
+          />
+        ))}
+      </div>
+
+      <!-- Animated Scroll Pulse Line -->
+      <a
+        href="#ethos"
+        class="hidden sm:flex flex-col items-center gap-2 group cursor-pointer"
+        aria-label="Scroll to content"
+      >
+        <span class="text-[9px] font-mono uppercase tracking-[0.35em] text-white/40 group-hover:text-[#D4A359] transition-colors">
+          Scroll
+        </span>
+        <div class="w-px h-8 bg-gradient-to-b from-white/40 via-[#D4A359] to-transparent hero-scroll-pulse"></div>
+      </a>
+
+      <!-- Coordinates Badge -->
+      <div class="text-[10px] font-mono text-white/40 uppercase tracking-[0.25em]">
+        27°42' N · 85°19' E
+      </div>
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════════
-       PORTFOLIO — Clean photo grid
-       ══════════════════════════════════════════ -->
-  <section id="portfolio" class="py-20 sm:py-28 bg-canvas-bg transition-colors duration-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-14">
-        <h2 class="font-editorial text-3xl sm:text-4xl font-medium text-text-primary">
-          Selected Work
-        </h2>
-        <p class="mt-3 text-sm text-text-secondary max-w-lg mx-auto">
-          Documentary photography from across Nepal.
-        </p>
+  <!-- ══════════════════════════════════════════════════════════════
+       2. MANIFESTO 1 — "BORN IN THE HIMALAYAS. DEFINED BY LIGHT."
+       (Snami 'MADE IN CRETE. DEFINED BY GREECE.' equivalent)
+       ══════════════════════════════════════════════════════════════ -->
+  <section id="ethos" class="py-28 sm:py-40 bg-[#FAFAF8] text-[#18181B] transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+        
+        <!-- Left Column: Striking Vertical Frame -->
+        <div class="lg:col-span-6">
+          <div class="editorial-img-frame rounded-2xl overflow-hidden shadow-2xl bg-[#EBEBE8] border border-black/5 aspect-[3/4]">
+            <img
+              src="/images/mustang_monk_portrait.jpg"
+              alt="Elder Tibetan monk in Upper Mustang monastery"
+              loading="lazy"
+              decoding="async"
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <div class="mt-4 flex items-center justify-between text-[11px] font-mono uppercase tracking-widest text-[#71717A]">
+            <span>Lo Manthang · Upper Mustang</span>
+            <span class="text-[#CA8A04]">3,840m Elevation</span>
+          </div>
+        </div>
+
+        <!-- Right Column: Editorial Narrative & Manifesto -->
+        <div class="lg:col-span-6 space-y-8">
+          <div>
+            <span class="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.35em] text-[#CA8A04] font-semibold block mb-3">
+              Our Ethos &amp; Field Craft
+            </span>
+            <h2 class="font-editorial text-4xl sm:text-5xl lg:text-6xl font-light tracking-tight leading-[1.06] uppercase text-[#18181B]">
+              Born in the Himalayas.<br />
+              <span class="italic font-light text-[#71717A]">Defined by Light.</span>
+            </h2>
+          </div>
+
+          <p class="text-sm sm:text-base text-[#52525B] font-light leading-relaxed">
+            Marga was born in the high valleys of Nepal — a terrain where raw topography meets living spiritual traditions, and the ancient world still shapes everyday life. It’s here that we learned the art of patient observation: the fleeting angle of morning light striking a monastery courtyard, the trance rhythms of mountain shamans, and the silence of the high passes.
+          </p>
+
+          <p class="text-sm sm:text-base text-[#52525B] font-light leading-relaxed">
+            What began as documentary field craft became an art form: the design of photography journeys that feel as alive and timeless as Nepal itself. We do not herd groups through tourist viewpoints; we orchestrate intimate residencies paced strictly by dawn, twilight, and genuine human connection.
+          </p>
+
+          <div class="pt-2">
+            <a href="/about" class="feather-arrow-link text-[#18181B] hover:text-[#CA8A04]">
+              <span>Our Philosophy</span>
+              <svg width="42" height="12" viewBox="0 0 50 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 7H48" stroke="currentColor" stroke-width="1.5" />
+                <path d="M42 1L48 7L42 13" stroke="currentColor" stroke-width="1.5" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════
+       3. MANIFESTO 2 — "FOR THOSE WHO SEE DIFFERENTLY"
+       (Snami 'FOR THOSE WHO TRAVEL DIFFERENTLY' dual-portrait layout)
+       ══════════════════════════════════════════════════════════════ -->
+  <section class="py-28 sm:py-36 bg-[#0E1017] text-white border-y border-white/10 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+        
+        <!-- Left Portrait: Field Master Patrick Frilet -->
+        <div class="lg:col-span-3 order-2 lg:order-1 flex flex-col items-center text-center space-y-3">
+          <div class="w-full aspect-[3/4] max-w-[280px] rounded-xl overflow-hidden shadow-2xl border border-white/15 editorial-img-frame">
+            <img
+              src="/images/kham_magar_shaman_phephur.jpg"
+              alt="Field Master Mentor"
+              loading="lazy"
+              decoding="async"
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <div>
+            <h4 class="font-editorial text-lg text-white font-medium uppercase">Patrick Frilet</h4>
+            <span class="font-mono text-[9px] uppercase tracking-widest text-[#D4A359]">Photojournaliste · Mentor</span>
+          </div>
+        </div>
+
+        <!-- Center Column: Poetic Manifesto -->
+        <div class="lg:col-span-6 order-1 lg:order-2 text-center space-y-6 px-4">
+          <span class="font-mono text-[10px] uppercase tracking-[0.4em] text-[#D4A359] block">
+            The Visual Manifesto
+          </span>
+          <h2 class="font-editorial text-3xl sm:text-5xl font-light uppercase text-white leading-tight tracking-tight">
+            For Those Who<br />
+            <em class="font-light italic text-[#D4A359] lowercase">see differently</em>
+          </h2>
+          <p class="text-xs sm:text-sm text-white/70 font-light leading-relaxed max-w-xl mx-auto">
+            You look for stories, not stops. For emotion, not escape. You notice the smallest details — the way twilight folds over monastery walls, the sudden silence of a courtyard before prayer, the scent of juniper smoke rising through the mist.
+          </p>
+          <p class="text-xs sm:text-sm text-white/70 font-light leading-relaxed max-w-xl mx-auto">
+            You travel not to capture trophies, but to understand. At Marga, we design for that instinct — masterclass journeys that mirror your curiosity, your patience, and your devotion to light.
+          </p>
+        </div>
+
+        <!-- Right Portrait: Ancestral Shaman Practitioner -->
+        <div class="lg:col-span-3 order-3 flex flex-col items-center text-center space-y-3">
+          <div class="w-full aspect-[3/4] max-w-[280px] rounded-xl overflow-hidden shadow-2xl border border-white/15 editorial-img-frame">
+            <img
+              src="/images/burtibang_shaman_dhyangro_elder.jpg"
+              alt="Senior Shaman Practitioner in Western Highlands"
+              loading="lazy"
+              decoding="async"
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <div>
+            <h4 class="font-editorial text-lg text-white font-medium uppercase">Kham Magar Elder</h4>
+            <span class="font-mono text-[9px] uppercase tracking-widest text-[#D4A359]">Living Shamanic Lineage</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════
+       4. EXPERIENTIAL SHOWCASE ("WE FRAME EMOTION")
+       (Snami 'WE DESIGN EMOTION' full-bleed slider)
+       ══════════════════════════════════════════════════════════════ -->
+  <ExperientialShowcase />
+
+  <!-- ══════════════════════════════════════════════════════════════
+       5. ASYMMETRICAL EDITORIAL PORTFOLIO
+       (Snami Curated Collection equivalent — Generous 8rem margins)
+       ══════════════════════════════════════════════════════════════ -->
+  <section id="portfolio" class="py-28 sm:py-40 bg-[#FAFAF8] text-[#18181B] transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14">
+      
+      <!-- Section Header -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 sm:mb-24 gap-6 border-b border-black/10 pb-8">
+        <div>
+          <span class="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.4em] text-[#CA8A04] font-semibold block mb-2">
+            Curated Collection
+          </span>
+          <h2 class="font-editorial text-3xl sm:text-5xl font-light uppercase text-[#18181B] tracking-tight">
+            Selected Documentary Works
+          </h2>
+          <p class="mt-3 text-xs sm:text-sm text-[#71717A] font-light max-w-xl">
+            Living culture, sacred ceremonies, and wild habitats across Nepal.
+          </p>
+        </div>
+
+        <!-- Filter Links -->
+        <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-2">
+          <a href="/explore/people" class="whitespace-nowrap px-4 py-2 rounded-full bg-white text-[#18181B] border border-black/10 hover:border-[#CA8A04] hover:text-[#CA8A04] transition-all text-xs uppercase tracking-wider font-mono">
+            People
+          </a>
+          <a href="/explore/culture" class="whitespace-nowrap px-4 py-2 rounded-full bg-white text-[#18181B] border border-black/10 hover:border-[#CA8A04] hover:text-[#CA8A04] transition-all text-xs uppercase tracking-wider font-mono">
+            Culture
+          </a>
+          <a href="/explore/festivals" class="whitespace-nowrap px-4 py-2 rounded-full bg-white text-[#18181B] border border-black/10 hover:border-[#CA8A04] hover:text-[#CA8A04] transition-all text-xs uppercase tracking-wider font-mono">
+            Festivals
+          </a>
+          <a href="/explore/wildlife" class="whitespace-nowrap px-4 py-2 rounded-full bg-white text-[#18181B] border border-black/10 hover:border-[#CA8A04] hover:text-[#CA8A04] transition-all text-xs uppercase tracking-wider font-mono">
+            Wildlife
+          </a>
+          <a href="/explore/landscapes" class="whitespace-nowrap px-4 py-2 rounded-full bg-white text-[#18181B] border border-black/10 hover:border-[#CA8A04] hover:text-[#CA8A04] transition-all text-xs uppercase tracking-wider font-mono">
+            Landscapes
+          </a>
+        </div>
       </div>
 
-      <!-- Filter Tabs -->
-      <div class="flex items-center justify-center gap-2 text-xs uppercase tracking-widest mb-12 overflow-x-auto no-scrollbar pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap">
-        <a href="/explore/people" class="whitespace-nowrap px-4 py-2 rounded-full bg-canvas-surface hover:bg-accent-himalaya hover:text-white transition-colors border border-canvas-border hover:border-accent-himalaya text-text-secondary">
-          People
-        </a>
-        <a href="/explore/culture" class="whitespace-nowrap px-4 py-2 rounded-full bg-canvas-surface hover:bg-accent-himalaya hover:text-white transition-colors border border-canvas-border hover:border-accent-himalaya text-text-secondary">
-          Culture
-        </a>
-        <a href="/explore/festivals" class="whitespace-nowrap px-4 py-2 rounded-full bg-canvas-surface hover:bg-accent-himalaya hover:text-white transition-colors border border-canvas-border hover:border-accent-himalaya text-text-secondary">
-          Festivals
-        </a>
-        <a href="/explore/wildlife" class="whitespace-nowrap px-4 py-2 rounded-full bg-canvas-surface hover:bg-accent-himalaya hover:text-white transition-colors border border-canvas-border hover:border-accent-himalaya text-text-secondary">
-          Wildlife
-        </a>
-        <a href="/explore/landscapes" class="whitespace-nowrap px-4 py-2 rounded-full bg-canvas-surface hover:bg-accent-himalaya hover:text-white transition-colors border border-canvas-border hover:border-accent-himalaya text-text-secondary">
-          Landscapes
-        </a>
-      </div>
+      <!-- Asymmetrical Editorial Photo Grid -->
+      <EditorialGrid photos={featuredPhotos} />
 
-      <PhotoGrid photos={featuredPhotos} />
-
-      <div class="mt-10 text-center">
+      <!-- Section Footer Link -->
+      <div class="mt-20 sm:mt-28 text-center">
         <a
           href="/gallery"
-          class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] font-semibold text-accent-himalaya hover:text-text-primary transition-colors"
+          class="theme-btn-editorial !text-[#18181B] hover:!text-white hover:!bg-[#18181B] !border-black/20"
         >
-          View Full Gallery
-          <span>→</span>
+          <span>View Full Archive Collection</span>
         </a>
       </div>
+
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════════
-       WHY MARGA — Minimalist two-column
-       ══════════════════════════════════════════ -->
-  <section class="py-20 sm:py-28 bg-canvas-surface border-y border-canvas-border transition-colors duration-200">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-start">
+  <!-- ══════════════════════════════════════════════════════════════
+       6. 2026 MASTERCLASS EXPEDITIONS DOSSIER
+       (Snami 'CUSTOM MULTI-DAYS / BESPOKE TRAVEL DESIGN')
+       ══════════════════════════════════════════════════════════════ -->
+  <section id="expeditions" class="py-28 sm:py-40 bg-[#0B0D12] text-white border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14">
+      
+      <!-- Section Header -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 sm:mb-24 gap-6 border-b border-white/10 pb-8">
         <div>
-          <h2 class="font-editorial text-3xl sm:text-4xl font-medium text-text-primary leading-tight">
-            Photography First.<br />
-            <span class="italic text-text-muted font-light">Logistics as Craft.</span>
+          <span class="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.4em] text-[#D4A359] block mb-2">
+            Field Itineraries 2026
+          </span>
+          <h2 class="font-editorial text-3xl sm:text-5xl font-light uppercase text-white tracking-tight">
+            Masterclass Expeditions
           </h2>
-          <p class="text-text-secondary text-sm leading-relaxed mt-6">
-            We built Marga Photography as a dedicated visual collective — every route, timing, and lodging is chosen strictly for light, vantage, and uninterrupted focus.
-          </p>
-          <p class="text-xs text-text-muted leading-relaxed mt-4">
-            <strong class="text-text-primary">Powered by Marga Adventure</strong> — Nepal's premier expedition infrastructure.
+          <p class="mt-3 text-xs sm:text-sm text-white/60 font-light max-w-xl">
+            Strictly 4 to 6 photographers. Scheduled precisely around sacred seasonal dates and optimum Himalayan light.
           </p>
         </div>
-        <div class="space-y-5">
-          <div class="p-5 bg-canvas-elevated border border-canvas-border rounded-lg">
-            <h3 class="text-sm font-medium text-text-primary">5 Years of Field Expertise</h3>
-            <p class="text-xs text-text-secondary mt-1.5 leading-relaxed">
-              Award-winning Himalayan documentary photographers and wildlife trackers with 5 years of specialized field expertise.
-            </p>
-          </div>
-          <div class="p-5 bg-canvas-elevated border border-canvas-border rounded-lg">
-            <h3 class="text-sm font-medium text-text-primary">4–6 Photographers Per Group</h3>
-            <p class="text-xs text-text-secondary mt-1.5 leading-relaxed">
-              Intimate groups for unhurried shooting and genuine mentorship.
-            </p>
-          </div>
-          <div class="p-5 bg-canvas-elevated border border-canvas-border rounded-lg">
-            <h3 class="text-sm font-medium text-text-primary">Restricted Access Permits</h3>
-            <p class="text-xs text-text-secondary mt-1.5 leading-relaxed">
-              Upper Mustang, private foundries, hereditary elder permissions.
-            </p>
-          </div>
-          <div class="p-5 bg-canvas-elevated border border-canvas-border rounded-lg">
-            <h3 class="text-sm font-medium text-text-primary">Light-Dictated Pacing</h3>
-            <p class="text-xs text-text-secondary mt-1.5 leading-relaxed">
-              Blue hour shoots, midday editing sessions, sunset and astro.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- ══════════════════════════════════════════
-       EXPEDITIONS
-       ══════════════════════════════════════════ -->
-  <section class="py-20 sm:py-28 bg-canvas-bg transition-colors duration-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
-        <div>
-          <h2 class="font-editorial text-3xl sm:text-4xl font-medium text-text-primary">
-            2026 Expeditions
-          </h2>
-          <p class="mt-2 text-sm text-text-secondary">
-            Small-group departures across Nepal's most photogenic regions.
-          </p>
-        </div>
         <a
           href="/expeditions"
-          class="text-xs uppercase tracking-[0.2em] font-semibold text-accent-himalaya hover:text-text-primary transition-colors"
+          class="feather-arrow-link text-[#D4A359] hover:text-white text-xs shrink-0"
         >
-          All Expeditions →
+          <span>All 2026 Expeditions</span>
+          <svg width="42" height="12" viewBox="0 0 50 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 7H48" stroke="currentColor" stroke-width="1.5" />
+            <path d="M42 1L48 7L42 13" stroke="currentColor" stroke-width="1.5" />
+          </svg>
         </a>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Expeditions Cards Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
         {featuredExpeditions.map((exp) => (
           <ExpeditionCard expedition={exp} />
         ))}
       </div>
+
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════════
-       INQUIRY
-       ══════════════════════════════════════════ -->
-  <section class="py-20 sm:py-28 bg-canvas-surface border-t border-canvas-border transition-colors duration-200" id="inquire">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+  <!-- ══════════════════════════════════════════════════════════════
+       7. EXPLORE SACRED REGIONS
+       (Snami 'DISCOVER MORE DESTINATIONS' hover engine)
+       ══════════════════════════════════════════════════════════════ -->
+  <RegionsExplorer />
+
+  <!-- ══════════════════════════════════════════════════════════════
+       8. INQUIRY & RESERVATION SECTION
+       ══════════════════════════════════════════════════════════════ -->
+  <section class="py-28 sm:py-36 bg-[#0E1017] border-t border-white/10 text-white" id="inquire">
+    <div class="max-w-4xl mx-auto px-6 sm:px-10 lg:px-12">
+      <div class="text-center mb-12">
+        <span class="font-mono text-[10px] uppercase tracking-[0.35em] text-[#D4A359] block mb-2">
+          Direct Dispatch
+        </span>
+        <h2 class="font-editorial text-3xl sm:text-5xl font-light uppercase text-white tracking-tight">
+          Request an Expedition
+        </h2>
+        <p class="text-xs sm:text-sm text-white/60 font-light mt-3 max-w-lg mx-auto">
+          Due to strict 4–6 group limits, departures fill early. Contact our dispatch desk for private dossiers, custom routes, and commercial rights.
+        </p>
+      </div>
+
       <InquiryForm />
     </div>
   </section>
 
+  <!-- Lightbox Modal for High-Resolution Image Inspection -->
   <Lightbox />
+
 </BaseLayout>
 
 <style>
   /* Subtle scroll indicator animation */
-  .hero-scroll-line {
-    animation: scrollPulse 2s ease-in-out infinite;
+  .hero-scroll-pulse {
+    animation: scrollPulse 2.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
   @keyframes scrollPulse {
-    0%, 100% { opacity: 0.3; transform: scaleY(1); }
-    50% { opacity: 0.7; transform: scaleY(1.3); }
+    0%, 100% { opacity: 0.25; transform: scaleY(0.9); }
+    50% { opacity: 0.9; transform: scaleY(1.3); }
+  }
+
+  /* Slow Ken-Burns zoom effect for active hero slide */
+  .hero-zoom-effect {
+    animation: heroZoom 14s ease-out infinite alternate;
+  }
+  @keyframes heroZoom {
+    0% { transform: scale(1.03); }
+    100% { transform: scale(1.09); }
   }
 </style>
+
+<script>
+  function setupHeroCarousel() {
+    const slides = document.querySelectorAll('.hero-slide');
+    const dots = document.querySelectorAll('.hero-dot');
+    if (!slides.length) return;
+
+    let currentIndex = 0;
+    const totalSlides = slides.length;
+    let timer: number;
+
+    function goToSlide(index: number) {
+      currentIndex = (index + totalSlides) % totalSlides;
+
+      slides.forEach((slide, i) => {
+        if (i === currentIndex) {
+          slide.classList.remove('opacity-0', 'z-0');
+          slide.classList.add('opacity-100', 'z-10');
+        } else {
+          slide.classList.remove('opacity-100', 'z-10');
+          slide.classList.add('opacity-0', 'z-0');
+        }
+      });
+
+      dots.forEach((dot, i) => {
+        if (i === currentIndex) {
+          dot.classList.remove('w-2.5', 'bg-white/30');
+          dot.classList.add('w-8', 'bg-[#D4A359]');
+        } else {
+          dot.classList.remove('w-8', 'bg-[#D4A359]');
+          dot.classList.add('w-2.5', 'bg-white/30');
+        }
+      });
+    }
+
+    function startTimer() {
+      stopTimer();
+      timer = window.setInterval(() => {
+        goToSlide(currentIndex + 1);
+      }, 6500);
+    }
+
+    function stopTimer() {
+      if (timer) clearInterval(timer);
+    }
+
+    dots.forEach((dot) => {
+      dot.addEventListener('click', () => {
+        const targetIndex = Number(dot.getAttribute('data-hero-dot'));
+        if (!isNaN(targetIndex)) {
+          goToSlide(targetIndex);
+          startTimer();
+        }
+      });
+    });
+
+    startTimer();
+  }
+
+  setupHeroCarousel();
+  document.addEventListener('astro:page-load', setupHeroCarousel);
+</script>

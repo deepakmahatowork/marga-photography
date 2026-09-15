@@ -5,6 +5,9 @@ import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 
 import netlify from '@astrojs/netlify';
+import node from '@astrojs/node';
+
+const isNetlify = Boolean(process.env.NETLIFY);
 
 // https://astro.build/config
 export default defineConfig({
@@ -24,5 +27,5 @@ export default defineConfig({
 
   integrations: [sitemap()],
 
-  adapter: netlify()
+  adapter: isNetlify ? netlify() : node({ mode: 'standalone' })
 });
