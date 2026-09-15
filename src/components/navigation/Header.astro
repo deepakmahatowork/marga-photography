@@ -31,100 +31,106 @@ const navLinks = [
 ];
 ---
 
-<!-- Fixed Top Navigation Bar (Marga Adventure Style) -->
+<!-- Fixed Top Navigation Bar (Snami Luxury Editorial Style) -->
 <nav
   id="main-navbar"
-  class="fixed top-0 left-0 w-full z-50 transition-all duration-300 will-change-transform transform-gpu bg-canvas-bg/90 backdrop-blur-md border-b border-canvas-border/60 py-3 sm:py-4 md:py-6 shadow-xs"
+  class="fixed top-0 left-0 w-full z-50 transition-all duration-500 will-change-transform transform-gpu bg-[#0B0D12]/80 backdrop-blur-xl border-b border-white/10 py-3.5 sm:py-5 text-white shadow-2xl"
 >
-  <div class="w-full max-w-[1920px] mx-auto px-4 sm:px-6 md:px-10 lg:px-16 flex justify-between items-center">
+  <div class="w-full max-w-[1920px] mx-auto px-5 sm:px-8 md:px-12 lg:px-16 flex justify-between items-center">
     
     <!-- Brand Logo & Title -->
-    <a href={isFrench ? '/fr' : '/'} class="flex items-center gap-2 sm:gap-3 md:gap-3.5 group cursor-pointer shrink min-w-0">
+    <a href={isFrench ? '/fr' : '/'} class="flex items-center gap-3 sm:gap-3.5 group cursor-pointer shrink min-w-0">
       <img
         src="/images/marga_photography_logo.png"
         alt="Marga Photography Logo"
-        class="w-9 h-9 sm:w-10 sm:h-10 md:w-12 md:h-12 object-contain transition-transform duration-300 group-hover:scale-105 shrink-0"
+        class="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 object-contain transition-transform duration-500 group-hover:scale-105 shrink-0 invert brightness-200"
       />
-      <span class="font-bold tracking-tight text-base sm:text-xl md:text-2xl transition-colors duration-500 font-sans text-text-primary truncate">
-        Marga <span class="font-light text-accent-himalaya">Photography</span>
+      <span class="font-serif tracking-[0.18em] text-base sm:text-lg md:text-xl font-medium text-white transition-colors duration-300 truncate uppercase">
+        Marga <span class="font-light italic text-[#D4A359] lowercase">photography</span>
       </span>
     </a>
 
+    <!-- Center Coordinates Marker (Snami Editorial Detail) -->
+    <div class="hidden xl:flex items-center gap-3 text-[10px] tracking-[0.35em] uppercase text-white/45 font-mono">
+      <span class="w-1.5 h-1.5 rounded-full bg-[#D4A359] animate-ping"></span>
+      <span>27°42' N, 85°19' E · KATHMANDU · NEPAL</span>
+    </div>
+
     <!-- Right Controls -->
-    <div class="flex items-center gap-2 sm:gap-3 md:gap-6 shrink-0">
+    <div class="flex items-center gap-2.5 sm:gap-4 md:gap-6 shrink-0">
       <!-- Language Switcher (EN / FR) -->
       <LanguageSwitcher />
 
       <!-- Theme Switcher -->
       <ThemeToggle id="theme-toggle-btn" />
 
-      <!-- Direct Expedition CTA -->
+      <!-- Direct Expedition CTA (Snami 'REQUEST' button counterpart) -->
       <a
         href={`${langPrefix}/contact?intent=expedition`}
-        class="hidden sm:inline-flex items-center justify-center px-4 md:px-5 py-2 text-xs font-semibold uppercase tracking-[0.15em] text-white bg-accent-himalaya hover:bg-brand-dark transition-all rounded-full shadow-sm"
+        class="hidden sm:inline-flex items-center justify-center px-5 py-2 text-[10px] font-semibold uppercase tracking-[0.25em] text-[#D4A359] border border-[#D4A359]/60 hover:bg-[#D4A359] hover:text-black transition-all duration-300 rounded-full shadow-sm hover:shadow-[#D4A359]/20"
       >
-        {t('nav.request_expedition')}
+        {isFrench ? 'RÉSERVER' : 'INQUIRE'}
       </a>
 
-      <!-- The Signature Marga Adventure Hamburger Button -->
+      <!-- The Signature Luxury Hamburger Button -->
       <button
         id="hamburger-menu-btn"
         type="button"
-        class="flex items-center gap-2 md:gap-4 group p-2 sm:p-2.5 md:p-3 cursor-pointer select-none focus:outline-none focus:ring-2 focus:ring-accent-himalaya rounded-lg shrink-0 min-w-[44px] min-h-[44px] justify-center touch-manipulation"
+        class="flex items-center gap-2.5 md:gap-3.5 group p-2 sm:p-2.5 cursor-pointer select-none focus:outline-none focus:ring-1 focus:ring-[#D4A359] rounded-full shrink-0 min-w-[44px] min-h-[44px] justify-center touch-manipulation"
         aria-label="Open main navigation menu"
         aria-expanded="false"
       >
-        <span class="text-[10px] font-bold uppercase tracking-[0.5em] transition-all duration-500 hidden lg:block text-text-muted group-hover:text-accent-himalaya">
+        <span class="text-[10px] font-mono uppercase tracking-[0.4em] transition-all duration-300 hidden sm:block text-white/70 group-hover:text-[#D4A359]">
           {t('nav.navigation')}
         </span>
         <div class="flex flex-col gap-1.5 p-1 transition-all pointer-events-none">
-          <div class="h-0.5 transition-all duration-300 bg-text-primary w-6 md:w-8 group-hover:w-5 md:group-hover:w-6"></div>
-          <div class="h-0.5 transition-all duration-300 bg-text-primary w-5 md:w-6 group-hover:w-6 md:group-hover:w-8"></div>
-          <div class="h-0.5 transition-all duration-300 bg-text-primary w-3 md:w-4 group-hover:w-6 md:group-hover:w-8"></div>
+          <div class="h-0.5 transition-all duration-300 bg-white w-6 md:w-7 group-hover:w-4 group-hover:bg-[#D4A359]"></div>
+          <div class="h-0.5 transition-all duration-300 bg-white w-4 md:w-5 group-hover:w-7 group-hover:bg-[#D4A359]"></div>
+          <div class="h-0.5 transition-all duration-300 bg-white w-6 md:w-7 group-hover:w-5 group-hover:bg-[#D4A359]"></div>
         </div>
       </button>
     </div>
   </div>
 </nav>
 
-<!-- Full-Screen Navigation Overlay Modal (Marga Adventure Style) -->
+<!-- Full-Screen Navigation Overlay Modal (Snami Split Drawer) -->
 <div
   id="fullscreen-menu"
-  class="fixed inset-0 h-[100dvh] z-[100] bg-canvas-bg/98 backdrop-blur-2xl text-text-primary hidden flex-col font-sans transition-opacity duration-300"
+  class="fixed inset-0 h-[100dvh] z-[100] bg-[#0B0D12]/98 backdrop-blur-2xl text-white hidden flex-col font-sans transition-opacity duration-300"
   role="dialog"
   aria-modal="true"
   aria-label="Navigation Menu"
 >
   <!-- Top Bar with Close Button -->
-  <div class="w-full max-w-[1920px] mx-auto px-4 sm:px-6 md:px-10 lg:px-16 py-4 sm:py-5 md:py-8 flex justify-between items-center border-b border-canvas-border shrink-0">
+  <div class="w-full max-w-[1920px] mx-auto px-5 sm:px-8 md:px-12 lg:px-16 py-5 sm:py-6 flex justify-between items-center border-b border-white/10 shrink-0">
     <!-- Brand in Menu -->
     <a href={isFrench ? '/fr' : '/'} class="flex items-center gap-3 group menu-link">
       <img
         src="/images/marga_photography_logo.png"
         alt="Marga Photography Logo"
-        class="w-9 h-9 sm:w-10 sm:h-10 object-contain shrink-0"
+        class="w-8 h-8 sm:w-9 sm:h-9 object-contain shrink-0 invert brightness-200"
       />
-      <span class="font-bold tracking-tight text-lg sm:text-xl text-text-primary">
-        Marga <span class="font-light text-accent-himalaya">Photography</span>
+      <span class="font-serif tracking-[0.18em] text-lg font-medium text-white uppercase">
+        Marga <span class="font-light italic text-[#D4A359] lowercase">photography</span>
       </span>
     </a>
 
     <!-- Close Controls -->
-    <div class="flex items-center gap-2 sm:gap-6">
+    <div class="flex items-center gap-3 sm:gap-6">
       <LanguageSwitcher />
 
       <!-- Close Button -->
       <button
         id="close-menu-btn"
         type="button"
-        class="group flex items-center gap-2 sm:gap-3 p-2 cursor-pointer focus:outline-none focus:ring-2 focus:ring-accent-himalaya rounded-full shrink-0 min-w-[44px] min-h-[44px] justify-center touch-manipulation"
+        class="group flex items-center gap-2.5 sm:gap-3 p-2 cursor-pointer focus:outline-none focus:ring-1 focus:ring-[#D4A359] rounded-full shrink-0 min-w-[44px] min-h-[44px] justify-center touch-manipulation"
         aria-label="Close navigation menu"
       >
-        <span class="text-[10px] font-bold uppercase tracking-[0.4em] text-text-muted group-hover:text-text-primary hidden sm:block">
+        <span class="text-[10px] font-mono uppercase tracking-[0.4em] text-white/50 group-hover:text-white hidden sm:block">
           {t('nav.close')}
         </span>
-        <div class="w-10 h-10 md:w-11 md:h-11 border border-canvas-border rounded-full flex items-center justify-center group-hover:bg-accent-himalaya group-hover:text-white group-hover:border-accent-himalaya transition-all text-text-primary shadow-sm pointer-events-none">
-          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+        <div class="w-10 h-10 border border-white/20 rounded-full flex items-center justify-center group-hover:bg-[#D4A359] group-hover:text-black group-hover:border-[#D4A359] transition-all duration-300 text-white pointer-events-none">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </div>
@@ -136,20 +142,20 @@ const navLinks = [
   <div class="flex-1 min-h-0 flex flex-col xl:flex-row relative z-10 overflow-hidden">
     
     <!-- Left Column: Primary Navigation Items -->
-    <div class="w-full xl:w-[45%] flex flex-col justify-between px-6 sm:px-10 md:pl-16 lg:pl-24 gap-8 overflow-y-auto min-h-0 flex-1 overscroll-contain pt-6 md:pt-8 pb-12 border-r border-canvas-border">
+    <div class="w-full xl:w-[48%] flex flex-col justify-between px-6 sm:px-12 md:pl-16 lg:pl-24 gap-8 overflow-y-auto min-h-0 flex-1 overscroll-contain pt-8 md:pt-12 pb-12 border-r border-white/10">
       <nav class="flex flex-col space-y-4 md:space-y-6 shrink-0" aria-label="Overlay Navigation">
         {navLinks.map((item) => {
           const isActive = currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href));
           return (
             <div class="group/item">
-              <div class="flex items-baseline gap-4">
-                <span class="font-mono text-xs text-text-muted group-hover/item:text-accent-himalaya transition-colors">
+              <div class="flex items-baseline gap-4 sm:gap-6">
+                <span class="font-mono text-[11px] text-white/40 tracking-widest group-hover/item:text-[#D4A359] transition-colors">
                   {item.number}
                 </span>
                 <a
                   href={item.href}
-                  class={`menu-link font-editorial text-2xl sm:text-4xl lg:text-5xl font-normal transition-all duration-300 hover:translate-x-2 ${
-                    isActive ? 'text-accent-himalaya' : 'text-text-primary hover:text-accent-himalaya'
+                  class={`menu-link font-editorial text-3xl sm:text-5xl lg:text-5xl font-light tracking-tight transition-all duration-300 hover:translate-x-3 ${
+                    isActive ? 'text-[#D4A359]' : 'text-white/90 hover:text-[#D4A359]'
                   }`}
                 >
                   {item.label}
@@ -158,11 +164,11 @@ const navLinks = [
 
               {/* Submenu for Portfolios */}
               {item.children && (
-                <div class="pl-8 sm:pl-10 mt-3 flex flex-wrap gap-2 sm:gap-x-4 sm:gap-y-2">
+                <div class="pl-9 sm:pl-12 mt-3 flex flex-wrap gap-2 sm:gap-3">
                   {item.children.map((sub) => (
                     <a
                       href={sub.href}
-                      class="menu-link text-xs uppercase tracking-wider py-1.5 px-3 rounded-full bg-canvas-surface/80 border border-canvas-border hover:border-accent-himalaya hover:text-accent-himalaya active:bg-accent-himalaya active:text-white transition-all touch-manipulation"
+                      class="menu-link text-[11px] uppercase tracking-[0.15em] py-1.5 px-3.5 rounded-full bg-white/5 border border-white/10 hover:border-[#D4A359] hover:text-[#D4A359] active:bg-[#D4A359] active:text-black transition-all touch-manipulation text-white/70"
                     >
                       {sub.label}
                     </a>
@@ -175,16 +181,16 @@ const navLinks = [
       </nav>
 
       <!-- Bottom Quick Contact in Drawer -->
-      <div class="pt-6 border-t border-canvas-border flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs text-text-muted shrink-0 pb-6">
+      <div class="pt-6 border-t border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs text-white/50 shrink-0 pb-4">
         <div>
-          <span>Direct Dispatch: </span>
-          <a href="mailto:expeditions@margaphotography.com" class="text-accent-himalaya hover:underline font-medium">
+          <span class="uppercase tracking-wider font-mono text-[10px]">Direct Dispatch: </span>
+          <a href="mailto:expeditions@margaphotography.com" class="text-[#D4A359] hover:underline font-mono">
             expeditions@margaphotography.com
           </a>
         </div>
-        <div>
-          <span>Partner: </span>
-          <a href="https://margaadventure.com" target="_blank" rel="noopener noreferrer" class="hover:text-text-primary underline">
+        <div class="font-mono text-[10px] tracking-wider uppercase">
+          <span>Infrastructure Partner: </span>
+          <a href="https://margaadventure.com" target="_blank" rel="noopener noreferrer" class="text-white hover:text-[#D4A359] underline">
             Marga Adventure
           </a>
         </div>
@@ -192,39 +198,39 @@ const navLinks = [
     </div>
 
     <!-- Right Column: Visual Showcase Card (Desktop) -->
-    <div class="hidden xl:flex flex-1 relative overflow-hidden items-center justify-center p-12 lg:p-16 bg-canvas-surface/40">
-      <div class="max-w-md w-full p-8 rounded-2xl bg-canvas-elevated border border-canvas-border shadow-2xl space-y-6">
-        <div class="aspect-[16/10] rounded-xl overflow-hidden relative">
+    <div class="hidden xl:flex flex-1 relative overflow-hidden items-center justify-center p-12 lg:p-16 bg-[#0E1017]">
+      <div class="max-w-md w-full p-8 rounded-2xl bg-[#141822] border border-white/10 shadow-2xl space-y-6">
+        <div class="aspect-[16/10] rounded-xl overflow-hidden relative editorial-img-frame">
           <img
-            src="/images/himalaya_morning_light.jpg"
-            alt="High Himalaya Sanctuary"
+            src="/images/mustang_monk_portrait.jpg"
+            alt="Field Master & Mentor Patrick Frilet"
             class="w-full h-full object-cover"
           />
-          <div class="absolute top-3 left-3 px-2.5 py-1 bg-black/70 backdrop-blur-md rounded text-[10px] uppercase tracking-widest text-accent-himalaya font-semibold border border-white/10">
+          <div class="absolute top-3 left-3 px-3 py-1 bg-black/80 backdrop-blur-md rounded-full text-[9px] uppercase tracking-[0.25em] text-[#D4A359] font-mono border border-white/10">
             2026 Expeditions Open
           </div>
         </div>
 
         <div>
-          <span class="text-xs uppercase tracking-[0.2em] text-accent-himalaya font-semibold block mb-1">
-            Intimate Field Masterclasses
+          <span class="text-[10px] uppercase tracking-[0.3em] text-[#D4A359] font-mono block mb-1">
+            Intimate Masterclasses
           </span>
-          <h4 class="font-editorial text-2xl text-text-primary font-medium">
+          <h4 class="font-editorial text-2xl text-white font-light">
             Strictly 4 to 6 Photographers
           </h4>
-          <p class="text-xs text-text-secondary leading-relaxed mt-2">
-            Every departure is scheduled precisely around sacred seasonal calendar dates and optimum Himalayan light windows.
+          <p class="text-xs text-white/60 leading-relaxed mt-2 font-light">
+            Every departure is scheduled precisely around sacred seasonal calendar dates, ancient masked rituals, and optimum Himalayan light windows.
           </p>
         </div>
 
-        <div class="pt-4 border-t border-canvas-border flex items-center justify-between">
+        <div class="pt-4 border-t border-white/10 flex items-center justify-between">
           <a
-            href="/expeditions"
-            class="menu-link px-6 py-2.5 bg-accent-himalaya hover:opacity-90 text-white dark:text-black font-semibold text-xs uppercase tracking-widest rounded-full transition-all shadow-md"
+            href={`${langPrefix}/expeditions`}
+            class="menu-link px-6 py-2.5 bg-[#D4A359] hover:bg-white text-black font-semibold text-[11px] uppercase tracking-[0.2em] rounded-full transition-all duration-300 shadow-md"
           >
             Explore Itineraries →
           </a>
-          <span class="text-xs font-mono text-text-muted">Nepal • Bhutan • Tibet</span>
+          <span class="text-[10px] font-mono text-white/40 tracking-wider">NEPAL · MUSTANG · TERAI</span>
         </div>
       </div>
     </div>
