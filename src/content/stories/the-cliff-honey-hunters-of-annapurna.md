@@ -7,7 +7,7 @@ date: "2025-09-22"
 heroImage: "/images/dhorpatan_valley_landscape.jpg"
 category: "Culture & People"
 tags: ["Annapurna", "Gurung", "Honey Hunters", "Documentary"]
-relatedExpeditionSlug: "sacred-nepal-culture-people"
+relatedExpeditionSlug: "tshechu-festival-sacred-cham-dances"
 excerpt: "Suspended on handmade hemp ropes against sheer vertical granite, the honey hunter moves through clouds of stinging Himalayan bees with calm, ancestral focus."
 featured: true
 ---

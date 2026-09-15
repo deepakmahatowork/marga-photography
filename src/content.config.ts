@@ -25,7 +25,7 @@ const expeditions = defineCollection({
         day: z.string(),
         title: z.string(),
         description: z.string(),
-        photoFocus: z.string(),
+        photoFocus: z.string().default('Cultural & Photographic Documentation'),
       })
     ),
     included: z.array(z.string()),

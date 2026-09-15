@@ -7,7 +7,7 @@ date: "2025-11-04"
 heroImage: "/images/bardia_tiger_morning.jpg"
 category: "Wildlife"
 tags: ["Bardia", "Tiger", "Wildlife", "Conservation"]
-relatedExpeditionSlug: "bardia-chitwan-wildlife-expedition.md"
+relatedExpeditionSlug: "bisket-jatra-festival-nepalese-new-year"
 excerpt: "In Bardia, you do not chase the tiger. You sit by the riverbank in complete silence, listening to the alarm calls of spotted deer and langurs until the jungle reveals its master."
 featured: true
 ---
