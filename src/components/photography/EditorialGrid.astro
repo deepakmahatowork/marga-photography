@@ -1,0 +1,394 @@
+---
+interface Photograph {
+  id: string;
+  data: {
+    title: string;
+    category: string;
+    location: string;
+    image: string;
+    photographer: string;
+    caption: string;
+    aspectRatio: string;
+    camera?: string;
+    lens?: string;
+    focalLength?: string;
+    aperture?: string;
+    shutterSpeed?: string;
+    iso?: string;
+    copyright: string;
+  };
+}
+
+interface Props {
+  photos: Photograph[];
+}
+
+const { photos } = Astro.props;
+
+// Group or select featured items for our asymmetrical editorial flow
+const heroPortrait = photos.find((p) => p.data.aspectRatio === 'portrait') || photos[0];
+const landscapes = photos.filter((p) => p.data.aspectRatio !== 'portrait' && p.id !== heroPortrait?.id);
+const pairOneA = landscapes[0] || photos[1];
+const pairOneB = landscapes[1] || photos[2];
+const breakPhoto = landscapes[2] || photos[3];
+const pairTwoA = photos.find((p) => p.data.aspectRatio === 'portrait' && p.id !== heroPortrait?.id) || photos[4];
+const pairTwoB = landscapes[3] || photos[5];
+const remainingPhotos = photos.filter(
+  (p) =>
+    ![heroPortrait?.id, pairOneA?.id, pairOneB?.id, breakPhoto?.id, pairTwoA?.id, pairTwoB?.id].includes(p.id)
+);
+
+function formatExif(p: Photograph['data']) {
+  return [p.camera, p.lens, p.focalLength, p.aperture, p.shutterSpeed, p.iso ? `ISO ${p.iso}` : null]
+    .filter(Boolean)
+    .join(' · ');
+}
+---
+
+<div class="editorial-portfolio-flow space-y-24 sm:space-y-36">
+
+  {/* ═══════════════════════════════════════════════════
+      SET 1: Asymmetric Split — Commanding Tall Portrait & Offset Note
+      ═══════════════════════════════════════════════════ */}
+  {heroPortrait && (
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+      <div class="lg:col-span-7">
+        <figure
+          class="editorial-img-frame group relative rounded-xl overflow-hidden cursor-pointer shadow-2xl bg-[#141721] border border-white/10"
+          data-lightbox-trigger
+          data-src={heroPortrait.data.image}
+          data-title={heroPortrait.data.title}
+          data-location={heroPortrait.data.location}
+          data-caption={heroPortrait.data.caption}
+          data-exif={formatExif(heroPortrait.data)}
+          data-credit={heroPortrait.data.copyright}
+          tabindex="0"
+          role="button"
+          aria-label={`View photograph: ${heroPortrait.data.title}`}
+        >
+          <div class="w-full aspect-[4/5] sm:aspect-[3/4] overflow-hidden">
+            <img
+              src={heroPortrait.data.image}
+              alt={heroPortrait.data.title}
+              loading="eager"
+              decoding="async"
+              class="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
+            />
+          </div>
+
+          <!-- Editorial Hover Meta Overlay -->
+          <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 sm:p-8 text-white">
+            <span class="font-mono text-[10px] uppercase tracking-[0.3em] text-[#D4A359] mb-1.5">
+              {heroPortrait.data.location} · {heroPortrait.data.category}
+            </span>
+            <h3 class="font-editorial text-2xl sm:text-3xl text-white font-light uppercase tracking-tight">
+              {heroPortrait.data.title}
+            </h3>
+            <p class="text-xs text-neutral-300 mt-2 line-clamp-2 max-w-md font-light leading-relaxed">
+              {heroPortrait.data.caption}
+            </p>
+            {heroPortrait.data.camera && (
+              <span class="mt-4 inline-block font-mono text-[9px] uppercase tracking-wider text-white/50 border-t border-white/15 pt-2">
+                {formatExif(heroPortrait.data)}
+              </span>
+            )}
+          </div>
+        </figure>
+      </div>
+
+      <!-- Offset Editorial Story Text -->
+      <div class="lg:col-span-5 space-y-6 lg:pl-6">
+        <span class="font-mono text-[10px] uppercase tracking-[0.35em] text-[#D4A359] block">
+          Archival Series 01
+        </span>
+        <h3 class="font-editorial text-3xl sm:text-4xl text-text-primary font-light uppercase leading-tight tracking-tight">
+          Sacred Trance &amp;<br />Living Heritage
+        </h3>
+        <p class="text-sm text-text-secondary leading-relaxed font-light">
+          Photographed during unhurried residencies with hereditary masters, our frames capture moments where ritual, light, and centuries of tradition align.
+        </p>
+        <div class="pt-2">
+          <a href="/explore/culture" class="feather-arrow-link text-text-primary hover:text-[#D4A359]">
+            <span>Explore Culture Works</span>
+            <svg width="36" height="12" viewBox="0 0 50 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0 7H48" stroke="currentColor" stroke-width="1.5" />
+              <path d="M42 1L48 7L42 13" stroke="currentColor" stroke-width="1.5" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  )}
+
+  {/* ═══════════════════════════════════════════════════
+      SET 2: Staggered Double Landscape Frames (Snami Dual Rhythms)
+      ═══════════════════════════════════════════════════ */}
+  {pairOneA && pairOneB && (
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-14 items-start">
+      <!-- Frame A (Higher position) -->
+      <div class="md:col-span-6">
+        <figure
+          class="editorial-img-frame group relative rounded-xl overflow-hidden cursor-pointer shadow-xl bg-[#141721] border border-white/10"
+          data-lightbox-trigger
+          data-src={pairOneA.data.image}
+          data-title={pairOneA.data.title}
+          data-location={pairOneA.data.location}
+          data-caption={pairOneA.data.caption}
+          data-exif={formatExif(pairOneA.data)}
+          data-credit={pairOneA.data.copyright}
+          tabindex="0"
+          role="button"
+          aria-label={`View photograph: ${pairOneA.data.title}`}
+        >
+          <div class="w-full aspect-[16/10] overflow-hidden">
+            <img
+              src={pairOneA.data.image}
+              alt={pairOneA.data.title}
+              loading="lazy"
+              decoding="async"
+              class="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
+            />
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white">
+            <span class="font-mono text-[9px] uppercase tracking-[0.25em] text-[#D4A359] mb-1">
+              {pairOneA.data.location}
+            </span>
+            <h4 class="font-editorial text-xl text-white font-light uppercase">
+              {pairOneA.data.title}
+            </h4>
+            <p class="text-xs text-neutral-300 mt-1 line-clamp-1 font-light">
+              {pairOneA.data.caption}
+            </p>
+          </div>
+        </figure>
+        <div class="mt-4 flex items-center justify-between text-[11px] text-text-muted font-mono uppercase tracking-wider">
+          <span>{pairOneA.data.title}</span>
+          <span class="text-[#D4A359]">{pairOneA.data.location}</span>
+        </div>
+      </div>
+
+      <!-- Frame B (Staggered offset downwards) -->
+      <div class="md:col-span-6 md:mt-16 lg:mt-24">
+        <figure
+          class="editorial-img-frame group relative rounded-xl overflow-hidden cursor-pointer shadow-xl bg-[#141721] border border-white/10"
+          data-lightbox-trigger
+          data-src={pairOneB.data.image}
+          data-title={pairOneB.data.title}
+          data-location={pairOneB.data.location}
+          data-caption={pairOneB.data.caption}
+          data-exif={formatExif(pairOneB.data)}
+          data-credit={pairOneB.data.copyright}
+          tabindex="0"
+          role="button"
+          aria-label={`View photograph: ${pairOneB.data.title}`}
+        >
+          <div class="w-full aspect-[16/10] overflow-hidden">
+            <img
+              src={pairOneB.data.image}
+              alt={pairOneB.data.title}
+              loading="lazy"
+              decoding="async"
+              class="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
+            />
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white">
+            <span class="font-mono text-[9px] uppercase tracking-[0.25em] text-[#D4A359] mb-1">
+              {pairOneB.data.location}
+            </span>
+            <h4 class="font-editorial text-xl text-white font-light uppercase">
+              {pairOneB.data.title}
+            </h4>
+            <p class="text-xs text-neutral-300 mt-1 line-clamp-1 font-light">
+              {pairOneB.data.caption}
+            </p>
+          </div>
+        </figure>
+        <div class="mt-4 flex items-center justify-between text-[11px] text-text-muted font-mono uppercase tracking-wider">
+          <span>{pairOneB.data.title}</span>
+          <span class="text-[#D4A359]">{pairOneB.data.location}</span>
+        </div>
+      </div>
+    </div>
+  )}
+
+  {/* ═══════════════════════════════════════════════════
+      SET 3: Full-Width Cinematic Panoramic Break
+      ═══════════════════════════════════════════════════ */}
+  {breakPhoto && (
+    <div class="relative w-full rounded-2xl overflow-hidden shadow-2xl border border-white/10 group">
+      <figure
+        class="editorial-img-frame w-full aspect-[16/9] sm:aspect-[21/9] cursor-pointer"
+        data-lightbox-trigger
+        data-src={breakPhoto.data.image}
+        data-title={breakPhoto.data.title}
+        data-location={breakPhoto.data.location}
+        data-caption={breakPhoto.data.caption}
+        data-exif={formatExif(breakPhoto.data)}
+        data-credit={breakPhoto.data.copyright}
+        tabindex="0"
+        role="button"
+        aria-label={`View photograph: ${breakPhoto.data.title}`}
+      >
+        <img
+          src={breakPhoto.data.image}
+          alt={breakPhoto.data.title}
+          loading="lazy"
+          decoding="async"
+          class="w-full h-full object-cover transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent flex flex-col justify-end p-6 sm:p-12 text-white">
+          <div class="max-w-2xl">
+            <span class="font-mono text-[10px] uppercase tracking-[0.35em] text-[#D4A359] block mb-2">
+              Panoramic Field Study · {breakPhoto.data.location}
+            </span>
+            <h3 class="font-editorial text-2xl sm:text-4xl text-white font-light uppercase tracking-tight">
+              {breakPhoto.data.title}
+            </h3>
+            <p class="text-xs sm:text-sm text-neutral-300 mt-2 line-clamp-2 font-light leading-relaxed">
+              {breakPhoto.data.caption}
+            </p>
+          </div>
+        </div>
+      </figure>
+    </div>
+  )}
+
+  {/* ═══════════════════════════════════════════════════
+      SET 4: Reverse Asymmetric Pairing (Landscape + Portrait)
+      ═══════════════════════════════════════════════════ */}
+  {pairTwoA && pairTwoB && (
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
+      <!-- Frame A: Landscape (col-span-7) -->
+      <div class="lg:col-span-7">
+        <figure
+          class="editorial-img-frame group relative rounded-xl overflow-hidden cursor-pointer shadow-xl bg-[#141721] border border-white/10"
+          data-lightbox-trigger
+          data-src={pairTwoB.data.image}
+          data-title={pairTwoB.data.title}
+          data-location={pairTwoB.data.location}
+          data-caption={pairTwoB.data.caption}
+          data-exif={formatExif(pairTwoB.data)}
+          data-credit={pairTwoB.data.copyright}
+          tabindex="0"
+          role="button"
+          aria-label={`View photograph: ${pairTwoB.data.title}`}
+        >
+          <div class="w-full aspect-[16/10] overflow-hidden">
+            <img
+              src={pairTwoB.data.image}
+              alt={pairTwoB.data.title}
+              loading="lazy"
+              decoding="async"
+              class="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
+            />
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white">
+            <span class="font-mono text-[9px] uppercase tracking-[0.25em] text-[#D4A359] mb-1">
+              {pairTwoB.data.location}
+            </span>
+            <h4 class="font-editorial text-xl text-white font-light uppercase">
+              {pairTwoB.data.title}
+            </h4>
+            <p class="text-xs text-neutral-300 mt-1 line-clamp-1 font-light">
+              {pairTwoB.data.caption}
+            </p>
+          </div>
+        </figure>
+        <div class="mt-4 flex items-center justify-between text-[11px] text-text-muted font-mono uppercase tracking-wider">
+          <span>{pairTwoB.data.title}</span>
+          <span class="text-[#D4A359]">{pairTwoB.data.location}</span>
+        </div>
+      </div>
+
+      <!-- Frame B: Portrait (col-span-5) -->
+      <div class="lg:col-span-5">
+        <figure
+          class="editorial-img-frame group relative rounded-xl overflow-hidden cursor-pointer shadow-xl bg-[#141721] border border-white/10"
+          data-lightbox-trigger
+          data-src={pairTwoA.data.image}
+          data-title={pairTwoA.data.title}
+          data-location={pairTwoA.data.location}
+          data-caption={pairTwoA.data.caption}
+          data-exif={formatExif(pairTwoA.data)}
+          data-credit={pairTwoA.data.copyright}
+          tabindex="0"
+          role="button"
+          aria-label={`View photograph: ${pairTwoA.data.title}`}
+        >
+          <div class="w-full aspect-[4/5] overflow-hidden">
+            <img
+              src={pairTwoA.data.image}
+              alt={pairTwoA.data.title}
+              loading="lazy"
+              decoding="async"
+              class="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
+            />
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white">
+            <span class="font-mono text-[9px] uppercase tracking-[0.25em] text-[#D4A359] mb-1">
+              {pairTwoA.data.location}
+            </span>
+            <h4 class="font-editorial text-xl text-white font-light uppercase">
+              {pairTwoA.data.title}
+            </h4>
+            <p class="text-xs text-neutral-300 mt-1 line-clamp-1 font-light">
+              {pairTwoA.data.caption}
+            </p>
+          </div>
+        </figure>
+        <div class="mt-4 flex items-center justify-between text-[11px] text-text-muted font-mono uppercase tracking-wider">
+          <span>{pairTwoA.data.title}</span>
+          <span class="text-[#D4A359]">{pairTwoA.data.location}</span>
+        </div>
+      </div>
+    </div>
+  )}
+
+  {/* ═══════════════════════════════════════════════════
+      Remaining Selected Works (Triple Editorial Grid)
+      ═══════════════════════════════════════════════════ */}
+  {remainingPhotos.length > 0 && (
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
+      {remainingPhotos.slice(0, 3).map((photo) => (
+        <div>
+          <figure
+            class="editorial-img-frame group relative rounded-xl overflow-hidden cursor-pointer shadow-lg bg-[#141721] border border-white/10"
+            data-lightbox-trigger
+            data-src={photo.data.image}
+            data-title={photo.data.title}
+            data-location={photo.data.location}
+            data-caption={photo.data.caption}
+            data-exif={formatExif(photo.data)}
+            data-credit={photo.data.copyright}
+            tabindex="0"
+            role="button"
+            aria-label={`View photograph: ${photo.data.title}`}
+          >
+            <div class="w-full aspect-[16/11] overflow-hidden">
+              <img
+                src={photo.data.image}
+                alt={photo.data.title}
+                loading="lazy"
+                decoding="async"
+                class="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
+              />
+            </div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5 text-white">
+              <span class="font-mono text-[9px] uppercase tracking-[0.25em] text-[#D4A359] mb-1">
+                {photo.data.location}
+              </span>
+              <h4 class="font-editorial text-lg text-white font-light uppercase">
+                {photo.data.title}
+              </h4>
+            </div>
+          </figure>
+          <div class="mt-3 flex items-center justify-between text-[11px] text-text-muted font-mono uppercase tracking-wider">
+            <span class="truncate max-w-[70%]">{photo.data.title}</span>
+            <span class="text-[#D4A359] shrink-0">{photo.data.location}</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  )}
+
+</div>
