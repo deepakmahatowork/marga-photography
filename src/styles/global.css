@@ -1064,14 +1064,21 @@
     overflow-x: scroll;
     scroll-snap-type: x mandatory;
     width: 100%;
-    height: 85vh;
+    height: 70vh;
+    min-height: 420px;
+    max-height: 560px;
+    padding: 0 1rem 1.5rem 1rem;
+    gap: 1rem;
+    -webkit-overflow-scrolling: touch;
   }
 
   .journey-panel {
-    flex: 0 0 90vw;
-    scroll-snap-align: start;
-    margin-right: 1rem;
-    border-radius: 2px;
+    flex: 0 0 88vw;
+    height: 100%;
+    scroll-snap-align: center;
+    margin-right: 0;
+    border-radius: 4px;
+    padding: 0 !important;
   }
 }
 
@@ -1435,7 +1442,10 @@
 /* Global overflow protection — prevents horizontal bleed */
 @media (max-width: 639px) {
   body {
-    overflow-x: hidden;
+    /* overflow-x: clip instead of hidden — clip stops layout bleed but
+       does NOT block child elements that need overflow-x: scroll/auto
+       (e.g. the JourneyStrip horizontal scroll section) */
+    overflow-x: clip;
   }
 
   /* Negative margin guards — prevent structural bleed at mobile */
@@ -1494,19 +1504,10 @@
    ════════════════════════════════════════════════════════════ */
 
 /* ── 1. Custom Aperture Crosshair Cursor ───────────────────── */
-/* Mimics a precision viewfinder reticle */
-body {
-  cursor: none;
-}
+/* Cursor removed — using default system pointer */
 
 #marga-cursor {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 9999;
-  pointer-events: none;
-  will-change: transform;
-  mix-blend-mode: difference;
+  display: none;
 }
 
 .cursor-outer {

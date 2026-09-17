@@ -61,12 +61,12 @@ const chapters = [
   <div class="journey-sticky" style="background-color: var(--section-dark-bg)">
 
     <!-- Top label -->
-    <div class="absolute top-0 left-0 right-0 z-20 flex items-center justify-between px-6 sm:px-10 md:px-16 pt-7 sm:pt-9 pointer-events-none">
+    <div class="absolute top-0 left-0 right-0 z-20 flex items-center justify-between px-6 sm:px-10 md:px-16 pt-20 sm:pt-22 md:pt-24 pointer-events-none">
       <div class="flex items-center gap-4">
         <span class="w-6 h-px bg-[var(--marga-gold)]"></span>
         <span class="journal-label text-[var(--marga-gold)] text-xs">Journey Through Nepal</span>
       </div>
-      <div class="font-sans text-xs tracking-[0.25em] uppercase text-white/30" id="journey-counter">
+      <div class="font-sans text-xs tracking-[0.25em] uppercase text-white/40" id="journey-counter">
         01 / 04
       </div>
     </div>
@@ -80,41 +80,44 @@ const chapters = [
     <div class="journey-track" id="journey-track">
       {chapters.map((chapter, i) => (
         <div
-          class="journey-panel"
+          class="journey-panel pt-28 pb-10 sm:pt-32 sm:pb-14 px-3 sm:px-6 md:px-8 lg:px-12 flex items-center justify-center relative"
           data-chapter={chapter.id}
           id={`journey-panel-${chapter.id}`}
         >
-          <!-- Full-bleed photograph -->
-          <img
-            src={chapter.image}
-            alt={chapter.alt}
-            class={`w-full h-full object-cover brightness-[0.65] transition-transform duration-[8s] ease-out ${i === 0 ? 'scale-100' : 'scale-105'}`}
-            loading={i === 0 ? 'eager' : 'lazy'}
-            decoding="async"
-          />
+          <!-- Framed editorial photo canvas — gives zoomed-out perspective -->
+          <div class="relative w-full h-full overflow-hidden border border-white/10 rounded-[2px] bg-black/40 shadow-2xl">
+            <!-- Full photograph — zoomed out instead of tightly cropped -->
+            <img
+              src={chapter.image}
+              alt={chapter.alt}
+              class="w-full h-full object-cover object-center brightness-[0.70] transition-transform duration-700 ease-out origin-center scale-95 sm:scale-100"
+              loading={i === 0 ? 'eager' : 'lazy'}
+              decoding="async"
+            />
 
-          <!-- Dark gradient overlay from bottom -->
-          <div class="absolute inset-0 bg-gradient-to-t from-[var(--section-dark-bg)]/90 via-[var(--section-dark-bg)]/20 to-transparent pointer-events-none"></div>
-          <!-- Left edge blend (for smooth transition between panels on mobile) -->
-          <div class="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-[var(--section-dark-bg)]/40 to-transparent pointer-events-none hidden xl:block"></div>
+            <!-- Dark gradient overlay from bottom -->
+            <div class="absolute inset-0 bg-gradient-to-t from-[var(--section-dark-bg)]/90 via-[var(--section-dark-bg)]/25 to-transparent pointer-events-none"></div>
+            <!-- Left edge blend -->
+            <div class="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-[var(--section-dark-bg)]/40 to-transparent pointer-events-none hidden xl:block"></div>
 
-          <!-- Chapter label — bottom left -->
-          <div class="journey-panel-label">
-            <span class="journey-chapter-num">{chapter.number} · {chapter.subtitle}</span>
-            <h2 class="journey-chapter-title">{chapter.title}</h2>
-            <p class="journey-chapter-desc">{chapter.description}</p>
-          </div>
+            <!-- Chapter label — bottom left -->
+            <div class="journey-panel-label">
+              <span class="journey-chapter-num">{chapter.number} · {chapter.subtitle}</span>
+              <h2 class="journey-chapter-title">{chapter.title}</h2>
+              <p class="journey-chapter-desc">{chapter.description}</p>
+            </div>
 
-          <!-- Coordinates — bottom right -->
-          <div class="absolute bottom-10 right-6 sm:right-10 z-10 pointer-events-none">
-            <span class="font-sans text-xs tracking-[0.25em] uppercase" style="color: var(--hero-meta-color)">{chapter.coordinates}</span>
-          </div>
+            <!-- Coordinates — bottom right -->
+            <div class="absolute bottom-6 sm:bottom-10 right-6 sm:right-10 z-10 pointer-events-none">
+              <span class="font-sans text-xs tracking-[0.25em] uppercase" style="color: var(--hero-meta-color)">{chapter.coordinates}</span>
+            </div>
 
-          <!-- Subtle panel number — large background typography -->
-          <div class="absolute top-1/2 right-8 -translate-y-1/2 z-0 pointer-events-none select-none" aria-hidden="true">
-            <span class="font-editorial text-[clamp(8rem,18vw,16rem)] font-light leading-none" style="color: var(--section-dark-border)">
-              {chapter.number}
-            </span>
+            <!-- Subtle panel number — large background typography -->
+            <div class="absolute top-1/2 right-6 sm:right-8 -translate-y-1/2 z-0 pointer-events-none select-none" aria-hidden="true">
+              <span class="font-editorial text-[clamp(6rem,14vw,14rem)] font-light leading-none opacity-40" style="color: var(--section-dark-border)">
+                {chapter.number}
+              </span>
+            </div>
           </div>
         </div>
       ))}
@@ -185,11 +188,14 @@ const chapters = [
         scrollHint.style.transition = 'opacity 0.5s ease';
       }
 
-      // Subtle parallax on active panel image
+      // Zoom OUT parallax on active panel image:
+      // As user progresses into each chapter, image smoothly zooms OUT (from 1.04 down to 0.96)
+      // revealing the broader expansive landscape rather than zooming in tightly.
       const panels = track.querySelectorAll('.journey-panel img');
       panels.forEach((img, i) => {
         const panelProgress = Math.max(0, Math.min(1, progress * totalPanels - i));
-        (img as HTMLElement).style.transform = `scale(${1 + 0.05 * (1 - panelProgress)})`;
+        const zoomOutScale = 1.04 - 0.08 * panelProgress;
+        (img as HTMLElement).style.transform = `scale(${zoomOutScale})`;
       });
     }
 
