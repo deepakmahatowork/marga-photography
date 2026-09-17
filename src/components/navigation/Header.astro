@@ -1,7 +1,11 @@
 ---
-import ThemeToggle from './ThemeToggle.astro';
 import { useTranslations } from '../../i18n/ui';
 
+interface Props {
+  transparentHeader?: boolean;
+}
+
+const { transparentHeader = false } = Astro.props;
 const currentPath = Astro.url.pathname;
 const t = useTranslations('en');
 
@@ -25,59 +29,97 @@ const navLinks = [
   { href: '/about', label: t('nav.about'), number: '06' },
   { href: '/contact', label: t('nav.contact'), number: '07' },
 ];
+
+// Images shown in menu right panel per nav item
+const menuImages: Record<string, string> = {
+  '/': '/images/himalaya_dramatic_sunrise.jpg',
+  '/expeditions': '/images/tiji_festival_dance.jpg',
+  '/explore/people': '/images/nepal_sadhu_portrait.jpg',
+  '/stories': '/images/gokyo_himalaya_sunrise.jpg',
+  '/commercial': '/images/bhaktapur_heritage_lamps.jpg',
+  '/about': '/images/patrick_frilet_portrait.jpg',
+  '/contact': '/images/dhorpatan_valley_landscape.jpg',
+};
 ---
 
-<!-- Fixed Top Navigation Bar (Snami Luxury Editorial Style) -->
+<!-- ╔══════════════════════════════════════════════════════════
+     MARGA PHOTOGRAPHY — EDITORIAL NAVIGATION
+     Fixed top bar / Curtain full-screen menu
+     ══════════════════════════════════════════════════════════ -->
+
+<!-- Fixed Top Navigation Bar -->
 <nav
   id="main-navbar"
-  class="fixed top-0 left-0 w-full z-50 transition-all duration-500 will-change-transform transform-gpu bg-transparent py-4 sm:py-6 text-white"
+  class={`fixed top-0 left-0 w-full z-50 transition-all duration-500 will-change-transform transform-gpu py-4 sm:py-5 ${transparentHeader ? 'navbar-transparent-hero' : 'navbar-solid-page'}`}
+  data-transparent-hero={transparentHeader ? "true" : "false"}
+  role="navigation"
+  aria-label="Main navigation"
 >
-  <div class="w-full max-w-[1920px] mx-auto px-4 sm:px-8 md:px-12 lg:px-16 flex justify-between items-center gap-2">
-    
-    <!-- Brand Logo & Name Only -->
-    <a href="/" class="flex items-center gap-2 sm:gap-3 group cursor-pointer shrink min-w-0" aria-label="Marga Photography Home">
+  <div class="w-full max-w-[1920px] mx-auto px-5 sm:px-10 md:px-14 lg:px-18 flex justify-between items-center gap-4">
+
+    <!-- Brand Logo & Name -->
+    <a href="/" class="flex items-center gap-2.5 sm:gap-3 group cursor-pointer shrink min-w-0 z-10" aria-label="Marga Photography Home">
       <img
         src="/images/marga_photography_logo.png"
         alt="Marga Photography Logo"
-        class="w-6 h-6 sm:w-9 sm:h-9 object-contain shrink-0 transition-transform duration-300 group-hover:scale-105"
+        class="navbar-logo-img w-6 h-6 sm:w-8 sm:h-8 object-contain shrink-0 transition-all duration-400 group-hover:opacity-80"
+        loading="eager"
       />
-      <span class="font-editorial text-sm sm:text-xl font-medium tracking-[0.12em] sm:tracking-[0.14em] text-white uppercase whitespace-nowrap navbar-brand-text">
-        Marga <span class="font-light text-[#bea380]">Photography</span>
-      </span>
+      <div class="flex flex-col leading-none">
+        <span class="font-editorial text-lg sm:text-xl font-medium tracking-[0.14em] sm:tracking-[0.16em] uppercase whitespace-nowrap navbar-brand-text transition-colors duration-300">
+          Marga <span class="font-light" style="color: var(--marga-gold)">Photography</span>
+        </span>
+        <span class="hidden sm:block font-mono text-[11px] tracking-[0.08em] uppercase navbar-dynamic-text-muted mt-0.5 transition-colors duration-300">
+          Nepal · Himalayan Expeditions
+        </span>
+      </div>
     </a>
 
+    <!-- Desktop nav links (≥1280px only) -->
+    <div class="hidden xl:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
+      {[navLinks[1], navLinks[2], navLinks[3], navLinks[5]].map((link) => {
+        const isActive = currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href));
+        return (
+          <a
+            href={link.href}
+            class={`text-[11px] font-mono font-medium tracking-[0.08em] uppercase transition-all duration-300 relative group
+              ${isActive ? 'navbar-dynamic-text' : 'navbar-dynamic-text-muted hover:opacity-100'}`}
+          >
+            {link.label}
+            <span class={`absolute -bottom-0.5 left-0 h-px bg-current transition-all duration-400
+              ${isActive ? 'w-full opacity-50' : 'w-0 group-hover:w-full opacity-0 group-hover:opacity-40'}`} />
+          </a>
+        );
+      })}
+    </div>
+
     <!-- Right Controls -->
-    <div class="flex items-center gap-2 sm:gap-5 md:gap-8 shrink-0">
-      <!-- Phone Call Link (Snami Telephone Icon) -->
+    <div class="flex items-center gap-3 sm:gap-4 md:gap-5 shrink-0">
+
+      <!-- Phone link (hidden on mobile) -->
       <a
         href="tel:+9779800000000"
-        class="text-white/75 hover:text-[#bea380] transition-colors p-2 hidden sm:flex items-center justify-center"
+        class="navbar-dynamic-text-muted hover:opacity-100 transition-opacity duration-300 p-1.5 hidden md:flex items-center justify-center"
         aria-label="Direct Dispatch Phone"
       >
-        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
         </svg>
       </a>
 
-
-      <!-- Theme Switcher -->
-      <ThemeToggle id="theme-toggle-btn" />
-
-      <!-- The Signature Snami 2-Line Hamburger Button -->
+      <!-- 2-line hamburger -->
       <button
         id="hamburger-menu-btn"
         type="button"
-        class="flex items-center gap-2 group p-2 cursor-pointer select-none focus:outline-none focus:ring-1 focus:ring-[#bea380] rounded-lg shrink-0 min-w-[44px] min-h-[44px] justify-center touch-manipulation"
-        aria-label="Open main navigation menu"
+        class="flex flex-col gap-[5px] p-2 cursor-pointer group focus:outline-none shrink-0 min-w-[44px] min-h-[44px] items-center justify-center touch-manipulation"
+        aria-label="Open navigation menu"
         aria-expanded="false"
       >
-        <div class="flex flex-col gap-1.5 p-1 transition-all pointer-events-none">
-          <div class="h-[1.5px] transition-all duration-300 bg-white w-6 sm:w-8 group-hover:bg-[#bea380] hamburger-line"></div>
-          <div class="h-[1.5px] transition-all duration-300 bg-white w-6 sm:w-8 group-hover:bg-[#bea380] hamburger-line"></div>
-        </div>
+        <div class="h-px w-6 sm:w-7 bg-current transition-all duration-350 origin-center hamburger-line group-hover:opacity-70"></div>
+        <div class="h-px w-4 sm:w-5 bg-current transition-all duration-350 origin-center hamburger-line group-hover:w-6 sm:group-hover:w-7 group-hover:opacity-70"></div>
       </button>
 
-      <!-- The Iconic Snami Circular REQUEST Button -->
+      <!-- Circular REQUEST Button -->
       <a
         href="/contact?intent=expedition"
         class="snami-circle-btn"
@@ -89,198 +131,264 @@ const navLinks = [
   </div>
 </nav>
 
-<!-- Full-Screen Navigation Overlay Modal (Snami Split Drawer) -->
+<!-- ╔══════════════════════════════════════════════════════════
+     FULL-SCREEN NAVIGATION MENU — EDITORIAL CURTAIN
+     Drops from top with clip-path animation
+     ══════════════════════════════════════════════════════════ -->
 <div
   id="fullscreen-menu"
-  class="fixed inset-0 h-[100dvh] z-[100] bg-[#0B0D12]/98 backdrop-blur-2xl text-white hidden flex-col font-sans transition-opacity duration-300"
+  class="fixed inset-0 h-[100dvh] z-[100] text-white font-sans pointer-events-none"
+  style="clip-path: inset(0 0 100% 0); background-color: var(--menu-bg, #f5f3ef); color: var(--menu-text, #0e0e0e);"
   role="dialog"
   aria-modal="true"
   aria-label="Navigation Menu"
+  aria-hidden="true"
 >
-  <!-- Top Bar with Close Button -->
-  <div class="w-full max-w-[1920px] mx-auto px-5 sm:px-8 md:px-12 lg:px-16 py-5 sm:py-6 flex justify-between items-center border-b border-white/10 shrink-0">
-    <!-- Brand in Menu -->
-    <a href="/" class="flex items-center gap-2 sm:gap-3 group menu-link" aria-label="Marga Photography Home">
-      <img
-        src="/images/marga_photography_logo.png"
-        alt="Marga Photography Logo"
-        class="w-6 h-6 sm:w-9 sm:h-9 object-contain shrink-0 transition-transform duration-300 group-hover:scale-105"
-      />
-      <span class="font-editorial text-sm sm:text-xl font-medium tracking-[0.12em] sm:tracking-[0.14em] text-white uppercase whitespace-nowrap">
-        Marga <span class="font-light text-[#bea380]">Photography</span>
-      </span>
-    </a>
+  <!-- Backdrop — uses CSS variable, adapts to theme -->
+  <div class="absolute inset-0" style="background-color: var(--menu-bg, #f5f3ef)"></div>
 
-    <!-- Close Controls -->
-    <div class="flex items-center gap-3 sm:gap-6">
+  <!-- Inner layout -->
+  <div class="relative h-full flex flex-col z-10">
+
+    <!-- Top bar -->
+    <div class="w-full max-w-[1920px] mx-auto px-5 sm:px-10 md:px-14 py-4 sm:py-5 flex justify-between items-center border-b border-white/8 shrink-0">
+
+      <!-- Brand in menu -->
+      <a href="/" class="flex items-center gap-2.5 sm:gap-3 group menu-link" aria-label="Marga Photography Home">
+        <img src="/images/marga_photography_logo.png" alt="" class="w-6 h-6 sm:w-8 sm:h-8 object-contain shrink-0 opacity-90" />
+        <span class="font-editorial text-lg sm:text-xl font-medium tracking-[0.14em] sm:tracking-[0.16em] text-white uppercase whitespace-nowrap">
+          Marga <span class="font-light" style="color: var(--marga-gold)">Photography</span>
+        </span>
+      </a>
 
       <!-- Close Button -->
       <button
         id="close-menu-btn"
         type="button"
-        class="group flex items-center gap-2.5 sm:gap-3 p-2 cursor-pointer focus:outline-none focus:ring-1 focus:ring-[#D4A359] rounded-full shrink-0 min-w-[44px] min-h-[44px] justify-center touch-manipulation"
+        class="group flex items-center gap-3 p-2 cursor-pointer focus:outline-none shrink-0 min-w-[44px] min-h-[44px] justify-center touch-manipulation"
         aria-label="Close navigation menu"
       >
-        <span class="text-[10px] font-mono uppercase tracking-[0.4em] text-white/50 group-hover:text-white hidden sm:block">
+        <span class="text-[11px] font-mono font-medium uppercase tracking-[0.08em] text-white/35 group-hover:text-white/70 hidden sm:block transition-colors duration-300">
           {t('nav.close')}
         </span>
-        <div class="w-10 h-10 border border-white/20 rounded-full flex items-center justify-center group-hover:bg-[#D4A359] group-hover:text-black group-hover:border-[#D4A359] transition-all duration-300 text-white pointer-events-none">
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-          </svg>
+        <!-- X icon — two crossing lines -->
+        <div class="relative w-9 h-9 flex items-center justify-center border border-white/15 rounded-full group-hover:border-white/30 transition-all duration-300">
+          <div class="absolute w-4 h-px bg-white rotate-45 transition-all duration-300"></div>
+          <div class="absolute w-4 h-px bg-white -rotate-45 transition-all duration-300"></div>
         </div>
       </button>
     </div>
-  </div>
 
-  <!-- Menu Body Layout (Split Columns) -->
-  <div class="flex-1 min-h-0 flex flex-col xl:flex-row relative z-10 overflow-hidden">
-    
-    <!-- Left Column: Primary Navigation Items -->
-    <div class="w-full xl:w-[48%] flex flex-col justify-between px-6 sm:px-12 md:pl-16 lg:pl-24 gap-8 overflow-y-auto min-h-0 flex-1 overscroll-contain pt-8 md:pt-12 pb-12 border-r border-white/10">
-      <nav class="flex flex-col space-y-4 md:space-y-6 shrink-0" aria-label="Overlay Navigation">
-        {navLinks.map((item) => {
-          const isActive = currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href));
-          return (
-            <div class="group/item">
-              <div class="flex items-baseline gap-4 sm:gap-6">
-                <span class="font-mono text-[11px] text-white/40 tracking-widest group-hover/item:text-[#D4A359] transition-colors">
-                  {item.number}
-                </span>
-                <a
-                  href={item.href}
-                  class={`menu-link font-editorial text-3xl sm:text-5xl lg:text-5xl font-light tracking-tight transition-all duration-300 hover:translate-x-3 ${
-                    isActive ? 'text-[#D4A359]' : 'text-white/90 hover:text-[#D4A359]'
-                  }`}
-                >
-                  {item.label}
-                </a>
-              </div>
+    <!-- Body — split layout -->
+    <div class="flex-1 min-h-0 flex flex-col xl:flex-row relative overflow-hidden">
 
-              {/* Submenu for Portfolios */}
-              {item.children && (
-                <div class="pl-9 sm:pl-12 mt-3 flex flex-wrap gap-2 sm:gap-3">
-                  {item.children.map((sub) => (
-                    <a
-                      href={sub.href}
-                      class="menu-link text-[11px] uppercase tracking-[0.15em] py-1.5 px-3.5 rounded-full bg-white/5 border border-white/10 hover:border-[#D4A359] hover:text-[#D4A359] active:bg-[#D4A359] active:text-black transition-all touch-manipulation text-white/70"
-                    >
-                      {sub.label}
-                    </a>
-                  ))}
+      <!-- Left: Primary Navigation Items -->
+      <div class="w-full xl:w-[52%] flex flex-col justify-between px-6 sm:px-12 md:pl-14 lg:pl-20 xl:pl-24 gap-6 overflow-y-auto min-h-0 flex-1 overscroll-contain pt-10 md:pt-14 pb-10 xl:border-r border-white/8">
+
+        <nav class="flex flex-col space-y-1 shrink-0" aria-label="Overlay Navigation">
+          {navLinks.map((item, i) => {
+            const isActive = currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href));
+            return (
+              <div class="group/item menu-item-reveal" style={`transition-delay: ${0.08 + i * 0.055}s`}>
+                <div class="flex items-baseline gap-5 sm:gap-7 py-2.5 border-b border-white/5 group-hover/item:border-white/10 transition-colors duration-300">
+                  <span class="font-mono text-[11px] font-medium text-white/25 tracking-[0.08em] group-hover/item:text-[var(--marga-gold)] transition-colors duration-300 shrink-0 w-6">
+                    {item.number}
+                  </span>
+                  <a
+                    href={item.href}
+                    data-menu-image={menuImages[item.href] || menuImages['/']}
+                    class={`menu-link font-editorial text-[clamp(2rem,4.5vw,3.8rem)] font-light tracking-[-0.02em] transition-all duration-350 group-hover/item:translate-x-2 block
+                      ${isActive ? 'text-white' : 'text-white/75 hover:text-white'}`}
+                  >
+                    {item.label}
+                  </a>
                 </div>
-              )}
-            </div>
-          );
-        })}
-      </nav>
 
-      <!-- Bottom Quick Contact in Drawer -->
-      <div class="pt-6 border-t border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs text-white/50 shrink-0 pb-4">
-        <div>
-          <span class="uppercase tracking-wider font-mono text-[10px]">Direct Dispatch: </span>
-          <a href="mailto:expeditions@margaphotography.com" class="text-[#D4A359] hover:underline font-mono">
-            expeditions@margaphotography.com
-          </a>
-        </div>
-        <div class="font-mono text-[10px] tracking-wider uppercase">
-          <span>Infrastructure Partner: </span>
-          <a href="https://margaadventure.com" target="_blank" rel="noopener noreferrer" class="text-white hover:text-[#D4A359] underline">
-            Marga Adventure
-          </a>
-        </div>
-      </div>
-    </div>
+                {/* Submenu for Portfolios */}
+                {item.children && (
+                  <div class="pl-11 sm:pl-14 mt-2 mb-1 flex flex-wrap gap-2">
+                    {item.children.map((sub) => (
+                      <a
+                        href={sub.href}
+                        class="menu-link text-[11px] uppercase tracking-[0.08em] py-2 px-3.5 border border-white/10 hover:border-[var(--marga-gold)] hover:text-[var(--marga-gold)] active:bg-[var(--marga-gold)] active:text-black transition-all duration-300 touch-manipulation text-white/50 font-mono"
+                      >
+                        {sub.label}
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </nav>
 
-    <!-- Right Column: Visual Showcase Card (Desktop) -->
-    <div class="hidden xl:flex flex-1 relative overflow-hidden items-center justify-center p-12 lg:p-16 bg-[#0E1017]">
-      <div class="max-w-md w-full p-8 rounded-2xl bg-[#141822] border border-white/10 shadow-2xl space-y-6">
-        <div class="aspect-[16/10] rounded-xl overflow-hidden relative editorial-img-frame">
-          <img
-            src="/images/patrick_frilet_portrait.jpg"
-            alt="Field Master & Mentor Patrick Frilet"
-            class="w-full h-full object-cover object-top"
-          />
-          <div class="absolute top-3 left-3 px-3 py-1 bg-black/80 backdrop-blur-md rounded-full text-[9px] uppercase tracking-[0.25em] text-[#D4A359] font-mono border border-white/10">
-            2026 Expeditions Open
+        <!-- Bottom Quick Contact -->
+        <div class="pt-5 border-t border-white/8 flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-white/35 shrink-0 menu-item-reveal" style="transition-delay: 0.58s">
+          <div class="space-y-0.5">
+            <span class="journal-label text-white/25 block">Direct Dispatch</span>
+            <a href="mailto:expeditions@margaphotography.com" class="font-sans text-sm sm:text-base text-[var(--marga-gold)] hover:text-white transition-colors duration-300">
+              expeditions@margaphotography.com
+            </a>
+          </div>
+          <div class="font-sans text-[0.65rem] tracking-[0.18em] uppercase space-y-0.5 text-right">
+            <span class="block text-white/30">Infrastructure Partner</span>
+            <a href="https://margaadventure.com" target="_blank" rel="noopener noreferrer" class="text-[#5a9dc9] hover:text-white transition-colors duration-300 font-medium">
+              Marga Adventure ↗
+            </a>
           </div>
         </div>
 
-        <div>
-          <span class="text-[10px] uppercase tracking-[0.3em] text-[#D4A359] font-mono block mb-1">
-            Intimate Masterclasses
-          </span>
-          <h4 class="font-editorial text-2xl text-white font-light">
-            Strictly 4 to 6 Photographers
-          </h4>
-          <p class="text-xs text-white/60 leading-relaxed mt-2 font-light">
-            Every departure is scheduled precisely around sacred seasonal calendar dates, ancient masked rituals, and optimum Himalayan light windows.
-          </p>
-        </div>
-
-        <div class="pt-4 border-t border-white/10 flex items-center justify-between">
-          <a
-            href="/expeditions"
-            class="menu-link px-6 py-2.5 bg-[#D4A359] hover:bg-white text-black font-semibold text-[11px] uppercase tracking-[0.2em] rounded-full transition-all duration-300 shadow-md"
-          >
-            Explore Itineraries →
-          </a>
-          <span class="text-[10px] font-mono text-white/40 tracking-wider">NEPAL · MUSTANG · TERAI</span>
+        <!-- Coordinates -->
+        <div class="font-mono text-[11px] tracking-[0.08em] uppercase text-white/20 pb-4 menu-item-reveal" style="transition-delay: 0.62s">
+          27°42' N · 85°19' E · Kathmandu, Nepal
         </div>
       </div>
-    </div>
 
+      <!-- Right: Full-bleed photograph panel (desktop only) -->
+      <div class="hidden xl:block flex-1 relative overflow-hidden border-l" style="border-color: var(--section-dark-border)" id="menu-image-panel">
+        {Object.entries(menuImages).map(([href, src], i) => (
+          <div
+            class={`menu-panel-image absolute inset-0 transition-opacity duration-700 ease-out ${i === 0 ? 'opacity-100' : 'opacity-0'}`}
+            data-panel-src={src}
+          >
+            <img
+              src={src}
+              alt=""
+              class="w-full h-full object-cover"
+              loading="lazy"
+              aria-hidden="true"
+            />
+            <div class="absolute inset-0 bg-gradient-to-l from-transparent via-black/10 to-black/40"></div>
+          </div>
+        ))}
+
+        <!-- Panel metadata overlay -->
+        <div class="absolute bottom-8 left-8 z-10">
+          <span class="journal-label text-white/35 block mb-2">Field Itineraries · 2026</span>
+          <a
+            href="/expeditions"
+            class="menu-link inline-flex items-center gap-3 text-[0.65rem] font-sans font-medium uppercase tracking-[0.22em] text-[var(--marga-gold)] hover:text-white transition-colors duration-300"
+          >
+            <span>Explore All Expeditions</span>
+            <span class="block w-8 h-px bg-current"></span>
+          </a>
+        </div>
+
+        <!-- Expedition open badge -->
+        <div class="absolute top-8 left-8 z-10">
+          <div class="flex items-center gap-2 px-3 py-1.5 border border-white/15 bg-black/40 backdrop-blur-sm">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span class="journal-label text-[var(--marga-gold)] text-[0.58rem]">2026 Expeditions Open</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
 </div>
 
+<style>
+  /* Hamburger X transformation when menu open */
+  .menu-open #hamburger-menu-btn .hamburger-line:first-child {
+    transform: rotate(45deg) translate(3px, 3px);
+    width: 1.5rem !important;
+  }
+  .menu-open #hamburger-menu-btn .hamburger-line:last-child {
+    transform: rotate(-45deg) translate(3px, -3px);
+    width: 1.5rem !important;
+  }
+
+  /* Curtain animation */
+  @keyframes curtainDrop {
+    from { clip-path: inset(0 0 100% 0); }
+    to   { clip-path: inset(0 0 0% 0); }
+  }
+  @keyframes curtainRise {
+    from { clip-path: inset(0 0 0% 0); }
+    to   { clip-path: inset(0 0 100% 0); }
+  }
+
+  .curtain-open {
+    animation: curtainDrop 0.7s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+  }
+  .curtain-close {
+    animation: curtainRise 0.55s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+  }
+</style>
+
 <script>
-  // Scroll reactive navbar
+  // ─── Scroll-reactive navbar ──────────────────────────────────────────
   const navbar = document.getElementById('main-navbar');
-  
+
   function handleScroll() {
     if (!navbar) return;
-    if (window.scrollY > 20) {
+    if (window.scrollY > 30) {
       navbar.classList.add('navbar-scrolled');
     } else {
       navbar.classList.remove('navbar-scrolled');
     }
   }
-
   window.addEventListener('scroll', handleScroll, { passive: true });
   handleScroll();
 
-  // Full-screen Menu Open / Close logic
-  const menuBtn = document.getElementById('hamburger-menu-btn');
-  const closeBtn = document.getElementById('close-menu-btn');
-  const fullscreenMenu = document.getElementById('fullscreen-menu');
-  const menuLinks = document.querySelectorAll('.menu-link');
+  // ─── Full-screen Menu — curtain open/close ──────────────────────────
+  const menuBtn     = document.getElementById('hamburger-menu-btn');
+  const closeBtn    = document.getElementById('close-menu-btn');
+  const fullMenu    = document.getElementById('fullscreen-menu');
+  const body        = document.body;
+  const menuItems   = document.querySelectorAll('.menu-item-reveal');
 
   function openMenu() {
-    if (!fullscreenMenu) return;
-    fullscreenMenu.classList.remove('hidden');
-    fullscreenMenu.classList.add('flex');
-    document.body.style.overflow = 'hidden';
+    if (!fullMenu) return;
+    fullMenu.style.clipPath = 'inset(0 0 100% 0)';
+    fullMenu.classList.remove('curtain-close');
+    fullMenu.style.pointerEvents = 'auto';
+    fullMenu.setAttribute('aria-hidden', 'false');
+    fullMenu.classList.add('curtain-open');
+    body.classList.add('menu-open');
+    body.style.overflow = 'hidden';
     menuBtn?.setAttribute('aria-expanded', 'true');
-    closeBtn?.focus();
+
+    // Stagger reveal menu items
+    requestAnimationFrame(() => {
+      menuItems.forEach((item) => item.classList.add('visible'));
+    });
+
+    // Focus close button after animation
+    setTimeout(() => closeBtn?.focus(), 700);
   }
 
   function closeMenu() {
-    if (!fullscreenMenu) return;
-    fullscreenMenu.classList.add('hidden');
-    fullscreenMenu.classList.remove('flex');
-    document.body.style.overflow = '';
+    if (!fullMenu) return;
+    fullMenu.classList.remove('curtain-open');
+    fullMenu.classList.add('curtain-close');
+    body.classList.remove('menu-open');
+    body.style.overflow = '';
     menuBtn?.setAttribute('aria-expanded', 'false');
+    fullMenu.setAttribute('aria-hidden', 'true');
+
+    // Hide items after animation
+    setTimeout(() => {
+      menuItems.forEach((item) => item.classList.remove('visible'));
+      fullMenu.style.pointerEvents = 'none';
+    }, 550);
+
     menuBtn?.focus();
   }
 
   menuBtn?.addEventListener('click', openMenu);
   closeBtn?.addEventListener('click', closeMenu);
 
-  // Close menu only for hash anchors or when clicking the current page's own link
-  menuLinks.forEach((link) => {
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && fullMenu?.getAttribute('aria-hidden') === 'false') {
+      closeMenu();
+    }
+  });
+
+  // Close menu on cross-page navigation
+  document.querySelectorAll('.menu-link').forEach((link) => {
     link.addEventListener('click', () => {
-      const href = link.getAttribute('href');
-      if (!href) return;
+      const href = (link as HTMLAnchorElement).getAttribute('href') ?? '';
       const current = window.location.pathname;
       if (
         href.startsWith('#') ||
@@ -290,13 +398,33 @@ const navLinks = [
       ) {
         closeMenu();
       }
-      // For cross-page navigation, allow the browser to follow the link naturally
     });
   });
 
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && fullscreenMenu && !fullscreenMenu.classList.contains('hidden')) {
-      closeMenu();
-    }
+  // ─── Right Panel Image — crossfade on nav hover ─────────────────────
+  const panelImages   = document.querySelectorAll('.menu-panel-image');
+  const navMenuLinks  = document.querySelectorAll('[data-menu-image]');
+
+  function activateMenuImage(src: string) {
+    panelImages.forEach((panel) => {
+      const img = panel.querySelector('img');
+      if (img && img.src.endsWith(src.split('/').pop() ?? '')) {
+        (panel as HTMLElement).style.opacity = '1';
+      } else {
+        (panel as HTMLElement).style.opacity = '0';
+      }
+    });
+  }
+
+  navMenuLinks.forEach((link) => {
+    link.addEventListener('mouseenter', () => {
+      const src = link.getAttribute('data-menu-image');
+      if (src) activateMenuImage(src);
+    });
+  });
+
+  // ─── Register handlers after Astro page loads ────────────────────────
+  document.addEventListener('astro:page-load', () => {
+    handleScroll();
   });
 </script>

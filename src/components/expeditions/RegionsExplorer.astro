@@ -64,183 +64,257 @@ const regions: Region[] = [
 ];
 ---
 
+<!-- ╔══════════════════════════════════════════════════════════
+     REGIONS EXPLORER — Vertical list + Right panel photograph
+     Desktop: list left, full-bleed photo right
+     Mobile: horizontal scroll cards
+     ══════════════════════════════════════════════════════════ -->
+
 <section
   id="regions-explorer"
-  class="relative min-h-[90vh] py-32 sm:py-44 section-dark overflow-hidden flex flex-col justify-between select-none"
+  class="relative section-dark overflow-hidden select-none"
   aria-label="Sacred Regions Explorer"
 >
-  <!-- Background Crossfade Images -->
-  <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-    {regions.map((region, index) => (
-      <div
-        class={`region-bg-frame absolute inset-0 transition-opacity duration-1000 ease-out ${
-          index === 0 ? 'opacity-45' : 'opacity-0'
-        }`}
-        data-region-bg={region.id}
-      >
-        <img
-          src={region.image}
-          alt={region.name}
-          class="w-full h-full object-cover filter brightness-[0.65] scale-105 transition-transform duration-[12000ms] ease-out"
-          loading="lazy"
-        />
+
+  <!-- ── DESKTOP LAYOUT (≥ lg) ───────────────────────────────── -->
+  <div class="hidden lg:flex min-h-[100vh] items-stretch">
+
+    <!-- Left: Vertical region list (40%) -->
+    <div class="relative w-[42%] flex flex-col justify-center px-10 xl:px-16 2xl:px-20 py-20 border-r z-10" style="background-color: var(--section-dark-bg); border-color: var(--section-dark-border)">
+
+      <!-- Section header -->
+      <div class="mb-12">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="w-6 h-px bg-[var(--marga-gold)]"></span>
+          <span class="journal-label text-[var(--marga-gold)] text-[0.58rem]">Discover Sacred Regions</span>
+        </div>
+        <h2 class="font-editorial text-[clamp(2rem,3.5vw,3.2rem)] font-light tracking-[-0.02em] leading-[1.1]" style="color: var(--section-dark-text)">
+          Nepal's Sacred<br />Photographic Territories
+        </h2>
       </div>
-    ))}
-    <!-- Atmospheric gradient overlays -->
-    <div class="absolute inset-0 bg-gradient-to-t from-[var(--section-dark-bg)] via-black/30 to-[var(--section-dark-bg)]"></div>
-    <div class="absolute inset-0 bg-radial from-transparent via-[var(--section-dark-bg)]/40 to-[var(--section-dark-bg)]/80"></div>
-  </div>
 
-  <!-- Top Centered Header (Snami "DISCOVER MORE DESTINATIONS" counterpart) -->
-  <div class="relative z-10 text-center px-6 pt-6">
-    <span class="font-sans text-[11px] uppercase tracking-[0.35em] text-white/70 font-semibold">
-      DISCOVER SACRED REGIONS
-    </span>
-  </div>
+      <!-- Region list -->
+      <div class="region-vertical-list">
+        {regions.map((region, index) => (
+          <button
+            type="button"
+            class={`region-list-item group text-left w-full cursor-pointer ${index === 0 ? 'active' : ''}`}
+            data-region-id={region.id}
+            aria-label={`Explore region ${region.name}`}
+          >
+            <div class="flex items-center justify-between w-full">
+              <div class="space-y-0.5">
+                <span
+                  class="font-editorial text-[clamp(1.3rem,2.2vw,2rem)] font-light tracking-[-0.01em] transition-colors duration-400 block"
+                  style={index === 0 ? 'color: var(--section-dark-text)' : 'color: var(--section-dark-muted)'}
+                  id={`region-name-${region.id}`}
+                >
+                  {region.name}
+                </span>
+                <span class="font-sans text-[0.6rem] tracking-[0.18em] uppercase transition-colors duration-300 block"
+                  style="color: var(--section-dark-faint)"
+                  id={`region-sub-${region.id}`}
+                >
+                  {region.subhead}
+                </span>
+              </div>
+              <div class="flex items-center gap-3 text-right shrink-0 ml-4">
+                <div class="text-right space-y-0.5">
+                  <span class="font-sans text-[0.56rem] tracking-[0.22em] uppercase block" style="color: var(--section-dark-faint)">{region.elevation}</span>
+                  <span class="font-sans text-[0.52rem] tracking-[0.16em] block" style="color: color-mix(in srgb, var(--section-dark-faint) 75%, transparent)">{region.coordinates}</span>
+                </div>
+                <svg class="w-4 h-4 text-[var(--marga-gold)] opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-x-2 group-hover:translate-x-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </div>
+            </div>
+          </button>
+        ))}
+      </div>
 
-  <!-- Middle Giant Marquee / Navigation Row (Snami large Dream Avenue destination titles) -->
-  <div class="relative z-10 w-full px-4 sm:px-12 my-auto py-12">
-    <div class="flex flex-wrap items-center justify-center gap-6 sm:gap-12 md:gap-16 lg:gap-20 text-center max-w-7xl mx-auto">
-      {regions.map((region, index) => (
-        <button
-          type="button"
-          class={`region-nav-item group font-dream text-[clamp(2.5rem,6.5vw,5.5rem)] tracking-tight uppercase transition-all duration-500 cursor-pointer ${
-            index === 0 ? 'text-white' : 'text-white/40 hover:text-white'
-          }`}
-          data-region-id={region.id}
-          aria-label={`Explore region ${region.name}`}
+      <!-- Dossier link -->
+      <div class="mt-10 pt-8 border-t" style="border-color: var(--section-dark-border)">
+        <a
+          id="region-dossier-link-desktop"
+          href={regions[0].link}
+          class="snami-arrow-link text-[var(--marga-gold)] hover:text-white"
         >
-          <span class="transition-transform duration-500 inline-block group-hover:-translate-y-1">
-            {region.name}
-          </span>
-        </button>
+          <span>Discover Region</span>
+          <span class="arrow-line"></span>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Right: Full-bleed photograph panel (58%) -->
+    <div class="relative flex-1 overflow-hidden" id="regions-image-panel-desktop">
+      {regions.map((region, index) => (
+        <div
+          class={`region-img-frame absolute inset-0 transition-opacity duration-800 ease-out ${index === 0 ? 'opacity-100' : 'opacity-0'}`}
+          data-region-img={region.id}
+        >
+          <img
+            src={region.image}
+            alt={region.name}
+            class="w-full h-full object-cover brightness-[0.75] transition-transform duration-[10s] ease-out scale-105 hover:scale-100"
+            loading="lazy"
+            decoding="async"
+          />
+          <!-- Gradient overlay -->
+          <div class="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-[#0a0a0a]/30 pointer-events-none"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/50 via-transparent to-transparent pointer-events-none"></div>
+        </div>
+      ))}
+
+      <!-- Overlay: Region name in giant faint typography -->
+      <div class="absolute inset-0 flex items-end justify-end p-10 xl:p-14 pointer-events-none z-10">
+        <div class="text-right">
+          <div class="font-editorial text-[clamp(5rem,12vw,11rem)] font-light text-white/8 leading-none tracking-[-0.04em] uppercase" id="region-bg-name">
+            {regions[0].name}
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom description panel -->
+      <div class="absolute bottom-0 left-0 right-0 z-20 px-10 xl:px-14 pb-10 xl:pb-14">
+        <p class="font-sans text-[0.78rem] font-light text-white/55 leading-[1.75] max-w-sm" id="region-dossier-desc-desktop">
+          {regions[0].description}
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── MOBILE LAYOUT (< lg) ──────────────────────────────────── -->
+  <div class="lg:hidden py-20 px-6 sm:px-10">
+
+    <!-- Header -->
+    <div class="mb-10">
+      <div class="flex items-center gap-3 mb-3">
+        <span class="w-6 h-px bg-[var(--marga-gold)]"></span>
+        <span class="journal-label text-[var(--marga-gold)] text-[0.58rem]">Discover Sacred Regions</span>
+      </div>
+      <h2 class="font-editorial text-[2.2rem] font-light text-white/90 tracking-[-0.02em] leading-[1.1]">
+        Sacred Photographic<br />Territories
+      </h2>
+    </div>
+
+    <!-- Horizontal scroll cards -->
+    <div class="flex gap-4 overflow-x-auto no-scrollbar pb-4 -mx-6 px-6 snap-x snap-mandatory">
+      {regions.map((region) => (
+        <a
+          href={region.link}
+          class="flex-none w-[80vw] sm:w-[60vw] snap-start relative aspect-[3/4] overflow-hidden editorial-img-frame border border-white/6"
+        >
+          <img
+            src={region.image}
+            alt={region.name}
+            class="w-full h-full object-cover brightness-[0.65]"
+            loading="lazy"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none"></div>
+          <div class="absolute bottom-5 left-5 right-5">
+            <span class="journal-label text-[0.52rem] text-[var(--marga-gold)] block mb-1">{region.elevation} · {region.coordinates}</span>
+            <h3 class="font-editorial text-2xl font-light text-white leading-[1.15]">{region.name}</h3>
+            <p class="font-sans text-[0.65rem] text-white/50 mt-1.5 leading-relaxed line-clamp-2">{region.description}</p>
+          </div>
+        </a>
       ))}
     </div>
+
   </div>
 
-  <!-- Bottom Dynamic Details Dossier (Coordinates & Arrow Link) -->
-  <div class="relative z-10 px-6 sm:px-12 max-w-3xl mx-auto text-center space-y-4 pb-6">
-    <div class="flex items-center justify-center gap-4 text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.3em] text-[#bea380]">
-      <span id="region-dossier-coords">{regions[0].coordinates}</span>
-      <span>·</span>
-      <span id="region-dossier-elev">{regions[0].elevation}</span>
-    </div>
-    
-    <p class="text-xs sm:text-sm text-neutral-300 font-light leading-relaxed max-w-xl mx-auto" id="region-dossier-desc">
-      {regions[0].description}
-    </p>
-
-    <div class="pt-2">
-      <a
-        id="region-dossier-link"
-        href={regions[0].link}
-        class="snami-arrow-link text-white hover:text-[#bea380]"
-      >
-        <span>Discover Region</span>
-        <span class="arrow-line"></span>
-      </a>
-    </div>
-  </div>
 </section>
 
 <script>
   interface RegionInfo {
-    coordinates: string;
-    elevation: string;
     description: string;
     link: string;
+    name: string;
   }
 
-  const regionMap: Record<string, RegionInfo> = {
+  const regionData: Record<string, RegionInfo> = {
     mustang: {
-      coordinates: "29°10' N · 83°57' E",
-      elevation: '3,840M',
       description: 'Ancient walled Tibetan citadels, sacred red canyons, and masked monastic dramas during the sacred Tiji festival.',
       link: '/expeditions/tiji-festival-upper-mustang',
+      name: 'Mustang',
     },
     tshechu: {
-      coordinates: "27°43' N · 85°21' E",
-      elevation: '1,400M',
       description: 'Sacred Buddhist cham dances in brocade robes, resonant dungchen horns, and living monastic traditions at Shechen.',
       link: '/expeditions/tshechu-festival-sacred-cham-dances',
+      name: 'Shechen',
     },
     bhaktapur: {
-      coordinates: "27°40' N · 85°25' E",
-      elevation: '1,401M',
       description: 'Bhairav chariot tug-of-war, the sacred Linga erection, vermilion Sindur Jatra, and wild Bardia tiger corridors.',
       link: '/expeditions/bisket-jatra-festival-nepalese-new-year',
+      name: 'Bhaktapur',
     },
     rukum: {
-      coordinates: "28°29' N · 83°03' E",
-      elevation: '2,850M',
       description: 'Remote ancestral mountain valleys where hereditary shamans channel spirits through resonant dhyangro drums at Jhakri Mela.',
       link: '/expeditions/sacred-shamans-of-nepal',
+      name: 'Rukum',
     },
     terai: {
-      coordinates: "27°42' N · 85°19' E",
-      elevation: '1,300M',
       description: 'Fagu Purnima color powder explosions across ancient brick temples, the Chir pole ritual, and Janakpur celebrations.',
       link: '/expeditions/holi-festival-photography-tour',
+      name: 'Terai & Valley',
     },
   };
 
-  function setupRegionsMarquee() {
-    const navItems = document.querySelectorAll('.region-nav-item');
-    const bgFrames = document.querySelectorAll('.region-bg-frame');
-    const coordsEl = document.getElementById('region-dossier-coords');
-    const elevEl = document.getElementById('region-dossier-elev');
-    const descEl = document.getElementById('region-dossier-desc');
-    const linkEl = document.getElementById('region-dossier-link') as HTMLAnchorElement;
+  function setupRegionsExplorer() {
+    const listItems   = document.querySelectorAll('.region-list-item');
+    const imgFrames   = document.querySelectorAll('.region-img-frame');
+    const bgName      = document.getElementById('region-bg-name');
+    const descDesktop = document.getElementById('region-dossier-desc-desktop');
+    const linkDesktop = document.getElementById('region-dossier-link-desktop') as HTMLAnchorElement | null;
 
-    if (!navItems.length) return;
+    if (!listItems.length) return;
 
     function activateRegion(id: string) {
-      const data = regionMap[id];
+      const data = regionData[id];
       if (!data) return;
 
-      // Update background frame opacities
-      bgFrames.forEach((bg) => {
-        if (bg.getAttribute('data-region-bg') === id) {
-          bg.classList.remove('opacity-0');
-          bg.classList.add('opacity-45');
-        } else {
-          bg.classList.remove('opacity-45');
-          bg.classList.add('opacity-0');
+      // Update images
+      imgFrames.forEach((frame) => {
+        const isActive = frame.getAttribute('data-region-img') === id;
+        (frame as HTMLElement).style.opacity = isActive ? '1' : '0';
+      });
+
+      // Update list item active state
+      listItems.forEach((item) => {
+        const isActive = item.getAttribute('data-region-id') === id;
+        item.classList.toggle('active', isActive);
+
+        // Update text colour inside the item
+        const nameEl = item.querySelector(`[id^="region-name-"]`);
+        if (nameEl) {
+          const root = document.documentElement;
+          const activeColor  = getComputedStyle(root).getPropertyValue('--section-dark-text').trim();
+          const inactiveColor = getComputedStyle(root).getPropertyValue('--section-dark-muted').trim();
+          (nameEl as HTMLElement).style.color = isActive ? activeColor : inactiveColor;
         }
       });
 
-      // Update nav text opacities
-      navItems.forEach((btn) => {
-        if (btn.getAttribute('data-region-id') === id) {
-          btn.classList.remove('text-white/40');
-          btn.classList.add('text-white');
-        } else {
-          btn.classList.remove('text-white');
-          btn.classList.add('text-white/40');
-        }
-      });
-
-      // Update dossier text
-      if (coordsEl) coordsEl.textContent = data.coordinates;
-      if (elevEl) elevEl.textContent = data.elevation;
-      if (descEl) descEl.textContent = data.description;
-      if (linkEl) linkEl.href = data.link;
+      // Update right panel overlays
+      if (bgName) bgName.textContent = data.name;
+      if (descDesktop) descDesktop.textContent = data.description;
+      if (linkDesktop) linkDesktop.href = data.link;
     }
 
-    navItems.forEach((btn) => {
-      const id = btn.getAttribute('data-region-id');
+    listItems.forEach((item) => {
+      const id = item.getAttribute('data-region-id');
       if (!id) return;
 
-      btn.addEventListener('mouseenter', () => activateRegion(id));
-      btn.addEventListener('focus', () => activateRegion(id));
-      btn.addEventListener('click', () => {
+      item.addEventListener('mouseenter', () => activateRegion(id));
+      item.addEventListener('focus', () => activateRegion(id));
+      item.addEventListener('click', () => {
         activateRegion(id);
-        const data = regionMap[id];
-        if (data?.link) window.location.href = data.link;
+        const d = regionData[id];
+        if (d?.link) window.location.href = d.link;
       });
     });
   }
 
-  setupRegionsMarquee();
-  document.addEventListener('astro:page-load', setupRegionsMarquee);
+  setupRegionsExplorer();
+  document.addEventListener('astro:page-load', setupRegionsExplorer);
 </script>

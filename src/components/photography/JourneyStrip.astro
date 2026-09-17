@@ -1,0 +1,203 @@
+---
+// Journey Through Nepal — Signature Horizontal Scroll Experience
+// As the user scrolls vertically, the photography journey moves horizontally
+// through 4 chapters: Himalaya → Valleys → People → Culture
+
+const chapters = [
+  {
+    id: 'himalaya',
+    number: '01',
+    title: 'Himalaya',
+    subtitle: 'High Alpine Sanctuaries',
+    description: 'Where the atmosphere thins and light takes on a quality found nowhere else on earth. The great Himalayan arc stretches at 5,000 meters above the world.',
+    image: '/images/gokyo_himalaya_sunrise.jpg',
+    alt: 'Gokyo Ri at blue-hour dawn, overlooking the Ngozumpa Glacier and Himalayan summits',
+    coordinates: '28°00\' N · 86°41\' E · 5,357M',
+  },
+  {
+    id: 'valleys',
+    number: '02',
+    title: 'Valleys',
+    subtitle: 'Ancient Kingdoms & Hidden Worlds',
+    description: 'Sheltered between the ridgelines, river valleys hold living civilisations unchanged for centuries. Mustang. Dhorpatan. Rukum. Each valley a world unto itself.',
+    image: '/images/new_uploads/village_hills.jpg',
+    alt: 'Traditional terraced village nestled in the lush green hills of the Himalayas',
+    coordinates: '28°29\' N · 83°03\' E · 2,850M',
+  },
+  {
+    id: 'people',
+    number: '03',
+    title: 'People',
+    subtitle: 'Human Stories & Living Lineages',
+    description: 'The real subject of Nepal photography is always the face. Shamans, monks, merchants, farmers — people whose lives carry the weight of unbroken tradition.',
+    image: '/images/mustang_monk_portrait.jpg',
+    alt: 'Monk portrait in Upper Mustang — ancient Buddhist monastic culture of the Himalayas',
+    coordinates: '29°10\' N · 83°57\' E · 3,840M',
+  },
+  {
+    id: 'culture',
+    number: '04',
+    title: 'Culture',
+    subtitle: 'Sacred Ritual & Living Ceremony',
+    description: 'Tiji Festival. Bisket Jatra. Shechen Tshechu. The sacred calendar of Nepal is a photographic gift — ancient theatre where costume, devotion, and trance meet the lens.',
+    image: '/images/new_uploads/swayambhunath_stupa.jpg',
+    alt: 'Swayambhunath Stupa with prayer flags and stone chaityas in Kathmandu',
+    coordinates: '27°42\' N · 85°17\' E · 1,400M',
+  },
+];
+---
+
+<!-- ╔══════════════════════════════════════════════════════════
+     JOURNEY THROUGH NEPAL — Signature Horizontal Scroll Strip
+     Vertical scroll drives horizontal photographic journey
+     ══════════════════════════════════════════════════════════ -->
+
+<section
+  id="journey-through-nepal"
+  class="journey-section relative"
+  aria-label="Journey Through Nepal — Photographic chapters"
+>
+  <!-- Sticky viewport container -->
+  <div class="journey-sticky" style="background-color: var(--section-dark-bg)">
+
+    <!-- Top label -->
+    <div class="absolute top-0 left-0 right-0 z-20 flex items-center justify-between px-6 sm:px-10 md:px-16 pt-7 sm:pt-9 pointer-events-none">
+      <div class="flex items-center gap-4">
+        <span class="w-6 h-px bg-[var(--marga-gold)]"></span>
+        <span class="journal-label text-[var(--marga-gold)] text-xs">Journey Through Nepal</span>
+      </div>
+      <div class="font-sans text-xs tracking-[0.25em] uppercase text-white/30" id="journey-counter">
+        01 / 04
+      </div>
+    </div>
+
+    <!-- Progress bar -->
+    <div class="absolute bottom-0 left-0 right-0 z-20 h-px bg-white/8">
+      <div class="h-full bg-[var(--marga-gold)] origin-left transition-transform duration-100 ease-linear" id="journey-progress-bar" style="transform: scaleX(0)"></div>
+    </div>
+
+    <!-- Horizontal track -->
+    <div class="journey-track" id="journey-track">
+      {chapters.map((chapter, i) => (
+        <div
+          class="journey-panel"
+          data-chapter={chapter.id}
+          id={`journey-panel-${chapter.id}`}
+        >
+          <!-- Full-bleed photograph -->
+          <img
+            src={chapter.image}
+            alt={chapter.alt}
+            class={`w-full h-full object-cover brightness-[0.65] transition-transform duration-[8s] ease-out ${i === 0 ? 'scale-100' : 'scale-105'}`}
+            loading={i === 0 ? 'eager' : 'lazy'}
+            decoding="async"
+          />
+
+          <!-- Dark gradient overlay from bottom -->
+          <div class="absolute inset-0 bg-gradient-to-t from-[var(--section-dark-bg)]/90 via-[var(--section-dark-bg)]/20 to-transparent pointer-events-none"></div>
+          <!-- Left edge blend (for smooth transition between panels on mobile) -->
+          <div class="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-[var(--section-dark-bg)]/40 to-transparent pointer-events-none hidden xl:block"></div>
+
+          <!-- Chapter label — bottom left -->
+          <div class="journey-panel-label">
+            <span class="journey-chapter-num">{chapter.number} · {chapter.subtitle}</span>
+            <h2 class="journey-chapter-title">{chapter.title}</h2>
+            <p class="journey-chapter-desc">{chapter.description}</p>
+          </div>
+
+          <!-- Coordinates — bottom right -->
+          <div class="absolute bottom-10 right-6 sm:right-10 z-10 pointer-events-none">
+            <span class="font-sans text-xs tracking-[0.25em] uppercase" style="color: var(--hero-meta-color)">{chapter.coordinates}</span>
+          </div>
+
+          <!-- Subtle panel number — large background typography -->
+          <div class="absolute top-1/2 right-8 -translate-y-1/2 z-0 pointer-events-none select-none" aria-hidden="true">
+            <span class="font-editorial text-[clamp(8rem,18vw,16rem)] font-light leading-none" style="color: var(--section-dark-border)">
+              {chapter.number}
+            </span>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Scroll hint (fades out after user scrolls) -->
+    <div class="absolute bottom-8 right-1/2 translate-x-1/2 z-20 flex flex-col items-center gap-2 pointer-events-none" id="journey-scroll-hint">
+      <span class="font-sans text-[0.56rem] tracking-[0.3em] uppercase" style="color: var(--hero-meta-color)">Scroll</span>
+      <div class="flex flex-col items-center gap-0.5">
+        <div class="w-px h-4" style="background: linear-gradient(to bottom, var(--hero-meta-color), transparent)"></div>
+        <div class="w-1.5 h-1.5 border-r border-b rotate-45 -mt-1 animate-bounce" style="border-color: var(--hero-meta-color)"></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  function initJourneyScroll() {
+    const section    = document.getElementById('journey-through-nepal') as HTMLElement | null;
+    const track      = document.getElementById('journey-track') as HTMLElement | null;
+    const progressBar = document.getElementById('journey-progress-bar') as HTMLElement | null;
+    const counter    = document.getElementById('journey-counter') as HTMLElement | null;
+    const scrollHint = document.getElementById('journey-scroll-hint') as HTMLElement | null;
+
+    if (!section || !track) return;
+
+    // Mobile: disable JS scroll, use CSS overflow-x
+    const isMobile = window.innerWidth < 768;
+    if (isMobile) return;
+
+    const totalPanels = 4;
+    let lastProgress  = -1;
+
+    function update() {
+      if (!section || !track) return;
+      const rect       = section.getBoundingClientRect();
+      const sectionH   = section.offsetHeight;
+      const viewportH  = window.innerHeight;
+
+      // Progress: 0 when section top hits viewport top, 1 when section bottom reaches viewport bottom
+      const scrolled  = -rect.top;
+      const scrollable = sectionH - viewportH;
+      const progress  = Math.min(1, Math.max(0, scrolled / scrollable));
+
+      if (Math.abs(progress - lastProgress) < 0.0005) return;
+      lastProgress = progress;
+
+      // Translate the track horizontally
+      const maxTranslate = (totalPanels - 1) * 100; // vw units
+      const translateX   = progress * maxTranslate;
+      track.style.transform = `translateX(-${translateX}vw)`;
+
+      // Progress bar
+      if (progressBar) {
+        progressBar.style.transform = `scaleX(${progress})`;
+      }
+
+      // Counter
+      const activePanel = Math.min(totalPanels - 1, Math.floor(progress * totalPanels));
+      if (counter) {
+        counter.textContent = `0${activePanel + 1} / 0${totalPanels}`;
+      }
+
+      // Fade hint
+      if (scrollHint) {
+        scrollHint.style.opacity = progress > 0.02 ? '0' : '1';
+        scrollHint.style.transition = 'opacity 0.5s ease';
+      }
+
+      // Subtle parallax on active panel image
+      const panels = track.querySelectorAll('.journey-panel img');
+      panels.forEach((img, i) => {
+        const panelProgress = Math.max(0, Math.min(1, progress * totalPanels - i));
+        (img as HTMLElement).style.transform = `scale(${1 + 0.05 * (1 - panelProgress)})`;
+      });
+    }
+
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update, { passive: true });
+    update();
+  }
+
+  initJourneyScroll();
+  document.addEventListener('astro:page-load', initJourneyScroll);
+</script>

@@ -25,16 +25,9 @@ const isHome = Astro.url.pathname === '/';
 ---
 
 <!doctype html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" data-theme="light" class="scroll-smooth">
   <head>
-    <meta name="color-scheme" content="light dark" />
-    <script is:inline>
-      {
-        const saved = localStorage.getItem('theme');
-        const theme = saved ? saved : 'light';
-        document.documentElement.setAttribute('data-theme', theme);
-      }
-    </script>
+    <meta name="color-scheme" content="light" />
     <SEOHead
       title={title}
       description={description}
@@ -54,7 +47,7 @@ const isHome = Astro.url.pathname === '/';
       Skip to main content
     </a>
 
-    <Header />
+    <Header transparentHeader={isHome || transparentHeader} />
 
     <main id="main-content" class={`flex-grow ${isHome || transparentHeader ? 'pt-0' : 'pt-20'}`}>
       <slot />

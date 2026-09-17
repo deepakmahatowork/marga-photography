@@ -2,91 +2,157 @@
 const currentYear = new Date().getFullYear();
 ---
 
-<footer class="bg-canvas-surface border-t border-canvas-border text-text-secondary text-sm transition-colors duration-200">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8">
-      
-      <!-- Brand & Positioning Column -->
-      <div class="lg:col-span-2 space-y-6">
-        <a href="/" class="flex items-center gap-3.5 group">
+<!-- ╔══════════════════════════════════════════════════════════
+     MARGA PHOTOGRAPHY — EDITORIAL FOOTER
+     Dark near-black · Print-inspired layout · GPS coordinates
+     ══════════════════════════════════════════════════════════ -->
+
+<footer class="relative section-dark overflow-hidden" role="contentinfo" style="background-color: var(--section-dark-bg)">
+
+  <!-- Thin photograph strip at top of footer -->
+  <div class="w-full h-[200px] overflow-hidden relative editorial-strip">
+    <div class="editorial-strip-item" style="flex: 1.4">
+      <img src="/images/gokyo_himalaya_sunrise.jpg" alt="Gokyo Himalaya sunrise" class="w-full h-full object-cover brightness-[0.55]" loading="lazy" />
+    </div>
+    <div class="editorial-strip-item">
+      <img src="/images/mustang_monk_portrait.jpg" alt="Mustang monk portrait" class="w-full h-full object-cover brightness-[0.55]" loading="lazy" />
+    </div>
+    <div class="editorial-strip-item">
+      <img src="/images/kham_magar_shaman_phephur.jpg" alt="Kham Magar shaman" class="w-full h-full object-cover brightness-[0.55]" loading="lazy" />
+    </div>
+    <div class="editorial-strip-item">
+      <img src="/images/bhaktapur_heritage_lamps.jpg" alt="Bhaktapur heritage lamps" class="w-full h-full object-cover brightness-[0.55]" loading="lazy" />
+    </div>
+    <div class="editorial-strip-item" style="flex: 0.8">
+      <img src="/images/bardia_tiger_morning.jpg" alt="Bardia tiger" class="w-full h-full object-cover brightness-[0.55]" loading="lazy" />
+    </div>
+    <!-- Overlay gradient for smooth blend into footer -->
+    <div class="absolute inset-0 pointer-events-none" style="background: linear-gradient(to bottom, transparent, color-mix(in srgb, var(--section-dark-bg) 35%, transparent), var(--section-dark-bg))"></div>
+    <div class="absolute inset-0 pointer-events-none" style="background: linear-gradient(to top, transparent, color-mix(in srgb, var(--section-dark-bg) 55%, transparent))"></div>
+  </div>
+
+  <!-- Main footer content -->
+  <div class="max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-16 pt-4 pb-16 lg:pb-20">
+
+    <!-- Large editorial brand statement -->
+    <div class="border-b border-canvas-border pb-14 mb-14">
+      <p class="font-editorial text-[clamp(1.8rem,4.5vw,4rem)] font-light leading-[1.15] tracking-[-0.02em] text-text-primary max-w-4xl">
+        "We create documentary and photography masterclass expeditions into the people, ancient rituals, living cultures, wilderness, and high Himalayan sanctuaries of Nepal."
+      </p>
+    </div>
+
+    <!-- Four-column grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8">
+
+      <!-- Brand & Positioning Column (lg:col-span-2) -->
+      <div class="lg:col-span-2 space-y-7">
+        <a href="/" class="flex items-center gap-3 group" aria-label="Marga Photography Home">
           <img
             src="/images/marga_photography_logo.png"
             alt="Marga Photography Logo"
-            class="w-12 h-12 object-contain shrink-0 transition-transform duration-300 group-hover:scale-105"
+            class="w-10 h-10 object-contain shrink-0 opacity-90 group-hover:opacity-100 transition-opacity duration-300 brightness-0"
           />
           <div>
-            <span class="font-editorial text-2xl font-bold tracking-[0.15em] text-text-primary uppercase block">
-              Marga <span class="font-light text-[#bea380]">Photography</span>
+            <span class="font-editorial text-xl font-medium tracking-[0.15em] text-text-primary uppercase block">
+              Marga <span class="font-light" style="color: var(--marga-gold)">Photography</span>
             </span>
-            <span class="block text-[11px] tracking-[0.25em] text-accent-himalaya font-sans uppercase mt-0.5">
-              Nepal • Specialist Visual Expeditions
+            <span class="block journal-label text-xs sm:text-sm text-text-muted mt-1">
+              Nepal · Specialist Visual Expeditions
             </span>
           </div>
         </a>
-        <p class="text-text-secondary text-sm leading-relaxed max-w-sm">
-          We create documentary and photography masterclass expeditions into the people, ancient rituals, living cultures, wilderness, and high Himalayan sanctuaries of Nepal.
-        </p>
-        <div class="pt-2 text-xs text-text-muted leading-relaxed border-t border-canvas-border max-w-sm">
+
+        <div class="border-t border-canvas-border pt-6 text-xs font-mono tracking-[0.08em] text-text-secondary leading-relaxed max-w-xs space-y-3">
           <p>
-            <strong class="text-text-primary">Operational Partnership:</strong> Marga Photography operates as a specialist expedition collective supported by the logistical infrastructure of <a href="https://margaadventure.com" target="_blank" rel="noopener noreferrer" class="text-accent-himalaya hover:underline">Marga Adventure</a>.
+            <strong class="text-text-primary font-medium">Operational Partnership:</strong>{' '}
+            Marga Photography operates as a specialist expedition collective supported by the logistical infrastructure of{' '}
+            <a href="https://margaadventure.com" target="_blank" rel="noopener noreferrer" class="text-[var(--color-azure-base)] hover:underline font-medium transition-colors duration-300">
+              Marga Adventure
+            </a>.
           </p>
+        </div>
+
+        <!-- GPS coordinates -->
+        <div class="font-mono text-[11px] tracking-[0.08em] uppercase text-text-muted pt-2">
+          27°42' N · 85°19' E
         </div>
       </div>
 
-      <!-- Categories Column -->
-      <div>
-        <h3 class="text-xs font-semibold tracking-[0.2em] text-text-primary uppercase mb-4">
+      <!-- Core Portfolios Column -->
+      <div class="space-y-4">
+        <h3 class="journal-label text-text-muted text-xs">
           Core Portfolios
         </h3>
-        <ul class="space-y-2.5 text-xs tracking-wider uppercase">
-          <li><a href="/explore/people" class="hover:text-accent-himalaya transition-colors">People & Portraits</a></li>
-          <li><a href="/explore/culture" class="hover:text-accent-himalaya transition-colors">Living Culture</a></li>
-          <li><a href="/explore/festivals" class="hover:text-accent-himalaya transition-colors">Sacred Festivals</a></li>
-          <li><a href="/explore/wildlife" class="hover:text-accent-himalaya transition-colors">Royal Bengal Wildlife</a></li>
-          <li><a href="/explore/landscapes" class="hover:text-accent-himalaya transition-colors">High Himalaya</a></li>
+        <ul class="space-y-3">
+          <li><a href="/explore/people" class="footer-link">People &amp; Portraits</a></li>
+          <li><a href="/explore/culture" class="footer-link">Living Culture</a></li>
+          <li><a href="/explore/festivals" class="footer-link">Sacred Festivals</a></li>
+          <li><a href="/explore/wildlife" class="footer-link">Royal Bengal Wildlife</a></li>
+          <li><a href="/explore/landscapes" class="footer-link">High Himalaya</a></li>
         </ul>
       </div>
 
-      <!-- Expeditions & Services -->
-      <div>
-        <h3 class="text-xs font-semibold tracking-[0.2em] text-text-primary uppercase mb-4">
-          Expeditions & Services
+      <!-- Expeditions & Services Column -->
+      <div class="space-y-4">
+        <h3 class="journal-label text-text-muted text-xs">
+          Expeditions &amp; Services
         </h3>
-        <ul class="space-y-2.5 text-xs tracking-wider uppercase">
-          <li><a href="/expeditions" class="hover:text-accent-himalaya transition-colors">All Expeditions</a></li>
-          <li><a href="/stories" class="hover:text-accent-himalaya transition-colors">Photo Essays</a></li>
-          <li><a href="/commercial" class="hover:text-accent-himalaya transition-colors">Commercial & Editorial</a></li>
-          <li><a href="/contact?intent=custom" class="hover:text-accent-himalaya transition-colors">Custom Expeditions</a></li>
-          <li><a href="/about" class="hover:text-accent-himalaya transition-colors">Our Photographers</a></li>
+        <ul class="space-y-3">
+          <li><a href="/expeditions" class="footer-link">All Expeditions</a></li>
+          <li><a href="/stories" class="footer-link">Photo Essays</a></li>
+          <li><a href="/commercial" class="footer-link">Commercial &amp; Editorial</a></li>
+          <li><a href="/contact?intent=custom" class="footer-link">Custom Expeditions</a></li>
+          <li><a href="/about" class="footer-link">Our Photographers</a></li>
         </ul>
       </div>
 
-      <!-- Lead / Newsletter Column -->
-      <div>
-        <h3 class="text-xs font-semibold tracking-[0.2em] text-text-primary uppercase mb-4">
-          Direct Inquiries
+      <!-- Inquiries Column -->
+      <div class="space-y-4">
+        <h3 class="journal-label text-text-muted text-xs">
+          Private Dispatch
         </h3>
-        <p class="text-xs text-text-muted mb-4 leading-relaxed">
+        <p class="font-sans text-xs text-text-secondary leading-relaxed">
           Small teams strictly capped at 4 to 6 photographers per journey. Receive early dispatch notices for upcoming seasonal dates.
         </p>
         <a
           href="/contact"
-          class="inline-block w-full text-center py-2.5 px-4 bg-canvas-elevated hover:bg-accent-himalaya hover:text-white dark:hover:text-black transition-all border border-canvas-border rounded text-xs uppercase tracking-widest font-semibold text-text-primary shadow-sm"
+          class="inline-block w-full text-center py-3.5 px-4 border border-canvas-border hover:border-[var(--marga-gold)] hover:text-[var(--marga-gold)] transition-all duration-400 journal-label text-xs text-text-secondary"
         >
-          Contact Fixers & Guides
+          Contact Fixers &amp; Guides
         </a>
       </div>
 
     </div>
 
-    <!-- Bottom Bar -->
-    <div class="mt-16 pt-8 border-t border-canvas-border flex flex-col sm:flex-row items-center justify-between text-xs text-text-muted space-y-4 sm:space-y-0">
-      <p>© {currentYear} Marga Photography. All photographs and rights reserved by the respective contributing artists.</p>
-      <div class="flex space-x-6">
-        <span class="hover:text-text-primary transition-colors">Kathmandu, Nepal</span>
-        <span>•</span>
-        <a href="/contact" class="hover:text-accent-himalaya transition-colors">Permits & Fixers</a>
+    <!-- Bottom bar -->
+    <div class="mt-16 pt-8 border-t border-canvas-border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 sm:gap-0">
+      <p class="font-mono text-[11px] text-text-muted tracking-[0.08em]">
+        &copy; {currentYear} Marga Photography. All photographs and rights reserved by the respective contributing artists.
+      </p>
+      <div class="flex items-center gap-6 font-mono text-[11px] text-text-muted tracking-[0.08em] uppercase">
+        <span>Kathmandu, Nepal</span>
+        <span class="w-px h-3 bg-canvas-border"></span>
+        <a href="/contact" class="hover:text-[var(--marga-gold)] transition-colors duration-300">Permits &amp; Fixers</a>
       </div>
     </div>
+
   </div>
 </footer>
+
+<style>
+  .footer-link {
+    font-family: var(--font-sans);
+    font-size: 0.875rem; /* 14px text-sm */
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 400;
+    color: rgba(18, 18, 20, 0.65);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    display: inline-block;
+  }
+
+  .footer-link:hover {
+    color: var(--marga-gold);
+  }
+</style>

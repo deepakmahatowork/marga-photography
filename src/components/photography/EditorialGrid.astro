@@ -78,17 +78,17 @@ function formatExif(p: Photograph['data']) {
 
           <!-- Editorial Hover Meta Overlay -->
           <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 sm:p-8 text-white">
-            <span class="font-mono text-[10px] uppercase tracking-[0.3em] text-[#D4A359] mb-1.5">
+            <span class="font-mono text-xs uppercase tracking-[0.24em] text-[#D4A359] mb-1.5">
               {heroPortrait.data.location} · {heroPortrait.data.category}
             </span>
-            <h3 class="font-editorial text-2xl sm:text-3xl text-white font-light uppercase tracking-tight">
+            <h3 class="font-editorial text-2xl sm:text-3xl text-white font-normal uppercase tracking-[0.05em]">
               {heroPortrait.data.title}
             </h3>
             <p class="text-xs text-neutral-300 mt-2 line-clamp-2 max-w-md font-light leading-relaxed">
               {heroPortrait.data.caption}
             </p>
             {heroPortrait.data.camera && (
-              <span class="mt-4 inline-block font-mono text-[9px] uppercase tracking-wider text-white/50 border-t border-white/15 pt-2">
+              <span class="mt-4 inline-block font-mono text-xs uppercase tracking-wider text-white/60 border-t border-white/15 pt-2">
                 {formatExif(heroPortrait.data)}
               </span>
             )}
@@ -98,10 +98,10 @@ function formatExif(p: Photograph['data']) {
 
       <!-- Offset Editorial Story Text -->
       <div class="lg:col-span-5 space-y-6 lg:pl-6">
-        <span class="font-mono text-[10px] uppercase tracking-[0.35em] text-[#D4A359] block">
+        <span class="font-mono text-xs uppercase tracking-[0.25em] text-[#D4A359] block">
           Archival Series 01
         </span>
-        <h3 class="font-editorial text-3xl sm:text-4xl text-text-primary font-light uppercase leading-tight tracking-tight">
+        <h3 class="font-editorial text-3xl sm:text-4xl text-text-primary font-normal uppercase leading-tight tracking-[0.04em]">
           Sacred Trance &amp;<br />Living Heritage
         </h3>
         <p class="text-sm text-text-secondary leading-relaxed font-light">
@@ -150,10 +150,10 @@ function formatExif(p: Photograph['data']) {
             />
           </div>
           <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white">
-            <span class="font-mono text-[9px] uppercase tracking-[0.25em] text-[#D4A359] mb-1">
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-[#D4A359] mb-1">
               {pairOneA.data.location}
             </span>
-            <h4 class="font-editorial text-xl text-white font-light uppercase">
+            <h4 class="font-editorial text-xl text-white font-normal uppercase tracking-[0.05em]">
               {pairOneA.data.title}
             </h4>
             <p class="text-xs text-neutral-300 mt-1 line-clamp-1 font-light">
@@ -161,7 +161,7 @@ function formatExif(p: Photograph['data']) {
             </p>
           </div>
         </figure>
-        <div class="mt-4 flex items-center justify-between text-[11px] text-text-muted font-mono uppercase tracking-wider">
+        <div class="mt-4 flex items-center justify-between text-xs text-text-muted font-mono uppercase tracking-wider">
           <span>{pairOneA.data.title}</span>
           <span class="text-[#D4A359]">{pairOneA.data.location}</span>
         </div>
@@ -192,10 +192,10 @@ function formatExif(p: Photograph['data']) {
             />
           </div>
           <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white">
-            <span class="font-mono text-[9px] uppercase tracking-[0.25em] text-[#D4A359] mb-1">
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-[#D4A359] mb-1">
               {pairOneB.data.location}
             </span>
-            <h4 class="font-editorial text-xl text-white font-light uppercase">
+            <h4 class="font-editorial text-xl text-white font-normal uppercase tracking-[0.05em]">
               {pairOneB.data.title}
             </h4>
             <p class="text-xs text-neutral-300 mt-1 line-clamp-1 font-light">
@@ -203,7 +203,7 @@ function formatExif(p: Photograph['data']) {
             </p>
           </div>
         </figure>
-        <div class="mt-4 flex items-center justify-between text-[11px] text-text-muted font-mono uppercase tracking-wider">
+        <div class="mt-4 flex items-center justify-between text-xs text-text-muted font-mono uppercase tracking-wider">
           <span>{pairOneB.data.title}</span>
           <span class="text-[#D4A359]">{pairOneB.data.location}</span>
         </div>
@@ -238,10 +238,10 @@ function formatExif(p: Photograph['data']) {
         />
         <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent flex flex-col justify-end p-6 sm:p-12 text-white">
           <div class="max-w-2xl">
-            <span class="font-mono text-[10px] uppercase tracking-[0.35em] text-[#D4A359] block mb-2">
+            <span class="font-mono text-xs uppercase tracking-[0.25em] text-[#D4A359] block mb-2">
               Panoramic Field Study · {breakPhoto.data.location}
             </span>
-            <h3 class="font-editorial text-2xl sm:text-4xl text-white font-light uppercase tracking-tight">
+            <h3 class="font-editorial text-2xl sm:text-4xl text-white font-normal uppercase tracking-[0.05em]">
               {breakPhoto.data.title}
             </h3>
             <p class="text-xs sm:text-sm text-neutral-300 mt-2 line-clamp-2 font-light leading-relaxed">
@@ -283,10 +283,10 @@ function formatExif(p: Photograph['data']) {
             />
           </div>
           <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white">
-            <span class="font-mono text-[9px] uppercase tracking-[0.25em] text-[#D4A359] mb-1">
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-[#D4A359] mb-1">
               {pairTwoB.data.location}
             </span>
-            <h4 class="font-editorial text-xl text-white font-light uppercase">
+            <h4 class="font-editorial text-xl text-white font-normal uppercase tracking-[0.05em]">
               {pairTwoB.data.title}
             </h4>
             <p class="text-xs text-neutral-300 mt-1 line-clamp-1 font-light">
@@ -294,7 +294,7 @@ function formatExif(p: Photograph['data']) {
             </p>
           </div>
         </figure>
-        <div class="mt-4 flex items-center justify-between text-[11px] text-text-muted font-mono uppercase tracking-wider">
+        <div class="mt-4 flex items-center justify-between text-xs text-text-muted font-mono uppercase tracking-wider">
           <span>{pairTwoB.data.title}</span>
           <span class="text-[#D4A359]">{pairTwoB.data.location}</span>
         </div>
@@ -325,10 +325,10 @@ function formatExif(p: Photograph['data']) {
             />
           </div>
           <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white">
-            <span class="font-mono text-[9px] uppercase tracking-[0.25em] text-[#D4A359] mb-1">
+            <span class="font-mono text-xs uppercase tracking-[0.2em] text-[#D4A359] mb-1">
               {pairTwoA.data.location}
             </span>
-            <h4 class="font-editorial text-xl text-white font-light uppercase">
+            <h4 class="font-editorial text-xl text-white font-normal uppercase tracking-[0.05em]">
               {pairTwoA.data.title}
             </h4>
             <p class="text-xs text-neutral-300 mt-1 line-clamp-1 font-light">
@@ -336,7 +336,7 @@ function formatExif(p: Photograph['data']) {
             </p>
           </div>
         </figure>
-        <div class="mt-4 flex items-center justify-between text-[11px] text-text-muted font-mono uppercase tracking-wider">
+        <div class="mt-4 flex items-center justify-between text-xs text-text-muted font-mono uppercase tracking-wider">
           <span>{pairTwoA.data.title}</span>
           <span class="text-[#D4A359]">{pairTwoA.data.location}</span>
         </div>
@@ -374,15 +374,15 @@ function formatExif(p: Photograph['data']) {
               />
             </div>
             <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5 text-white">
-              <span class="font-mono text-[9px] uppercase tracking-[0.25em] text-[#D4A359] mb-1">
+              <span class="font-mono text-xs uppercase tracking-[0.2em] text-[#D4A359] mb-1">
                 {photo.data.location}
               </span>
-              <h4 class="font-editorial text-lg text-white font-light uppercase">
+              <h4 class="font-editorial text-lg text-white font-normal uppercase tracking-[0.05em]">
                 {photo.data.title}
               </h4>
             </div>
           </figure>
-          <div class="mt-3 flex items-center justify-between text-[11px] text-text-muted font-mono uppercase tracking-wider">
+          <div class="mt-3 flex items-center justify-between text-xs text-text-muted font-mono uppercase tracking-wider">
             <span class="truncate max-w-[70%]">{photo.data.title}</span>
             <span class="text-[#D4A359] shrink-0">{photo.data.location}</span>
           </div>

@@ -13,212 +13,306 @@ interface Slide {
 const slides: Slide[] = [
   {
     id: 'slide-1',
-    title: 'WE FRAME EMOTION',
+    title: 'THE APPRENTICE',
     scriptQuote: 'Because feeling is the finest luxury',
     subtitle: 'Ancestral animist trances in the Western Highlands',
     description: 'In the remote highland valleys of Western Nepal, the boundary between the unseen and the physical dissolves into sacred ritual, resonant drumming, and hypnotic trance.',
     location: 'KHAM MAGAR · WESTERN NEPAL',
-    image: '/images/shaman_apprentice_trance.jpeg',
-    bgImage: '/images/dhorpatan_valley_landscape.jpg',
+    image: '/images/new_uploads/shaman_1.jpg',
+    bgImage: '/images/new_uploads/shaman_1.jpg',
   },
   {
     id: 'slide-2',
-    title: 'SACRED RITUALS UNSEEN',
+    title: 'LIVING ANCESTORS',
     scriptQuote: 'Where time slows and the ancient awakens',
-    subtitle: 'Living terracotta devotion in Bhaktapur',
-    description: 'Dusk falls over medieval pottery squares as thousands of clay butter lamps illuminate centuries-old carvings in silent golden devotion.',
-    location: 'BHAKTAPUR · KATHMANDU VALLEY',
-    image: '/images/bhaktapur_heritage_lamps.jpg',
-    bgImage: '/images/bhaktapur_heritage_lamps.jpg',
+    subtitle: 'The wisdom of unbroken generations',
+    description: 'Marked with the soot of sacred fires, elders carry the spiritual weight of their communities. Every line on their face tells a story of survival, devotion, and communion with the mountains.',
+    location: 'HIGHLAND SHAMAN · NEPAL',
+    image: '/images/new_uploads/shaman_2.jpg',
+    bgImage: '/images/new_uploads/shaman_2.jpg',
   },
   {
     id: 'slide-3',
-    title: 'THE WILD BENGAL CORRIDORS',
-    scriptQuote: 'In the deep silence of riverine sal forests',
-    subtitle: 'Tracking apex predators on foot in silent sal forests',
-    description: 'Tracking the solitary Royal Bengal Tiger on foot through the misty early morning grasslands and braided Geruwa river channels of Bardia.',
-    location: 'BARDIA NATIONAL PARK · TERAI',
-    image: '/images/bardia_tiger_morning.jpg',
-    bgImage: '/images/bardia_tiger_morning.jpg',
+    title: 'SACRED BOTANICALS',
+    scriptQuote: 'Harnessing the spirit of the forest',
+    subtitle: 'Leaves, feathers, and the natural world',
+    description: 'Shamanic dress is entirely sourced from the harsh landscape. Peacock feathers to channel the divine, and sacred foliage to bridge the gap between human frailty and natural medicine.',
+    location: 'SHAMANIC HEALER · NEPAL',
+    image: '/images/new_uploads/shaman_3.jpg',
+    bgImage: '/images/new_uploads/shaman_3.jpg',
   },
   {
     id: 'slide-4',
-    title: 'SOLITUDE AT 5,000 METERS',
-    scriptQuote: 'Light and stone stripped of noise',
-    subtitle: 'High alpine silence above Ngozumpa Glacier',
-    description: 'The turquoise alpine sanctuary of Gokyo Ri at first blue-hour light, overlooking the vast Ngozumpa Glacier and the silent summits of the high Himalaya.',
-    location: 'GOKYO RI · SOLUKHUMBU',
-    image: '/images/gokyo_himalaya_sunrise.jpg',
-    bgImage: '/images/himalaya_dramatic_sunrise.jpg',
+    title: 'RITUAL JUBILEE',
+    scriptQuote: 'Light and sound stripped of noise',
+    subtitle: 'The entire village gathers in celebration',
+    description: 'A shamanic ritual is not a solitary event; it is the heartbeat of the village. Heavy drums, laughter, and communal joy echo through the steep, terraced valleys.',
+    location: 'RURAL VILLAGE · NEPAL',
+    image: '/images/new_uploads/shaman_4.jpg',
+    bgImage: '/images/new_uploads/shaman_4.jpg',
   },
 ];
 ---
 
+<!-- ╔══════════════════════════════════════════════════════════
+     EXPERIENTIAL SHOWCASE — Editorial Split Layout
+     Full-bleed photograph left · Text panel right
+     Clip-path slide transitions · Cormorant Garamond italic quotes
+     ══════════════════════════════════════════════════════════ -->
+
 <section
   id="experiential-showcase"
-  class="relative min-h-[100vh] py-28 sm:py-36 section-dark overflow-hidden flex flex-col justify-center select-none"
+  class="relative min-h-[100vh] section-dark overflow-hidden select-none"
   aria-label="Experiential Photography Showcase"
 >
-  <!-- Fullscreen Atmospheric Background (Crossfades per active slide) -->
+  <!-- Subtle background texture from bgImage (very low opacity) -->
   <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
     {slides.map((slide, index) => (
       <div
-        class={`showcase-bg-slide absolute inset-0 transition-opacity duration-1000 ease-out ${
-          index === 0 ? 'opacity-35' : 'opacity-0'
-        }`}
+        class={`showcase-bg-layer absolute inset-0 transition-opacity duration-1000 ease-out ${index === 0 ? 'opacity-20' : 'opacity-0'}`}
         data-bg-index={index}
       >
         <img
           src={slide.bgImage}
-          alt={slide.title}
-          class="w-full h-full object-cover filter blur-[2px] brightness-[0.55] scale-105 transition-transform duration-[8000ms] ease-out"
+          alt=""
+          class="w-full h-full object-cover filter blur-[3px] brightness-[0.4] scale-105"
           loading="lazy"
+          aria-hidden="true"
         />
       </div>
     ))}
-    <div class="absolute inset-0 bg-gradient-to-t from-[var(--section-dark-bg)] via-transparent to-[var(--section-dark-bg)]/80"></div>
-    <div class="absolute inset-0 bg-radial from-transparent via-[var(--section-dark-bg)]/40 to-[var(--section-dark-bg)]"></div>
+    <div class="absolute inset-0 pointer-events-none" style="background: linear-gradient(to right, rgba(8, 8, 10, 0.95) 0%, transparent 40%, rgba(8, 8, 10, 0.7) 100%);"></div>
   </div>
 
-  <!-- Wireframe Floating Circular Navigation Arrows (Snami Travel signature) -->
-  <button
-    type="button"
-    id="showcase-prev-btn"
-    class="snami-wire-arrow absolute left-4 sm:left-10 md:left-16 top-1/2 -translate-y-1/2 z-30"
-    aria-label="Previous Slide"
-  >
-    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5m0 0l7 7m-7-7l7-7" />
-    </svg>
-  </button>
+  <div class="relative z-10 h-full min-h-[100vh] flex flex-col">
 
-  <button
-    type="button"
-    id="showcase-next-btn"
-    class="snami-wire-arrow absolute right-4 sm:right-10 md:right-16 top-1/2 -translate-y-1/2 z-30"
-    aria-label="Next Slide"
-  >
-    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m0 0l-7-7m7 7l-7 7" />
-    </svg>
-  </button>
+    <!-- Section header label -->
+    <div class="px-6 sm:px-10 md:px-16 pt-20 sm:pt-24 flex items-center gap-4">
+      <span class="w-6 h-px bg-[var(--marga-gold)]"></span>
+      <span class="journal-label text-[var(--marga-gold)] text-xs">Experiential Field Work</span>
+    </div>
 
-  <div class="relative z-10 max-w-5xl mx-auto px-6 sm:px-10 w-full flex flex-col items-center">
-    
-    <!-- Slides Presentation Container -->
-    <div class="relative w-full min-h-[580px] sm:min-h-[640px] flex items-center justify-center">
-      {slides.map((slide, index) => (
-        <div
-          class={`showcase-content-slide absolute inset-0 transition-all duration-700 ease-out flex flex-col items-center justify-center ${
-            index === 0 ? 'opacity-100 pointer-events-auto scale-100' : 'opacity-0 pointer-events-none scale-98'
-          }`}
-          data-slide-index={index}
-        >
-          <!-- Floating Overlapping Cursive Script Title (Snami signature "Because feeling is the finest luxury") -->
-          <div class="z-30 -mb-6 sm:-mb-10 text-center pointer-events-none px-4">
-            <span class="font-script text-[clamp(2rem,5.5vw,4.5rem)] text-white/95 drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)] tracking-wide block">
-              {slide.scriptQuote}
-            </span>
-          </div>
+    <!-- Main split layout -->
+    <div class="flex-1 flex flex-col lg:flex-row items-stretch min-h-0">
 
-          <!-- Centered Framed Portrait Card (Snami aspect-3/4 framed center visual) -->
-          <div class="relative w-full max-w-[340px] sm:max-w-[390px] aspect-[3/4] rounded-none sm:rounded-sm overflow-hidden shadow-2xl border border-white/20 bg-black/40 editorial-img-frame z-10">
+      <!-- LEFT: Full-bleed photograph (65% desktop) -->
+      <div class="relative w-full lg:w-[60%] h-[55vw] sm:h-[65vw] lg:h-auto min-h-[400px] overflow-hidden">
+        {slides.map((slide, index) => (
+          <div
+            class={`showcase-slide-img absolute inset-0 ${index === 0 ? 'opacity-100' : 'opacity-0'}`}
+            data-img-index={index}
+            style={index === 0 ? 'clip-path: inset(0 0% 0 0)' : 'clip-path: inset(0 100% 0 0)'}
+          >
             <img
               src={slide.image}
               alt={slide.title}
               class="w-full h-full object-cover"
               loading={index === 0 ? 'eager' : 'lazy'}
+              decoding="async"
             />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-40"></div>
+            <!-- Subtle right edge fade -->
+            <div class="absolute inset-0 pointer-events-none lg:hidden" style="background: var(--overlay-cinematic);"></div>
+          </div>
+        ))}
+
+        <!-- Image counter — absolute bottom-left -->
+        <div class="absolute bottom-6 left-6 z-20 font-sans text-xs tracking-[0.3em] text-white/40 uppercase" id="showcase-counter">
+          01 / 04
+        </div>
+
+        <!-- Location badge — absolute bottom-right -->
+        <div class="absolute bottom-6 right-6 z-20 text-right hidden lg:block">
+          <span class="journal-label text-[0.56rem] text-white/35 block" id="showcase-location-img">{slides[0].location}</span>
+        </div>
+      </div>
+
+      <!-- RIGHT: Text panel (35% desktop) -->
+      <div class="relative w-full lg:w-[40%] flex flex-col justify-center px-8 sm:px-12 lg:px-14 xl:px-16 py-14 lg:py-20 space-y-8 bg-[#0a0a0a]/0">
+
+        <!-- Slide content panels -->
+        <div class="relative min-h-[280px] sm:min-h-[320px]">
+          {slides.map((slide, index) => (
+            <div
+              class={`showcase-content absolute inset-0 flex flex-col justify-center space-y-6 transition-all duration-600 ease-out ${
+                index === 0 ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-5 pointer-events-none'
+              }`}
+              data-content-index={index}
+            >
+              <!-- Large italic Cormorant quote -->
+              <p class="font-editorial text-[clamp(1.5rem,3vw,2.4rem)] font-light italic text-white/90 leading-[1.2] tracking-[-0.01em]">
+                &ldquo;{slide.scriptQuote}&rdquo;
+              </p>
+
+              <!-- Location label -->
+              <div class="flex items-center gap-3">
+                <span class="w-5 h-px bg-[var(--marga-gold)]"></span>
+                <span class="font-sans text-xs tracking-[0.28em] uppercase text-[var(--marga-gold)]">{slide.location}</span>
+              </div>
+
+              <!-- Title -->
+              <h3 class="font-editorial text-[clamp(1.5rem,2.5vw,2.2rem)] font-medium text-white tracking-[-0.01em]">
+                {slide.title}
+              </h3>
+
+              <!-- Description -->
+              <p class="font-sans text-[0.78rem] font-light text-white/55 leading-[1.75] max-w-sm">
+                {slide.description}
+              </p>
+
+              <!-- CTA -->
+              <div class="pt-2">
+                <a href="/expeditions" class="snami-arrow-link text-[var(--marga-gold)] hover:text-white">
+                  <span>Experience</span>
+                  <span class="arrow-line"></span>
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <!-- Navigation controls -->
+        <div class="flex items-center justify-between pt-8 border-t border-white/7">
+          <!-- Dot indicators -->
+          <div class="flex items-center gap-2.5" id="showcase-dots">
+            {slides.map((_, index) => (
+              <button
+                type="button"
+                class={`showcase-dot h-px rounded-none transition-all duration-500 cursor-pointer
+                  ${index === 0 ? 'w-10 bg-[var(--marga-gold)]' : 'w-4 bg-white/20 hover:bg-white/40'}`}
+                data-dot-index={index}
+                aria-label={`Slide ${index + 1}`}
+              />
+            ))}
           </div>
 
-          <!-- Bottom Text Meta & Narrative -->
-          <div class="mt-8 text-center max-w-xl space-y-3 z-20">
-            <span class="font-mono text-[10px] uppercase tracking-[0.35em] text-[#bea380] block">
-              {slide.location}
-            </span>
-            <h3 class="font-editorial text-2xl sm:text-3xl text-white font-medium tracking-wide">
-              {slide.title}
-            </h3>
-            <p class="text-xs sm:text-sm text-neutral-300 font-light leading-relaxed max-w-md mx-auto line-clamp-2">
-              {slide.description}
-            </p>
-            <div class="pt-2">
-              <a href="/expeditions" class="snami-arrow-link text-[#bea380] hover:text-white">
-                <span>Experience</span>
-                <span class="arrow-line"></span>
-              </a>
-            </div>
+          <!-- Arrow buttons -->
+          <div class="flex items-center gap-3">
+            <button
+              type="button"
+              id="showcase-prev-btn"
+              class="snami-wire-arrow !w-10 !h-10"
+              aria-label="Previous slide"
+            >
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5m0 0l7 7m-7-7l7-7" />
+              </svg>
+            </button>
+            <button
+              type="button"
+              id="showcase-next-btn"
+              class="snami-wire-arrow !w-10 !h-10"
+              aria-label="Next slide"
+            >
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m0 0l-7-7m7 7l-7 7" />
+              </svg>
+            </button>
           </div>
         </div>
-      ))}
-    </div>
 
-    <!-- Bottom Slide Indicator Dots -->
-    <div class="mt-8 flex items-center gap-3" id="showcase-dots">
-      {slides.map((_, index) => (
-        <button
-          type="button"
-          class={`showcase-dot h-1 rounded-full transition-all duration-500 cursor-pointer ${
-            index === 0 ? 'w-10 bg-[#bea380]' : 'w-2.5 bg-white/25 hover:bg-white/50'
-          }`}
-          data-dot-index={index}
-          aria-label={`Slide ${index + 1}`}
-        />
-      ))}
+      </div>
     </div>
-
   </div>
 </section>
 
 <script>
   function setupShowcase() {
-    const slides = document.querySelectorAll('.showcase-content-slide');
-    const bgSlides = document.querySelectorAll('.showcase-bg-slide');
-    const dots = document.querySelectorAll('.showcase-dot');
-    const prevBtn = document.getElementById('showcase-prev-btn');
-    const nextBtn = document.getElementById('showcase-next-btn');
+    const slideImgs   = document.querySelectorAll('.showcase-slide-img');
+    const contents    = document.querySelectorAll('.showcase-content');
+    const bgLayers    = document.querySelectorAll('.showcase-bg-layer');
+    const dots        = document.querySelectorAll('.showcase-dot');
+    const prevBtn     = document.getElementById('showcase-prev-btn');
+    const nextBtn     = document.getElementById('showcase-next-btn');
+    const counter     = document.getElementById('showcase-counter');
+    const locationImg = document.getElementById('showcase-location-img');
 
-    if (!slides.length) return;
+    if (!slideImgs.length) return;
 
-    let currentIndex = 0;
-    const totalSlides = slides.length;
+    const totalSlides = slideImgs.length;
+    let currentIndex  = 0;
+    let isAnimating   = false;
+
+    const locations = [
+      'KHAM MAGAR · WESTERN NEPAL',
+      'BHAKTAPUR · KATHMANDU VALLEY',
+      'BARDIA NATIONAL PARK · TERAI',
+      'GOKYO RI · SOLUKHUMBU',
+    ];
 
     function goToSlide(index: number) {
+      if (isAnimating) return;
       if (index < 0) index = totalSlides - 1;
       if (index >= totalSlides) index = 0;
+      if (index === currentIndex) return;
 
+      isAnimating = true;
+      const prev  = currentIndex;
       currentIndex = index;
 
-      slides.forEach((slide, i) => {
-        if (i === currentIndex) {
-          slide.classList.remove('opacity-0', 'pointer-events-none', 'scale-98');
-          slide.classList.add('opacity-100', 'pointer-events-auto', 'scale-100');
-        } else {
-          slide.classList.remove('opacity-100', 'pointer-events-auto', 'scale-100');
-          slide.classList.add('opacity-0', 'pointer-events-none', 'scale-98');
-        }
+      // Image: clip-path wipe
+      const prevImg = slideImgs[prev] as HTMLElement;
+      const nextImg = slideImgs[currentIndex] as HTMLElement;
+
+      // Set next behind
+      nextImg.style.clipPath = 'inset(0 100% 0 0)';
+      nextImg.style.opacity  = '1';
+      nextImg.style.zIndex   = '2';
+      prevImg.style.zIndex   = '1';
+
+      requestAnimationFrame(() => {
+        nextImg.style.transition = 'clip-path 0.85s cubic-bezier(0.76, 0, 0.24, 1)';
+        nextImg.style.clipPath   = 'inset(0 0% 0 0)';
       });
 
-      bgSlides.forEach((bg, i) => {
-        if (i === currentIndex) {
-          bg.classList.remove('opacity-0');
-          bg.classList.add('opacity-35');
-        } else {
-          bg.classList.remove('opacity-35');
-          bg.classList.add('opacity-0');
-        }
+      // Content fade
+      const prevContent = contents[prev] as HTMLElement;
+      const nextContent = contents[currentIndex] as HTMLElement;
+
+      prevContent.style.opacity   = '0';
+      prevContent.style.transform = 'translateY(-10px)';
+      prevContent.classList.add('pointer-events-none');
+      prevContent.classList.remove('pointer-events-auto');
+
+      setTimeout(() => {
+        nextContent.style.opacity   = '1';
+        nextContent.style.transform = 'translateY(0)';
+        nextContent.classList.remove('pointer-events-none');
+        nextContent.classList.add('pointer-events-auto');
+      }, 250);
+
+      // Background
+      bgLayers.forEach((bg, i) => {
+        (bg as HTMLElement).style.opacity = i === currentIndex ? '0.20' : '0';
       });
 
+      // Counter & location
+      if (counter) {
+        counter.textContent = `0${currentIndex + 1} / 0${totalSlides}`;
+      }
+      if (locationImg) {
+        locationImg.textContent = locations[currentIndex] ?? '';
+      }
+
+      // Dots
       dots.forEach((dot, i) => {
         if (i === currentIndex) {
-          dot.classList.remove('w-2.5', 'bg-white/25');
-          dot.classList.add('w-10', 'bg-[#bea380]');
+          (dot as HTMLElement).style.width = '2.5rem';
+          dot.classList.add('bg-[var(--marga-gold)]');
+          dot.classList.remove('bg-white/20');
         } else {
-          dot.classList.remove('w-10', 'bg-[#bea380]');
-          dot.classList.add('w-2.5', 'bg-white/25');
+          (dot as HTMLElement).style.width = '1rem';
+          dot.classList.remove('bg-[var(--marga-gold)]');
+          dot.classList.add('bg-white/20');
         }
       });
+
+      setTimeout(() => {
+        prevImg.style.opacity  = '0';
+        prevImg.style.clipPath = 'inset(0 0 0 100%)';
+        prevImg.style.zIndex   = '0';
+        prevImg.style.transition = '';
+        isAnimating = false;
+      }, 900);
     }
 
     prevBtn?.addEventListener('click', () => goToSlide(currentIndex - 1));
@@ -226,27 +320,27 @@ const slides: Slide[] = [
 
     dots.forEach((dot) => {
       dot.addEventListener('click', () => {
-        const targetIndex = Number(dot.getAttribute('data-dot-index'));
-        if (!isNaN(targetIndex)) goToSlide(targetIndex);
+        const idx = Number(dot.getAttribute('data-dot-index'));
+        if (!isNaN(idx)) goToSlide(idx);
       });
     });
 
-    const container = document.getElementById('experiential-showcase');
+    // Touch swipe
+    const section = document.getElementById('experiential-showcase');
     let startX = 0;
-    let endX = 0;
-
-    container?.addEventListener('touchstart', (e) => {
-      startX = e.changedTouches[0].screenX;
+    section?.addEventListener('touchstart', (e) => { startX = e.changedTouches[0].screenX; }, { passive: true });
+    section?.addEventListener('touchend', (e) => {
+      const dx = e.changedTouches[0].screenX - startX;
+      if (Math.abs(dx) > 50) goToSlide(currentIndex + (dx < 0 ? 1 : -1));
     }, { passive: true });
 
-    container?.addEventListener('touchend', (e) => {
-      endX = e.changedTouches[0].screenX;
-      if (startX - endX > 50) {
-        goToSlide(currentIndex + 1);
-      } else if (endX - startX > 50) {
-        goToSlide(currentIndex - 1);
-      }
-    }, { passive: true });
+    // Auto-advance
+    let autoTimer = setInterval(() => goToSlide(currentIndex + 1), 7000);
+    section?.addEventListener('mouseenter', () => clearInterval(autoTimer));
+    section?.addEventListener('mouseleave', () => {
+      clearInterval(autoTimer);
+      autoTimer = setInterval(() => goToSlide(currentIndex + 1), 7000);
+    });
   }
 
   setupShowcase();
