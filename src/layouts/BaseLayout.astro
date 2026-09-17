@@ -39,6 +39,63 @@ const isHome = Astro.url.pathname === '/';
     />
   </head>
   <body class="bg-canvas-bg text-text-primary font-sans antialiased min-h-screen flex flex-col selection:bg-accent-himalaya/25 selection:text-text-primary">
+
+    <!-- ╔══════════════════════════════════════════════════════════
+         APERTURE CROSSHAIR CURSOR — Viewfinder reticle
+         Mimics the precision of a documentary photographer's lens
+         ══════════════════════════════════════════════════════════ -->
+    <div id="marga-cursor" aria-hidden="true">
+      <div class="cursor-outer"></div>
+      <div class="cursor-inner"></div>
+      <div class="cursor-cross-h"></div>
+      <div class="cursor-cross-v"></div>
+    </div>
+
+    <script>
+      // ─── Aperture Crosshair Cursor ────────────────────────────────
+      (function setupMargaCursor() {
+        const cursor = document.getElementById('marga-cursor');
+        if (!cursor) return;
+
+        // Skip on touch-only devices
+        if (!window.matchMedia('(hover: hover)').matches) return;
+
+        let mx = window.innerWidth / 2;
+        let my = window.innerHeight / 2;
+        let cx = mx, cy = my;
+        let raf: number;
+
+        // Outer ring lags behind — inner dot tracks precisely
+        const outer = cursor.querySelector('.cursor-outer') as HTMLElement;
+        const inner = cursor.querySelector('.cursor-inner') as HTMLElement;
+
+        document.addEventListener('mousemove', (e) => {
+          mx = e.clientX;
+          my = e.clientY;
+          // Inner dot: instant
+          if (inner) {
+            inner.style.transform = `translate(${mx}px, ${my}px)`;
+          }
+        });
+
+        function lerp(a: number, b: number, t: number) { return a + (b - a) * t; }
+
+        function tick() {
+          cx = lerp(cx, mx, 0.12);
+          cy = lerp(cy, my, 0.12);
+          cursor.style.transform = `translate(${cx}px, ${cy}px)`;
+          raf = requestAnimationFrame(tick);
+        }
+        tick();
+
+        // Show cursor after first mouse move
+        cursor.style.opacity = '0';
+        document.addEventListener('mousemove', () => {
+          cursor.style.opacity = '1';
+          cursor.style.transition = 'opacity 0.4s ease';
+        }, { once: true });
+      })();
+    </script>
     <!-- Accessibility Skip Link -->
     <a
       href="#main-content"

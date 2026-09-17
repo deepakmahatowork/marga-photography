@@ -7,176 +7,104 @@ interface Props {
 const { expeditionTitle, defaultCategory } = Astro.props;
 ---
 
-<div class="bg-canvas-elevated border border-canvas-border rounded-xl p-5 sm:p-10 shadow-xl relative">
-  <div class="mb-8 border-b border-canvas-border pb-6">
-    <span class="text-xs uppercase tracking-[0.25em] text-accent-himalaya font-sans font-semibold">
-      Direct Expedition Dispatch
-    </span>
-    <h3 class="font-editorial text-2xl sm:text-3xl font-medium text-text-primary mt-1">
-      {expeditionTitle ? `Request Expedition: ${expeditionTitle}` : 'Plan Your Nepal Photography Journey'}
-    </h3>
-    <p class="text-xs text-text-secondary mt-2 leading-relaxed">
-      Small-group masterclasses (4–6 photographers maximum) or bespoke private fixer logistics across Nepal.
-    </p>
-  </div>
+<div class="bg-canvas-elevated border border-canvas-border p-6 sm:p-10 shadow-lg relative">
+  <!-- Subtle top accent rule -->
+  <div class="w-12 h-px mb-6" style="background-color: var(--marga-gold)"></div>
 
-  <form id="inquiry-form" class="space-y-6">
-    <!-- Honeypot anti-spam trap (invisible to humans) -->
+  <form id="inquiry-form" class="space-y-5">
+    <!-- Honeypot anti-spam (invisible) -->
     <div class="hidden" aria-hidden="true">
       <label for="company_honeypot">Do not fill this field</label>
       <input type="text" id="company_honeypot" name="company_honeypot" tabindex="-1" autocomplete="off" />
     </div>
 
-    <!-- Hidden Expedition Context -->
+    <!-- Hidden context -->
     <input type="hidden" name="expedition" value={expeditionTitle || 'General / Custom Expedition'} />
     {defaultCategory && <input type="hidden" name="category" value={defaultCategory} />}
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-      <!-- Full Name -->
+    <!-- Name + Email row -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
       <div>
-        <label for="name" class="block text-sm uppercase tracking-wider text-text-secondary font-medium mb-2">
-          Full Name <span class="text-accent-himalaya">*</span>
+        <label for="name" class="block text-[10px] uppercase tracking-[0.22em] font-semibold mb-2" style="color: var(--color-text-muted)">
+          Name <span style="color: var(--marga-gold)">*</span>
         </label>
         <input
           type="text"
           id="name"
           name="name"
           required
-          placeholder="e.g. Elena Rostova"
-          class="w-full px-4 py-3 bg-canvas-surface border border-canvas-border rounded text-base sm:text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-accent-himalaya focus:ring-1 focus:ring-accent-himalaya transition-colors"
+          placeholder="Your full name"
+          class="inquiry-input w-full px-4 py-3 text-sm"
         />
       </div>
 
-      <!-- Email Address -->
       <div>
-        <label for="email" class="block text-sm uppercase tracking-wider text-text-secondary font-medium mb-2">
-          Email Address <span class="text-accent-himalaya">*</span>
+        <label for="email" class="block text-[10px] uppercase tracking-[0.22em] font-semibold mb-2" style="color: var(--color-text-muted)">
+          Email <span style="color: var(--marga-gold)">*</span>
         </label>
         <input
           type="email"
           id="email"
           name="email"
           required
-          placeholder="elena@example.com"
-          class="w-full px-4 py-3 bg-canvas-surface border border-canvas-border rounded text-base sm:text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-accent-himalaya focus:ring-1 focus:ring-accent-himalaya transition-colors"
+          placeholder="you@example.com"
+          class="inquiry-input w-full px-4 py-3 text-sm"
         />
       </div>
     </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-      <!-- Country of Residence -->
-      <div>
-        <label for="country" class="block text-sm uppercase tracking-wider text-text-secondary font-medium mb-2">
-          Country of Residence <span class="text-accent-himalaya">*</span>
-        </label>
-        <input
-          type="text"
-          id="country"
-          name="country"
-          required
-          placeholder="e.g. United Kingdom, USA, Germany"
-          class="w-full px-4 py-3 bg-canvas-surface border border-canvas-border rounded text-base sm:text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-accent-himalaya focus:ring-1 focus:ring-accent-himalaya transition-colors"
-        />
-      </div>
-
-      <!-- WhatsApp / Phone -->
-      <div>
-        <label for="phone" class="block text-sm uppercase tracking-wider text-text-secondary font-medium mb-2">
-          WhatsApp / Phone (with country code)
-        </label>
-        <input
-          type="tel"
-          id="phone"
-          name="phone"
-          placeholder="+44 7700 900077"
-          class="w-full px-4 py-3 bg-canvas-surface border border-canvas-border rounded text-base sm:text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-accent-himalaya focus:ring-1 focus:ring-accent-himalaya transition-colors"
-        />
-      </div>
-    </div>
-
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-      <!-- Photography Experience -->
-      <div>
-        <label for="experience" class="block text-sm uppercase tracking-wider text-text-secondary font-medium mb-2">
-          Experience Level
-        </label>
-        <select
-          id="experience"
-          name="experience"
-          class="w-full px-4 py-3 bg-canvas-surface border border-canvas-border rounded text-base sm:text-sm text-text-primary focus:outline-none focus:border-accent-himalaya focus:ring-1 focus:ring-accent-himalaya transition-colors"
-        >
-          <option value="Enthusiast / Serious Amateur">Enthusiast / Serious Amateur</option>
-          <option value="Advanced Photographer">Advanced Photographer</option>
-          <option value="Professional / Commercial">Professional / Commercial</option>
-          <option value="Beginner eager to learn">Beginner eager to learn</option>
-        </select>
-      </div>
-
-      <!-- Primary Camera System -->
-      <div>
-        <label for="camera_system" class="block text-sm uppercase tracking-wider text-text-secondary font-medium mb-2">
-          Camera System
-        </label>
-        <input
-          type="text"
-          id="camera_system"
-          name="camera_system"
-          placeholder="e.g. Sony A7R V, Leica M, Nikon Z8"
-          class="w-full px-4 py-3 bg-canvas-surface border border-canvas-border rounded text-base sm:text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-accent-himalaya focus:ring-1 focus:ring-accent-himalaya transition-colors"
-        />
-      </div>
-
-      <!-- Target Window / Dates -->
-      <div>
-        <label for="preferred_season" class="block text-sm uppercase tracking-wider text-text-secondary font-medium mb-2">
-          Target Dates / Season
-        </label>
-        <input
-          type="text"
-          id="preferred_season"
-          name="preferred_season"
-          placeholder="e.g. Spring 2026 / Autumn 2026"
-          class="w-full px-4 py-3 bg-canvas-surface border border-canvas-border rounded text-base sm:text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-accent-himalaya focus:ring-1 focus:ring-accent-himalaya transition-colors"
-        />
-      </div>
-    </div>
-
-    <!-- Notes & Goals -->
+    <!-- Phone -->
     <div>
-      <label for="notes" class="block text-sm uppercase tracking-wider text-text-secondary font-medium mb-2">
-        Specific Goals or Custom Inquiries
+      <label for="phone" class="block text-[10px] uppercase tracking-[0.22em] font-semibold mb-2" style="color: var(--color-text-muted)">
+        Phone / WhatsApp
+      </label>
+      <input
+        type="tel"
+        id="phone"
+        name="phone"
+        placeholder="+1 555 000 0000"
+        class="inquiry-input w-full px-4 py-3 text-sm"
+      />
+    </div>
+
+    <!-- Message -->
+    <div>
+      <label for="notes" class="block text-[10px] uppercase tracking-[0.22em] font-semibold mb-2" style="color: var(--color-text-muted)">
+        Message
       </label>
       <textarea
         id="notes"
         name="notes"
         rows="4"
-        placeholder="Tell us what you hope to photograph in Nepal (e.g. specific festival dates, portrait access, wildlife goals, or private group arrangements)..."
-        class="w-full px-4 py-3 bg-canvas-surface border border-canvas-border rounded text-base sm:text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-accent-himalaya focus:ring-1 focus:ring-accent-himalaya transition-colors"
+        placeholder="Tell us what you'd like to photograph in Nepal..."
+        class="inquiry-input w-full px-4 py-3 text-sm resize-none"
       ></textarea>
     </div>
 
-    <!-- Status feedback banner -->
-    <div id="form-status" class="hidden text-xs p-4 rounded border transition-all" role="alert" aria-live="polite"></div>
+    <!-- Status banner -->
+    <div id="form-status" class="hidden text-xs p-4 border transition-all" role="alert" aria-live="polite"></div>
 
-    <!-- Submit Button -->
-    <div>
+    <!-- Submit -->
+    <div class="flex items-center gap-5 pt-1">
       <button
         type="submit"
         id="submit-btn"
-        class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-3.5 bg-accent-himalaya hover:opacity-90 text-white dark:text-black font-semibold text-xs tracking-[0.2em] uppercase rounded transition-all shadow-lg hover:shadow-accent-himalaya/20 cursor-pointer"
+        class="inline-flex items-center gap-2 px-7 py-3 text-[11px] font-bold uppercase tracking-[0.22em] transition-all duration-300 cursor-pointer"
+        style="background-color: var(--marga-gold); color: #ffffff; border: 1px solid var(--marga-gold);"
       >
-        <span id="btn-text">Submit Expedition Inquiry</span>
-        <svg id="btn-spinner" class="hidden animate-spin ml-2 h-4 w-4 text-white dark:text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <span id="btn-text">Send Inquiry</span>
+        <svg id="btn-spinner" class="hidden animate-spin h-3.5 w-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
           <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
           <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
         </svg>
       </button>
-      <p class="text-xs text-text-muted mt-3">
-        No payment required now. Our lead photography curator personally reviews every submission within 24 hours.
+      <p class="text-[10px] leading-relaxed" style="color: var(--color-text-muted)">
+        We reply within 24 hours.
       </p>
     </div>
   </form>
 </div>
+
 
 <script>
   const form = document.getElementById('inquiry-form') as HTMLFormElement;
@@ -198,7 +126,7 @@ const { expeditionTitle, defaultCategory } = Astro.props;
       // UI Loading State
       submitBtn.disabled = true;
       btnSpinner?.classList.remove('hidden');
-      if (btnText) btnText.textContent = 'Transmitting...';
+      if (btnText) btnText.textContent = 'Sending...';
       statusDiv.classList.add('hidden');
 
       const formData = new FormData(form);
@@ -234,7 +162,7 @@ const { expeditionTitle, defaultCategory } = Astro.props;
       } finally {
         submitBtn.disabled = false;
         btnSpinner?.classList.add('hidden');
-        if (btnText) btnText.textContent = 'Submit Expedition Inquiry';
+        if (btnText) btnText.textContent = 'Send Inquiry';
       }
     });
   }

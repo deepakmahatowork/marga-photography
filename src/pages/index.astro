@@ -83,7 +83,10 @@ const homeJsonLd = {
       <div class="absolute inset-0 z-10 pointer-events-none" style="background: radial-gradient(ellipse at center, rgba(251, 251, 249, 0.75) 0%, rgba(251, 251, 249, 0.45) 45%, transparent 80%);"></div>
     </div>
 
-    <!-- Hero Top Meta Bar (Desktop / Tablet) -->
+    <!-- Film grain — analog photography texture -->
+    <div class="film-grain-overlay" aria-hidden="true"></div>
+    <!-- Vignette — slow pulse like camera exposure -->
+    <div class="hero-vignette" aria-hidden="true"></div>
     <div class="absolute top-0 left-0 right-0 z-20 hidden sm:flex items-center justify-between px-6 sm:px-12 md:px-16 pt-28 sm:pt-32 hero-fade-in hero-meta-shadow">
       <div class="flex items-center gap-3">
         <span class="w-1.5 h-1.5 rounded-full animate-pulse" style="background-color: var(--marga-gold)"></span>
@@ -122,9 +125,9 @@ const homeJsonLd = {
       </div>
 
       <!-- Main title -->
-      <h1 class="font-dream text-[clamp(2.5rem,7.5vw,6.5rem)] font-light leading-[1.02] tracking-[-0.025em] uppercase hero-title-rise hero-title-shadow" style="color: var(--hero-text-color)">
+      <h1 class="font-dream text-[clamp(1.95rem,7vw,6.5rem)] font-light leading-[1.04] tracking-[-0.02em] uppercase hero-title-rise hero-title-shadow hero-title-clamp w-full" style="color: var(--hero-text-color); word-break: break-word; overflow-wrap: break-word;">
         Himalayan Storytelling<br />
-        <span class="hero-gold-text">Redefined.</span>
+        <span class="hero-gold-text hero-gold-shimmer">Redefined.</span>
       </h1>
 
       <!-- Animated dividing line under title -->
@@ -194,33 +197,44 @@ const homeJsonLd = {
   <!-- ══════════════════════════════════════════════════════════════
        2. ETHOS — "MADE IN THE HIMALAYAS. DEFINED BY LIGHT."
        ══════════════════════════════════════════════════════════════ -->
-  <section id="ethos" class="relative w-full section-dark overflow-hidden">
+  <section id="ethos" class="relative w-full section-dark" style="overflow-x: clip;">
     <div class="grid grid-cols-1 lg:grid-cols-2 min-h-[90vh] lg:min-h-[100vh] items-stretch">
 
       <!-- Left 50%: Full-Bleed Image -->
-      <div class="relative w-full h-[55vh] lg:h-auto min-h-[400px] overflow-hidden">
-        <div class="w-full h-full hero-fade-in">
+      <div class="relative w-full h-[50vh] sm:h-[55vh] lg:h-auto min-h-[340px] overflow-hidden">
+        <div class="w-full h-full">
           <img
             src="/images/himalayan_monks_machhapuchhre.jpg"
             alt="Himalayan Buddhist monks in maroon robes overlooking Machhapuchhre peak"
             loading="lazy"
             decoding="async"
-            class="w-full h-full object-cover brightness-[0.88]"
+            class="w-full h-full object-cover brightness-[0.88] ethos-img-parallax"
+            id="ethos-parallax-img"
           />
         </div>
+        <!-- Cinematic overlay on mobile only -->
         <div class="absolute inset-0 pointer-events-none lg:hidden" style="background: var(--overlay-cinematic);"></div>
         <!-- Image caption -->
         <div class="absolute bottom-5 left-5 z-10 hidden lg:block">
-          <span class="photo-caption text-white/35">Monks above Machhapuchhre · Annapurna Region</span>
+          <span class="photo-caption" style="color: var(--marga-caption-light)">Monks above Machhapuchhre · Annapurna Region</span>
         </div>
+        <!-- Thin gold rule at right edge on desktop -->
+        <div class="absolute top-0 right-0 bottom-0 w-px bg-gradient-to-b from-transparent via-[var(--marga-gold)]/30 to-transparent hidden lg:block"></div>
       </div>
 
       <!-- Right 50%: Narrative + Giant overlapping title -->
-      <div class="relative flex flex-col justify-center px-8 sm:px-14 lg:px-16 xl:px-20 py-20 lg:py-28 space-y-8 section-dark z-10">
+      <!-- NOTE: No overflow-hidden here — the lg:-ml-32 editorial seam-crossing effect needs room -->
+      <div class="relative flex flex-col justify-center px-6 sm:px-14 lg:px-16 xl:px-20 py-14 sm:py-20 lg:py-28 space-y-8 section-dark z-10">
 
-        <!-- Giant Cormorant title crossing the 50% seam -->
+        <!-- Eyebrow label with animated line -->
+        <div class="flex items-center gap-3 reveal-fade" data-reveal>
+          <span class="ethos-line-draw w-6 h-px" style="background-color: var(--marga-gold)"></span>
+          <span class="journal-label text-xs" style="color: var(--marga-gold)">Field Doctrine</span>
+        </div>
+
+        <!-- Giant Cormorant title — crosses the 50% seam on lg+, contained on mobile -->
         <div class="lg:-ml-32 xl:-ml-44 z-20 pointer-events-none reveal-left" data-reveal>
-          <h2 class="font-dream text-[clamp(2.5rem,5vw,5.2rem)] font-light leading-[1.04] tracking-tight uppercase drop-shadow-[0_4px_24px_rgba(0,0,0,0.8)]" style="color: var(--marga-gold)">
+          <h2 class="font-dream text-[clamp(2.1rem,5.5vw,5.4rem)] font-light leading-[1.02] tracking-tight uppercase drop-shadow-[0_4px_32px_rgba(0,0,0,0.85)] ethos-title-stagger" style="color: var(--marga-gold)">
             Made in the<br />
             Himalayas.<br />
             Defined by<br />
@@ -230,20 +244,26 @@ const homeJsonLd = {
 
         <!-- Narrative + link -->
         <div class="space-y-5 max-w-lg z-10 reveal-up" data-reveal>
-          <p class="font-sans text-sm sm:text-base text-neutral-300 font-normal leading-[1.8]">
+          <p class="font-sans text-sm sm:text-base font-normal leading-[1.85]" style="color: var(--section-dark-subtext)">
             Marga was born in the high valleys of Nepal — a land where raw topography meets living spiritual traditions, and the ancient world still shapes everyday life. It's here that we learned the art of patient observation: the fleeting angle of morning light striking a monastery courtyard, the trance rhythms of mountain shamans, and the silence of the high passes.
           </p>
 
-          <p class="font-sans text-sm sm:text-base text-neutral-300 font-normal leading-[1.8]">
+          <p class="font-sans text-sm sm:text-base font-normal leading-[1.85]" style="color: var(--section-dark-subtext)">
             What began as documentary field craft became an art form: the design of photography journeys that feel as alive and timeless as Nepal itself. We do not herd groups through tourist viewpoints; we orchestrate intimate residencies paced strictly by dawn, twilight, and genuine human connection.
           </p>
 
           <div class="pt-3">
-            <a href="/about" class="snami-arrow-link text-white hover:text-[var(--marga-gold)]">
+            <a href="/about" class="snami-arrow-link hover:text-[var(--marga-gold)]" style="color: var(--section-dark-text)">
               <span>Our Philosophy</span>
               <span class="arrow-line"></span>
             </a>
           </div>
+        </div>
+
+        <!-- Bottom-right corner accent — editorial film notch -->
+        <div class="absolute bottom-8 right-8 hidden lg:flex flex-col items-end gap-2 opacity-30">
+          <span class="font-mono text-[10px] tracking-[0.22em] uppercase" style="color: var(--marga-gold)">02 / 09</span>
+          <span class="w-8 h-px" style="background-color: var(--marga-gold)"></span>
         </div>
 
       </div>
@@ -253,7 +273,7 @@ const homeJsonLd = {
   <!-- ══════════════════════════════════════════════════════════════
        3. MANIFESTO — "FOR THOSE WHO SEE DIFFERENTLY"
        ══════════════════════════════════════════════════════════════ -->
-  <section class="py-32 sm:py-44 section-dark border-t border-white/5 relative overflow-hidden">
+  <section class="py-16 sm:py-32 lg:py-44 section-dark border-t border-white/5 relative overflow-hidden">
     <div class="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
 
@@ -282,7 +302,7 @@ const homeJsonLd = {
             <span class="w-8 h-px" style="background-color: var(--marga-gold)"></span>
           </div>
 
-          <h2 class="font-dream text-[clamp(2.5rem,5.2vw,5.2rem)] font-light uppercase text-white/90 leading-[1.04] tracking-[-0.015em]">
+          <h2 class="font-dream text-[clamp(1.95rem,5.2vw,5.2rem)] font-light uppercase text-white/90 leading-[1.04] tracking-[-0.015em]">
             For Those<br />
             Who See<br />
             Differently
@@ -327,7 +347,7 @@ const homeJsonLd = {
   <!-- ══════════════════════════════════════════════════════════════
        5. CURATED COLLECTION (Linen)
        ══════════════════════════════════════════════════════════════ -->
-  <section id="portfolio" class="py-24 sm:py-36 section-linen overflow-hidden">
+  <section id="portfolio" class="py-14 sm:py-24 lg:py-36 section-linen overflow-hidden">
     <div class="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14">
 
       <!-- Section Header with Title & Context -->
@@ -339,7 +359,7 @@ const homeJsonLd = {
               Curated Field Retrospective
             </span>
           </div>
-          <h2 class="font-dream text-[clamp(2.5rem,5.5vw,4.8rem)] font-light uppercase leading-[1.04] tracking-tight" style="color: var(--section-linen-text)">
+          <h2 class="font-dream text-[clamp(2rem,5.5vw,4.8rem)] font-light uppercase leading-[1.04] tracking-tight" style="color: var(--section-linen-text)">
             Masterclass Expeditions
           </h2>
         </div>
@@ -464,7 +484,7 @@ const homeJsonLd = {
   <!-- ══════════════════════════════════════════════════════════════
        7. 2026 MASTERCLASS FIELD DOSSIERS
        ══════════════════════════════════════════════════════════════ -->
-  <section id="expeditions" class="py-32 sm:py-44 section-dark border-t border-white/5">
+  <section id="expeditions" class="py-16 sm:py-32 lg:py-44 section-dark border-t border-white/5">
     <div class="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14">
 
       <!-- Section header -->
@@ -513,7 +533,7 @@ const homeJsonLd = {
   <!-- ══════════════════════════════════════════════════════════════
        9. INQUIRY & RESERVATION
        ══════════════════════════════════════════════════════════════ -->
-  <section class="py-32 sm:py-40 section-dark border-t border-white/8" id="inquire">
+  <section class="py-16 sm:py-32 lg:py-40 section-dark border-t border-white/8" id="inquire">
     <div class="max-w-4xl mx-auto px-6 sm:px-10 lg:px-12">
       <div class="text-center mb-12 reveal-up" data-reveal>
         <div class="flex items-center justify-center gap-4 mb-5">
@@ -677,9 +697,110 @@ const homeJsonLd = {
   setupHeroParallax();
   setupScrollReveal();
 
+  // ─── Ethos Title — Line-by-Line Stagger Entrance ────────────────────
+  // Splits the h2 into lines and animates each with a darkroom-timing feel
+  function setupEthosTitleStagger() {
+    const titleEl = document.querySelector('.ethos-title-stagger') as HTMLElement | null;
+    if (!titleEl) return;
+
+    // Replace <br> tags with span wrappers per line
+    const raw = titleEl.innerHTML;
+    const lines = raw.split(/<br\s*\/?>/i);
+    titleEl.innerHTML = lines
+      .map((line, i) => `<span class="ethos-line-${i + 1}" style="display:block">${line}</span>`)
+      .join('');
+
+    // Trigger when the h2 enters viewport
+    const parent = titleEl.closest('[data-reveal]') as HTMLElement | null;
+    if (!parent) return;
+
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          titleEl.querySelectorAll('span[class^="ethos-line-"]').forEach((span) => {
+            (span as HTMLElement).style.animationPlayState = 'running';
+          });
+          obs.disconnect();
+        }
+      });
+    }, { threshold: 0.15 });
+
+    obs.observe(parent);
+  }
+
+  // ─── Section Label Gold Line-Draw ──────────────────────────────────
+  // The thin gold bars before every section label animate in on scroll
+  function setupLineDraw() {
+    const lines = document.querySelectorAll('.section-label-line, .ethos-line-draw');
+    if (!lines.length) return;
+
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+
+    lines.forEach((el) => obs.observe(el));
+  }
+
+  // ─── Editorial Image Magnetic Tilt ──────────────────────────────────
+  // Images tilt up to ±4deg following cursor — like a photographer's eye
+  function setupMagneticTilt() {
+    const frames = document.querySelectorAll('.editorial-img-frame');
+    frames.forEach((frame) => {
+      const img = frame.querySelector('img');
+      if (!img) return;
+      img.classList.add('editorial-img-magnetic');
+
+      frame.addEventListener('mousemove', (e: Event) => {
+        const evt = e as MouseEvent;
+        const rect = (frame as HTMLElement).getBoundingClientRect();
+        const cx   = rect.left + rect.width  / 2;
+        const cy   = rect.top  + rect.height / 2;
+        const dx   = (evt.clientX - cx) / (rect.width  / 2);
+        const dy   = (evt.clientY - cy) / (rect.height / 2);
+        const maxT = 3.5;
+        img.style.transform = `perspective(900px) rotateY(${dx * maxT}deg) rotateX(${-dy * maxT}deg) scale(1.022)`;
+      });
+
+      frame.addEventListener('mouseleave', () => {
+        img.style.transform = 'perspective(900px) rotateY(0deg) rotateX(0deg) scale(1)';
+      });
+    });
+  }
+
+  // ─── Ethos Image Parallax on Scroll ────────────────────────────────
+  function setupEthosParallax() {
+    const img = document.getElementById('ethos-parallax-img') as HTMLElement | null;
+    const section = document.getElementById('ethos') as HTMLElement | null;
+    if (!img || !section) return;
+
+    function onScroll() {
+      if (!img || !section) return;
+      const rect     = section.getBoundingClientRect();
+      const progress = Math.max(0, Math.min(1, -rect.top / (section.offsetHeight)));
+      img.style.transform = `translateY(${progress * 40}px) scale(1.06)`;
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
+  setupEthosTitleStagger();
+  setupLineDraw();
+  setupMagneticTilt();
+  setupEthosParallax();
+
   document.addEventListener('astro:page-load', () => {
     setupHeroCarousel();
     setupHeroParallax();
     setupScrollReveal();
+    setupEthosTitleStagger();
+    setupLineDraw();
+    setupMagneticTilt();
+    setupEthosParallax();
   });
 </script>

@@ -16,23 +16,24 @@
   --color-obsidian-700: #121214;
   --color-obsidian-600: #1a1a1e;
 
-  /* Alabaster (60% in light, 30% in dark) */
+  /* Aged Linen (60% in light, 30% in dark) */
   --color-alabaster-900: #ededed;
   --color-alabaster-700: #d4d4d4;
   --color-alabaster-500: #a3a3a3;
   --color-alabaster-300: #e5e5e5;
-  --color-alabaster-100: #fbfbf9;
+  --color-alabaster-100: #faf8f4;
   --color-alabaster-border: rgba(237, 237, 237, 0.08);
 
-  /* Ochre & Himalayan Gold (10%) */
-  --color-ochre-base: #DEB462;
-  --color-ochre-hover: #e8c47a;
-  --color-ochre-light: #faf4e6;
+  /* Cognac Amber — Himalayan Alpenglow (10% accent) */
+  /* Inspired by aged thangka gold-leaf, Newari copper patina & Himalayan sunset */
+  --color-ochre-base: #C9923A;
+  --color-ochre-hover: #D9A84F;
+  --color-ochre-light: #FBF5EC;
 
-  /* Marga Adventure Heritage Spectrum — Himalayan Sky & Alpine Lapis */
-  --color-azure-base: #1E65A6;
-  --color-azure-hover: #165287;
-  --color-azure-light: #F0F6FC;
+  /* Himalayan Sky & Alpine Lapis */
+  --color-azure-base: #1A5A96;
+  --color-azure-hover: #154C80;
+  --color-azure-light: #EEF5FC;
 
   /* Typography — Disciplined Tri-Typographic Luxury System */
   --font-display: "Cormorant Garamond", Garamond, "Palatino Linotype", Georgia, serif;
@@ -55,7 +56,7 @@
   --color-accent-himalaya: var(--color-ochre-base);
   --color-accent-amber: var(--color-ochre-hover);
   --color-accent-gold: var(--color-ochre-base);
-  --color-accent-prayer-red: #DEB462;
+  --color-accent-prayer-red: #C9923A;
   --color-accent-ochre: var(--color-ochre-base);
   --color-accent-azure: var(--color-azure-base);
   --color-accent-glacier: var(--color-azure-hover);
@@ -75,16 +76,15 @@
 :root {
   color-scheme: light;
 
-  /* Canvas & Surfaces (Alabaster 60%) */
-  --color-canvas-bg: #fbfbf9;
+  /* Canvas & Surfaces — Aged Linen 60% */
+  --color-canvas-bg: #faf8f4;
   --color-canvas-surface: #ffffff;
-  --color-canvas-elevated: #f4f3ef;
+  --color-canvas-elevated: #f2ede5;
   --color-canvas-border: rgba(14, 19, 31, 0.08);
-  --color-canvas-subtle: #f6f5f0;
+  --color-canvas-subtle: #f5f1ea;
 
-  /* Text & Contrast (Himalayan Lapis Obsidian Palette — 30%) */
-  /* Infused with deep alpine lapis undertones to bridge with Marga Adventure's sky blue heritage */
-  --color-text-primary: #0E131F;
+  /* Text & Contrast — Himalayan Lapis Obsidian 30% */
+  --color-text-primary: #0E121C;
   --color-text-secondary: #2B3648;
   --color-text-muted: #5A6980;
   --color-text-caption: #78879E;
@@ -93,53 +93,53 @@
   background-color: var(--color-canvas-bg);
   color: var(--color-text-primary);
 
-  /* Legacy Marga Variables mapped to Light palette */
-  --marga-ink: #0E131F;
-  --marga-stone: #f4f3ef;
+  /* Marga Brand Variables — Cognac Amber Palette */
+  --marga-ink: #0E121C;
+  --marga-stone: #f2ede5;
   --marga-slate: #151D2A;
-  --marga-gold: #DEB462;
-  --marga-gold-hover: #e8c47a;
-  --marga-linen: #eae8e1;
-  --marga-azure: #1E65A6;
-  --marga-caption-light: rgba(14, 19, 31, 0.60);
+  --marga-gold: #C9923A;
+  --marga-gold-hover: #D9A84F;
+  --marga-linen: #ece7dc;
+  --marga-azure: #1A5A96;
+  --marga-caption-light: rgba(14, 18, 28, 0.60);
   --marga-caption-dark: rgba(237, 237, 237, 0.60);
 
   /* Section backgrounds in Light Mode */
-  --section-dark-bg: #f4f3ef;
-  --section-dark-text: #0E131F;
+  --section-dark-bg: #f2ede5;
+  --section-dark-text: #0E121C;
   --section-dark-subtext: #3D4A5C;
   --section-dark-muted: #5A6980;
-  --section-dark-faint: rgba(14, 19, 31, 0.15);
-  --section-dark-border: rgba(14, 19, 31, 0.08);
+  --section-dark-faint: rgba(14, 18, 28, 0.15);
+  --section-dark-border: rgba(14, 18, 28, 0.08);
 
   --section-linen-bg: #ffffff;
-  --section-linen-text: #0E131F;
+  --section-linen-text: #0E121C;
   --section-linen-subtext: #3D4A5C;
-  --section-linen-border: rgba(14, 19, 31, 0.08);
+  --section-linen-border: rgba(14, 18, 28, 0.08);
 
-  /* Hero gradient & Overlays — Luminous Light Scrim for Editorial Elegance */
-  --overlay-cinematic: linear-gradient(to top, rgba(251, 251, 249, 0.96) 0%, rgba(251, 251, 249, 0.40) 45%, transparent 100%);
-  --hero-grad-bottom: rgba(251, 251, 249, 0.96);
-  --hero-grad-mid: rgba(251, 251, 249, 0.35);
-  --hero-grad-top: rgba(251, 251, 249, 0.75);
-  --hero-text-color: #0E131F;
+  /* Hero gradient & Overlays — Warm Linen Scrim */
+  --overlay-cinematic: linear-gradient(to top, rgba(250, 248, 244, 0.96) 0%, rgba(250, 248, 244, 0.40) 45%, transparent 100%);
+  --hero-grad-bottom: rgba(250, 248, 244, 0.96);
+  --hero-grad-mid: rgba(250, 248, 244, 0.35);
+  --hero-grad-top: rgba(250, 248, 244, 0.75);
+  --hero-text-color: #0E121C;
   --hero-text-secondary: #2B3648;
-  --hero-dot-inactive: rgba(14, 19, 31, 0.25);
+  --hero-dot-inactive: rgba(14, 18, 28, 0.25);
   --hero-meta-color: #3D4A5C;
 
   /* Scrolled Navbar in Light Mode */
-  --navbar-glass-bg: rgba(251, 251, 249, 0.94);
-  --navbar-glass-border: rgba(14, 19, 31, 0.08);
-  --navbar-text: #0E131F;
+  --navbar-glass-bg: rgba(250, 248, 244, 0.94);
+  --navbar-glass-border: rgba(14, 18, 28, 0.08);
+  --navbar-text: #0E121C;
 
   /* Fullscreen Menu */
-  --menu-bg: #0E131F;
+  --menu-bg: #0E121C;
   --menu-text: #ededed;
 
   /* Glassmorphic */
   --color-glass-bg: rgba(255, 255, 255, 0.92);
-  --color-glass-border: rgba(14, 19, 31, 0.08);
-  --card-shadow: 0 4px 24px -2px rgba(14, 19, 31, 0.06);
+  --color-glass-border: rgba(14, 18, 28, 0.08);
+  --card-shadow: 0 4px 24px -2px rgba(14, 18, 28, 0.07);
 }
 
 /* ════════════════════════════════════════════════════════════
@@ -160,7 +160,7 @@
   }
 
   ::selection {
-    background-color: rgba(184, 150, 90, 0.20);
+    background-color: rgba(201, 146, 58, 0.20);
     color: var(--marga-gold);
   }
 
@@ -175,12 +175,12 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    background: rgba(184, 150, 90, 0.35);
+    background: rgba(201, 146, 58, 0.35);
     border-radius: 2px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: rgba(184, 150, 90, 0.65);
+    background: rgba(201, 146, 58, 0.65);
   }
 
   img {
@@ -251,7 +251,7 @@
 }
 
 .text-gold-gradient {
-  background: linear-gradient(135deg, #e8d9b8 10%, var(--marga-gold) 100%);
+  background: linear-gradient(135deg, #e2c48a 10%, var(--marga-gold) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -996,12 +996,14 @@
 
 .journey-chapter-title {
   font-family: var(--font-display);
-  font-size: clamp(3.5rem, 10vw, 9rem);
+  font-size: clamp(2.2rem, 8vw, 9rem);
   font-weight: 300;
   letter-spacing: -0.03em;
   line-height: 0.9;
   color: rgba(255, 255, 255, 0.92);
   text-transform: uppercase;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .journey-chapter-desc {
@@ -1185,12 +1187,12 @@
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
-  padding: 1rem 2.75rem !important;
+  padding: 0.875rem 2.25rem !important;
   border: 1px solid var(--marga-gold) !important;
   background-color: var(--marga-gold) !important;
-  color: #121214 !important;
+  color: #ffffff !important;
   font-family: var(--font-sans) !important;
-  font-size: 0.75rem !important;
+  font-size: 0.72rem !important;
   font-weight: 700 !important;
   letter-spacing: 0.22em !important;
   text-transform: uppercase !important;
@@ -1198,16 +1200,16 @@
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
   cursor: pointer !important;
   text-decoration: none !important;
-  box-shadow: 0 4px 20px rgba(222, 180, 98, 0.35) !important;
+  box-shadow: 0 4px 20px rgba(201, 146, 58, 0.40) !important;
 }
 
 #hero-section .snami-outline-btn:hover,
 .hero-cta-btn:hover {
-  border-color: #121214 !important;
-  background-color: #121214 !important;
+  border-color: #0E121C !important;
+  background-color: #0E121C !important;
   color: #ffffff !important;
   transform: translateY(-2px) !important;
-  box-shadow: 0 8px 30px rgba(18, 18, 20, 0.25) !important;
+  box-shadow: 0 8px 30px rgba(14, 18, 28, 0.28) !important;
 }
 
 #hero-section .snami-outline-btn span,
@@ -1387,14 +1389,14 @@
 
 /* ── Button / wire-arrow overrides ────────────────────────── */
 .section-dark:not(#hero-section) .snami-wire-arrow {
-  border-color: rgba(18, 18, 20, 0.25);
-  color: rgba(18, 18, 20, 0.75);
+  border-color: rgba(14, 18, 28, 0.22);
+  color: rgba(14, 18, 28, 0.70);
 }
 
 .section-dark:not(#hero-section) .snami-wire-arrow:hover {
   border-color: var(--marga-gold);
   color: var(--marga-gold);
-  background-color: rgba(200, 90, 50, 0.08);
+  background-color: rgba(201, 146, 58, 0.08);
 }
 
 .section-dark:not(#hero-section) .snami-outline-btn {
@@ -1411,16 +1413,381 @@
 /* ── Expedition card on light bg ─────────────────────────── */
 .section-dark:not(#hero-section) .expedition-editorial-card {
   background-color: #ffffff;
-  border-color: rgba(18, 18, 20, 0.09);
-  box-shadow: 0 4px 20px -2px rgba(18, 18, 20, 0.06);
+  border-color: rgba(14, 18, 28, 0.09);
+  box-shadow: 0 4px 20px -2px rgba(14, 18, 28, 0.06);
 }
 
 .section-dark:not(#hero-section) .expedition-editorial-card:hover {
-  border-color: rgba(200, 90, 50, 0.35);
-  box-shadow: 0 12px 36px -4px rgba(18, 18, 20, 0.12);
+  border-color: rgba(201, 146, 58, 0.40);
+  box-shadow: 0 12px 36px -4px rgba(14, 18, 28, 0.12);
 }
 
 /* ── Animate-pulse dot color (live badge) ─────────────────── */
 .section-dark:not(#hero-section) .animate-pulse.rounded-full.bg-emerald-500 {
   background-color: #16a34a !important;
+}
+
+/* ════════════════════════════════════════════════════════════
+   MOBILE TYPOGRAPHY & OVERFLOW SAFEGUARDS
+   Prevents text bleeding and overflow on 360–430px viewports
+   ════════════════════════════════════════════════════════════ */
+
+/* Global overflow protection — prevents horizontal bleed */
+@media (max-width: 639px) {
+  body {
+    overflow-x: hidden;
+  }
+
+  /* Negative margin guards — prevent structural bleed at mobile */
+  [class*="-ml-"],
+  [class*="-mr-"] {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  /* Hero title — tighter clamp on smallest phones */
+  .hero-title-clamp {
+    font-size: clamp(1.9rem, 9vw, 3.5rem) !important;
+    letter-spacing: -0.015em !important;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+
+  /* Journey chapter title — constrained at mobile */
+  .journey-chapter-title {
+    font-size: clamp(2rem, 11vw, 3.8rem);
+    line-height: 1.0;
+  }
+
+  /* Journey chapter description — readable at small widths */
+  .journey-chapter-desc {
+    font-size: 0.8125rem;
+    max-width: 90%;
+  }
+
+  /* Manifesto/Ethos giant title — safe minimum on mobile */
+  .ethos-title-clamp {
+    font-size: clamp(1.9rem, 8vw, 3.5rem) !important;
+  }
+
+  /* Section padding tighten at mobile */
+  .mobile-py-tight {
+    padding-top: 4rem !important;
+    padding-bottom: 4rem !important;
+  }
+
+  /* Prevent oversized editorial quote on mobile */
+  .showcase-quote-clamp {
+    font-size: clamp(1.35rem, 5.5vw, 2rem) !important;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════
+   PREMIUM PHOTOGRAPHY ANIMATIONS
+   Justified by documentary / editorial craft:
+   — Aperture crosshair cursor (precision of the lens)
+   — Film grain texture (analog photography heritage)
+   — Line-by-line title stagger (darkroom timing)
+   — Gold label line-draw (contact sheet borders)
+   — Image magnetic tilt (photographer's eye follows subject)
+   — Aperture focus ring CTA (camera focus confirmation)
+   ════════════════════════════════════════════════════════════ */
+
+/* ── 1. Custom Aperture Crosshair Cursor ───────────────────── */
+/* Mimics a precision viewfinder reticle */
+body {
+  cursor: none;
+}
+
+#marga-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  pointer-events: none;
+  will-change: transform;
+  mix-blend-mode: difference;
+}
+
+.cursor-outer {
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(201, 146, 58, 0.85);
+  border-radius: 50%;
+  position: absolute;
+  top: -18px;
+  left: -18px;
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.25s ease,
+              width 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              height 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cursor-inner {
+  width: 4px;
+  height: 4px;
+  background-color: var(--marga-gold);
+  border-radius: 50%;
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  transition: transform 0.08s ease,
+              opacity 0.2s ease;
+}
+
+/* Crosshair tick marks — the viewfinder reticle */
+.cursor-cross-h,
+.cursor-cross-v {
+  position: absolute;
+  background-color: rgba(201, 146, 58, 0.55);
+}
+
+.cursor-cross-h {
+  width: 10px;
+  height: 1px;
+  top: -0.5px;
+  left: -5px;
+}
+
+.cursor-cross-v {
+  width: 1px;
+  height: 10px;
+  top: -5px;
+  left: -0.5px;
+}
+
+/* Cursor expand on interactive elements */
+body:has(a:hover) #marga-cursor .cursor-outer,
+body:has(button:hover) #marga-cursor .cursor-outer {
+  transform: scale(1.7);
+  opacity: 0.7;
+}
+
+body:has(img:hover) #marga-cursor .cursor-outer {
+  transform: scale(2.4);
+  border-style: dashed;
+}
+
+/* Hide custom cursor on touch devices */
+@media (hover: none) {
+  body { cursor: auto; }
+  #marga-cursor { display: none; }
+}
+
+/* ── 2. Film Grain Texture — Analog Heritage ─────────────────── */
+/* SVG noise rendered via CSS filter — no image request */
+.film-grain-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 15;
+  opacity: 0.035;
+  animation: grainShift 0.12s steps(1) infinite;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+  mix-blend-mode: overlay;
+}
+
+@keyframes grainShift {
+  0%   { background-position: 0   0;   }
+  10%  { background-position: -5% -10%; }
+  20%  { background-position: -15% 5%;  }
+  30%  { background-position: 7%  -25%; }
+  40%  { background-position: -5% 25%;  }
+  50%  { background-position: -15% 10%; }
+  60%  { background-position: 15%  0%;  }
+  70%  { background-position: 0%  15%;  }
+  80%  { background-position: 3%  35%;  }
+  90%  { background-position: -10% 10%;}
+  100% { background-position: 0   0;   }
+}
+
+/* ── 3. Ethos Title — Line-by-Line Stagger Entrance ──────────── */
+/* Each line of "Made in the / Himalayas. / Defined by / Light."   */
+/* reveals from below with staggered delay — like a darkroom print */
+.ethos-title-stagger {
+  display: block;
+}
+
+@keyframes ethosTitleLine {
+  from {
+    opacity: 0;
+    transform: translateY(30px) skewY(1.5deg);
+    filter: blur(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) skewY(0deg);
+    filter: blur(0);
+  }
+}
+
+/* Applied via JS on reveal — each line gets delay */
+.ethos-line-1 { animation: ethosTitleLine 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both; }
+.ethos-line-2 { animation: ethosTitleLine 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.22s both; }
+.ethos-line-3 { animation: ethosTitleLine 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.34s both; }
+.ethos-line-4 { animation: ethosTitleLine 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.46s both; }
+
+/* ── 4. Gold Label Line-Draw Animation ───────────────────────── */
+/* The thin gold horizontal lines that precede section labels      */
+/* animate from 0 to their full width — like a developing image   */
+@keyframes lineDrawOut {
+  from { transform: scaleX(0); transform-origin: left; }
+  to   { transform: scaleX(1); transform-origin: left; }
+}
+
+.ethos-line-draw {
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.ethos-line-draw.revealed {
+  animation: lineDrawOut 0.7s cubic-bezier(0.76, 0, 0.24, 1) 0.2s both;
+}
+
+/* All gold label lines on scroll reveal */
+.section-label-line {
+  display: inline-block;
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform 0.65s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.section-label-line.revealed {
+  transform: scaleX(1);
+}
+
+/* ── 5. Aperture Focus Ring — CTA Hover Animation ────────────── */
+/* A secondary ring expands out on hover, like a camera focusing  */
+.snami-circle-btn {
+  position: relative;
+}
+
+.snami-circle-btn::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1px solid var(--marga-gold);
+  opacity: 0;
+  transform: scale(0.85);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.snami-circle-btn:hover::after {
+  opacity: 0.5;
+  transform: scale(1);
+}
+
+/* ── 6. Hero CTA — Aperture Ripple on Hover ─────────────────── */
+.hero-cta-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-cta-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.15) 0%, transparent 70%);
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: inherit;
+}
+
+.hero-cta-btn:hover::before {
+  opacity: 1;
+  transform: scale(2.5);
+}
+
+/* ── 7. Editorial Image Magnetic Tilt ────────────────────────── */
+/* Images subtly tilt as the cursor moves over them              */
+.editorial-img-frame {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.editorial-img-magnetic {
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+/* ── 8. Section Number Watermark — Parallax Drift ────────────── */
+/* The large bg chapter numbers drift on scroll — depth layer     */
+@keyframes subtleDrift {
+  from { transform: translateY(0px);   }
+  to   { transform: translateY(-24px); }
+}
+
+.journey-panel-number-bg {
+  animation: subtleDrift linear both;
+  animation-timeline: scroll(root);
+  animation-range: entry 0% exit 100%;
+}
+
+/* ── 9. Text Shimmer on Hero Gold Text ───────────────────────── */
+@keyframes goldShimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center;  }
+}
+
+.hero-gold-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--marga-gold) 0%,
+    #e8c87a 35%,
+    #f5dfa0 50%,
+    #e8c87a 65%,
+    var(--marga-gold) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: goldShimmer 4s linear 1.5s both;
+}
+
+/* ── 10. Slow Vignette Pulse on Hero ─────────────────────────── */
+@keyframes vignettePulse {
+  0%, 100% { opacity: 0.4; }
+  50%       { opacity: 0.65; }
+}
+
+/* ── 11. Simplified Inquiry Form — Input Base Style ─────────── */
+/* Matches the editorial palette — no rounded corners, clean lines */
+.inquiry-input {
+  background-color: var(--color-canvas-surface);
+  border: 1px solid var(--color-canvas-border);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  outline: none;
+  width: 100%;
+  border-radius: 0;
+}
+
+.inquiry-input::placeholder {
+  color: var(--color-text-caption);
+  opacity: 0.7;
+}
+
+.inquiry-input:focus {
+  border-color: var(--marga-gold);
+  box-shadow: 0 0 0 2px rgba(201, 146, 58, 0.12);
+}
+
+.inquiry-input:focus-visible {
+  outline: none;
+}
+
+.hero-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(14,18,28,0.55) 100%);
+  pointer-events: none;
+  z-index: 5;
+  animation: vignettePulse 8s ease-in-out infinite;
 }
