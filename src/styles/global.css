@@ -548,60 +548,170 @@
 }
 
 /* ════════════════════════════════════════════════════════════
-   SCROLL REVEAL SYSTEM
+   SCROLL REVEAL & LIVELY MOTION SYSTEM
+   Photographic "rack-focus" blur-to-clear & depth entrance
    ════════════════════════════════════════════════════════════ */
 
-/* Elements that reveal on scroll */
+/* Elements that reveal on scroll — optical focus pull entrance */
 .reveal-up {
   opacity: 0;
-  transform: translateY(32px);
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  filter: blur(8px);
+  transform: translateY(32px) scale(0.985);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform, filter;
 }
 
 .reveal-up.revealed {
   opacity: 1;
-  transform: translateY(0);
+  filter: blur(0);
+  transform: translateY(0) scale(1);
 }
 
 .reveal-left {
   opacity: 0;
-  transform: translateX(-28px);
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  filter: blur(8px);
+  transform: translateX(-36px) scale(0.985);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform, filter;
 }
 
 .reveal-left.revealed {
   opacity: 1;
-  transform: translateX(0);
+  filter: blur(0);
+  transform: translateX(0) scale(1);
+}
+
+.reveal-right {
+  opacity: 0;
+  filter: blur(8px);
+  transform: translateX(36px) scale(0.985);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform, filter;
+}
+
+.reveal-right.revealed {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateX(0) scale(1);
 }
 
 .reveal-fade {
   opacity: 0;
-  transition: opacity 1.0s ease;
+  filter: blur(6px);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, filter;
 }
 
 .reveal-fade.revealed {
   opacity: 1;
+  filter: blur(0);
 }
 
 /* Stagger delays for grouped reveals */
-.reveal-delay-1 {
-  transition-delay: 0.1s;
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.32s; }
+.reveal-delay-4 { transition-delay: 0.46s; }
+.reveal-delay-5 { transition-delay: 0.6s; }
+
+/* ── Interactive 3D Perspective Tilt on Cards ──────────────── */
+.tilt-card {
+  perspective: 1100px;
+  transform-style: preserve-3d;
 }
 
-.reveal-delay-2 {
-  transition-delay: 0.2s;
+.tilt-card-inner {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease;
+  will-change: transform;
 }
 
-.reveal-delay-3 {
-  transition-delay: 0.35s;
+.tilt-glare {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: 0;
+  background: radial-gradient(
+    circle 320px at var(--glare-x, 50%) var(--glare-y, 50%),
+    rgba(255, 255, 255, 0.22) 0%,
+    rgba(222, 180, 98, 0.12) 35%,
+    transparent 75%
+  );
+  mix-blend-mode: screen;
+  transition: opacity 0.3s ease;
+  z-index: 25;
 }
 
-.reveal-delay-4 {
-  transition-delay: 0.5s;
+.tilt-card:hover .tilt-glare {
+  opacity: 1;
 }
 
-.reveal-delay-5 {
-  transition-delay: 0.65s;
+/* ── Liquid Gold Shimmer Button Sweep ───────────────────────── */
+.snami-outline-btn,
+.hero-cta-btn,
+.btn-gold-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.snami-outline-btn::after,
+.hero-cta-btn::after,
+.btn-gold-shimmer::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -80%;
+  width: 50%;
+  height: 200%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.38) 40%,
+    rgba(222, 180, 98, 0.45) 60%,
+    transparent 100%
+  );
+  transform: rotate(25deg);
+  pointer-events: none;
+  opacity: 0;
+}
+
+.snami-outline-btn:hover::after,
+.hero-cta-btn:hover::after,
+.btn-gold-shimmer:hover::after {
+  opacity: 1;
+  animation: btnShimmerSweep 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes btnShimmerSweep {
+  0% {
+    left: -80%;
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    left: 130%;
+    opacity: 0;
+  }
+}
+
+/* ── Tabular figures for animated stat counters ────────────── */
+[data-counter] {
+  font-variant-numeric: tabular-nums;
+  display: inline-block;
+  will-change: transform;
 }
 
 /* Image clip-path reveal — wipe from left */
@@ -1791,4 +1901,134 @@ body:has(img:hover) #marga-cursor .cursor-outer {
   pointer-events: none;
   z-index: 5;
   animation: vignettePulse 8s ease-in-out infinite;
+}
+
+/* ── 12. Floating Atmospheric Embers / Golden Dust ─────────── */
+.hero-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 6;
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(222, 180, 98, 0.75) 0%, rgba(222, 180, 98, 0.2) 60%, transparent 100%);
+  filter: blur(1px);
+  opacity: 0;
+  animation: floatParticle 9s ease-in-out infinite;
+}
+
+@keyframes floatParticle {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.6);
+  }
+  25% {
+    opacity: 0.65;
+  }
+  75% {
+    opacity: 0.45;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-120px) translateX(25px) scale(1.1);
+  }
+}
+
+/* ── 13. Radar Pulse Ring on Status Badges ─────────────────── */
+.radar-badge {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.radar-dot {
+  position: relative;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #10b981;
+}
+
+.radar-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1px solid rgba(16, 185, 129, 0.75);
+  transform: translate(-50%, -50%) scale(0.5);
+  animation: radarWave 2.2s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+  pointer-events: none;
+}
+
+@keyframes radarWave {
+  0% {
+    transform: translate(-50%, -50%) scale(0.5);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2.3);
+    opacity: 0;
+  }
+}
+
+/* ── 14. Atmospheric Mountain Mist Drift ───────────────────── */
+.mist-drift-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: 0.18;
+  mix-blend-mode: screen;
+  z-index: 4;
+}
+
+.mist-drift-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  background: radial-gradient(ellipse 60% 40% at 30% 60%, rgba(255,255,255,0.4) 0%, transparent 60%),
+              radial-gradient(ellipse 70% 50% at 75% 45%, rgba(222,180,98,0.2) 0%, transparent 70%);
+  animation: mistFlow 45s linear infinite alternate;
+}
+
+@keyframes mistFlow {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ── 15. Aperture Lens Flare on Image Hover ────────────────── */
+.editorial-img-frame {
+  position: relative;
+  overflow: hidden;
+}
+
+.editorial-img-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 35%,
+    rgba(255, 255, 255, 0.12) 48%,
+    rgba(222, 180, 98, 0.18) 50%,
+    rgba(255, 255, 255, 0.12) 52%,
+    transparent 65%
+  );
+  transform: translateX(-100%);
+  transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  z-index: 15;
+}
+
+.editorial-img-frame:hover::after {
+  transform: translateX(100%);
 }

@@ -87,6 +87,12 @@ const homeJsonLd = {
     <div class="film-grain-overlay" aria-hidden="true"></div>
     <!-- Vignette — slow pulse like camera exposure -->
     <div class="hero-vignette" aria-hidden="true"></div>
+    <!-- Atmospheric floating embers & golden dust -->
+    <div class="hero-particles" aria-hidden="true" id="hero-particles"></div>
+    <!-- Mountain mist drift layer -->
+    <div class="mist-drift-container" aria-hidden="true">
+      <div class="mist-drift-layer"></div>
+    </div>
     <div class="absolute top-0 left-0 right-0 z-20 hidden sm:flex items-center justify-between px-6 sm:px-12 md:px-16 pt-28 sm:pt-32 hero-fade-in hero-meta-shadow">
       <div class="flex items-center gap-3">
         <span class="w-1.5 h-1.5 rounded-full animate-pulse" style="background-color: var(--marga-gold)"></span>
@@ -316,6 +322,34 @@ const homeJsonLd = {
               You travel not to capture trophies, but to understand. At Marga, we design for that instinct — masterclass journeys that mirror your curiosity, your rhythm, and your devotion to light.
             </p>
           </div>
+
+          <!-- Animated Metrics Dossier Ribbon -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-10 border-t border-white/10 mt-10 text-center">
+            <div class="space-y-1">
+              <div class="font-editorial text-3xl sm:text-4xl text-[var(--marga-gold)] font-light">
+                <span data-counter="5357">0</span>m
+              </div>
+              <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/50 block">Summit Elevation</span>
+            </div>
+            <div class="space-y-1">
+              <div class="font-editorial text-3xl sm:text-4xl text-[var(--marga-gold)] font-light">
+                <span data-counter="14">0</span>+
+              </div>
+              <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/50 block">Years Fieldcraft</span>
+            </div>
+            <div class="space-y-1">
+              <div class="font-editorial text-3xl sm:text-4xl text-[var(--marga-gold)] font-light">
+                <span data-counter="6">0</span>
+              </div>
+              <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/50 block">Max Per Cohort</span>
+            </div>
+            <div class="space-y-1">
+              <div class="font-editorial text-3xl sm:text-4xl text-[var(--marga-gold)] font-light">
+                <span data-counter="100">0</span>%
+              </div>
+              <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white/50 block">Direct Lineage Honorarium</span>
+            </div>
+          </div>
         </div>
 
         <!-- Right Portrait: Kham Magar Elder (staggered down) -->
@@ -412,7 +446,7 @@ const homeJsonLd = {
           <div class="grid grid-cols-3 gap-4 pt-6 border-t border-canvas-border mt-6">
             <div>
               <span class="font-mono text-xs uppercase tracking-[0.15em] text-text-muted block">Cohort Size</span>
-              <span class="font-sans text-xs sm:text-sm font-semibold text-text-primary mt-1 block">4–6 Photographers</span>
+              <span class="font-sans text-xs sm:text-sm font-semibold text-text-primary mt-1 block"><span data-counter="4">0</span>–<span data-counter="6">0</span> Photographers</span>
             </div>
             <div>
               <span class="font-mono text-xs uppercase tracking-[0.15em] text-text-muted block">Access</span>
@@ -465,7 +499,7 @@ const homeJsonLd = {
                 <span class="font-mono text-xs uppercase tracking-[0.16em] font-medium">Explore All Expeditions</span>
                 <span class="arrow-line"></span>
               </a>
-              <span class="font-mono text-xs text-text-muted">2026 / 2027</span>
+              <span class="font-mono text-xs text-text-muted">Private Residencies</span>
             </div>
           </div>
 
@@ -482,7 +516,7 @@ const homeJsonLd = {
   <JourneyStrip />
 
   <!-- ══════════════════════════════════════════════════════════════
-       7. 2026 MASTERCLASS FIELD DOSSIERS
+       7. MASTERCLASS FIELD DOSSIERS
        ══════════════════════════════════════════════════════════════ -->
   <section id="expeditions" class="py-16 sm:py-32 lg:py-44 section-dark border-t border-white/5">
     <div class="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14">
@@ -492,7 +526,7 @@ const homeJsonLd = {
         <div class="reveal-up" data-reveal>
           <div class="flex items-center gap-3 mb-4">
             <span class="w-6 h-px" style="background-color: var(--marga-gold)"></span>
-            <span class="journal-label text-xs" style="color: var(--marga-gold)">Field Itineraries 2026</span>
+            <span class="journal-label text-xs" style="color: var(--marga-gold)">Field Itineraries</span>
           </div>
           <h2 class="font-editorial text-[2rem] sm:text-[3rem] font-medium text-white tracking-[-0.02em] leading-[1.1]">
             Selected Expeditions
@@ -508,7 +542,7 @@ const homeJsonLd = {
           data-reveal
           style="color: var(--marga-gold)"
         >
-          <span>All 2026 Expeditions</span>
+          <span>All Expeditions</span>
           <span class="arrow-line"></span>
         </a>
       </div>
@@ -789,10 +823,130 @@ const homeJsonLd = {
     onScroll();
   }
 
+  // ─── Animated Metric Counters ──────────────────────────────────────
+  function setupCounters() {
+    const counters = document.querySelectorAll('[data-counter]');
+    if (!counters.length) return;
+
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target as HTMLElement;
+        obs.unobserve(el);
+
+        const target = parseFloat(el.getAttribute('data-counter') || '0');
+        const duration = 1800;
+        const startTime = performance.now();
+
+        function update(currentTime: number) {
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          // Ease-out cubic
+          const easeOut = 1 - Math.pow(1 - progress, 3);
+          const current = Math.floor(easeOut * target);
+
+          el.textContent = current.toLocaleString();
+
+          if (progress < 1) {
+            requestAnimationFrame(update);
+          } else {
+            el.textContent = target.toLocaleString();
+          }
+        }
+        requestAnimationFrame(update);
+      });
+    }, { threshold: 0.2 });
+
+    counters.forEach((c) => obs.observe(c));
+  }
+
+  // ─── 3D Card Perspective Tilt & Dynamic Optical Glare ───────────────
+  function setupCard3DTilt() {
+    const cards = document.querySelectorAll('.tilt-card');
+    cards.forEach((card) => {
+      const inner = card.querySelector('.tilt-card-inner') as HTMLElement | null;
+      if (!inner) return;
+
+      card.addEventListener('mousemove', (e: Event) => {
+        const evt = e as MouseEvent;
+        const rect = (card as HTMLElement).getBoundingClientRect();
+        const x = evt.clientX - rect.left;
+        const y = evt.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const rotateX = ((y - centerY) / centerY) * -5;
+        const rotateY = ((x - centerX) / centerX) * 5;
+
+        inner.style.transform = `rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateZ(8px)`;
+
+        const glareX = (x / rect.width) * 100;
+        const glareY = (y / rect.height) * 100;
+        (card as HTMLElement).style.setProperty('--glare-x', `${glareX}%`);
+        (card as HTMLElement).style.setProperty('--glare-y', `${glareY}%`);
+      });
+
+      card.addEventListener('mouseleave', () => {
+        inner.style.transform = 'rotateX(0deg) rotateY(0deg) translateZ(0px)';
+      });
+    });
+  }
+
+  // ─── Dynamic Atmospheric Particles for Hero ────────────────────────
+  function setupHeroParticles() {
+    const container = document.getElementById('hero-particles');
+    if (!container || container.childElementCount > 0) return;
+
+    const count = 18;
+    for (let i = 0; i < count; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      const size = Math.random() * 4 + 2; // 2px to 6px
+      const left = Math.random() * 100;
+      const top = Math.random() * 80 + 20; // 20% to 100%
+      const dur = Math.random() * 7 + 7; // 7s to 14s
+      const delay = Math.random() * 6;
+
+      p.style.width = `${size}px`;
+      p.style.height = `${size}px`;
+      p.style.left = `${left}%`;
+      p.style.top = `${top}%`;
+      p.style.animationDuration = `${dur}s`;
+      p.style.animationDelay = `${delay}s`;
+
+      container.appendChild(p);
+    }
+  }
+
+  // ─── Magnetic Attraction on Interactive CTAs & Links ──────────────
+  function setupMagneticButtons() {
+    const targets = document.querySelectorAll('.snami-outline-btn, .hero-cta-btn, .snami-arrow-link, .snami-wire-arrow');
+    targets.forEach((btn) => {
+      btn.addEventListener('mousemove', (e: Event) => {
+        const evt = e as MouseEvent;
+        const rect = (btn as HTMLElement).getBoundingClientRect();
+        const x = evt.clientX - (rect.left + rect.width / 2);
+        const y = evt.clientY - (rect.top + rect.height / 2);
+        (btn as HTMLElement).style.transform = `translate(${x * 0.22}px, ${y * 0.22}px)`;
+      });
+      btn.addEventListener('mouseleave', () => {
+        (btn as HTMLElement).style.transform = 'translate(0px, 0px)';
+        (btn as HTMLElement).style.transition = 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)';
+      });
+      btn.addEventListener('mouseenter', () => {
+        (btn as HTMLElement).style.transition = 'transform 0.12s ease-out';
+      });
+    });
+  }
+
   setupEthosTitleStagger();
   setupLineDraw();
   setupMagneticTilt();
   setupEthosParallax();
+  setupCounters();
+  setupCard3DTilt();
+  setupHeroParticles();
+  setupMagneticButtons();
 
   document.addEventListener('astro:page-load', () => {
     setupHeroCarousel();
@@ -802,5 +956,9 @@ const homeJsonLd = {
     setupLineDraw();
     setupMagneticTilt();
     setupEthosParallax();
+    setupCounters();
+    setupCard3DTilt();
+    setupHeroParticles();
+    setupMagneticButtons();
   });
 </script>

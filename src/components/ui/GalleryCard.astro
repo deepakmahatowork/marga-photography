@@ -21,8 +21,10 @@ const {
 } = Astro.props;
 ---
 
-<article class="group relative w-full aspect-[4/5] overflow-hidden rounded-sm bg-obsidian-900 border border-alabaster-border cursor-pointer">
-  
+<article class="tilt-card group relative w-full aspect-[4/5] overflow-hidden rounded-sm bg-obsidian-900 border border-alabaster-border cursor-pointer" data-tilt>
+  <div class="tilt-card-inner absolute inset-0">
+    <div class="tilt-glare" aria-hidden="true"></div>
+
   <!-- Image Layer: No flat opaque overlays -->
   <img 
     src={imageSrc} 
@@ -55,5 +57,6 @@ const {
         </p>
       </div>
     </div>
+  </div>
   </div>
 </article>

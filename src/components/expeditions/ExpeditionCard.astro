@@ -32,17 +32,20 @@ const slug = expedition.id.replace(/\.(md|mdx|json)$/, '');
      Vertical category strip · Film-counter styling
      ══════════════════════════════════════════════════════════ -->
 
-<article class="expedition-editorial-card group relative flex flex-col bg-canvas-surface overflow-hidden border border-canvas-border hover:border-accent-himalaya/40 transition-all duration-500 rounded-none shadow-xs hover:shadow-xl">
+<article class="tilt-card expedition-editorial-card group relative flex flex-col bg-canvas-surface overflow-hidden border border-canvas-border hover:border-accent-himalaya/40 transition-all duration-500 rounded-none shadow-xs hover:shadow-xl" data-tilt>
+  <div class="tilt-card-inner flex-1 flex flex-col">
+    <!-- Interactive optical glare -->
+    <div class="tilt-glare" aria-hidden="true"></div>
 
-  <!-- Image container -->
-  <a href={`/expeditions/${slug}`} class="block relative aspect-[16/10] overflow-hidden editorial-img-frame" tabindex="-1" aria-hidden="true">
-    <img
-      src={exp.heroImage}
-      alt={exp.title}
-      loading="lazy"
-      decoding="async"
-      class="w-full h-full object-cover brightness-[0.92]"
-    />
+    <!-- Image container -->
+    <a href={`/expeditions/${slug}`} class="block relative aspect-[16/10] overflow-hidden editorial-img-frame" tabindex="-1" aria-hidden="true">
+      <img
+        src={exp.heroImage}
+        alt={exp.title}
+        loading="lazy"
+        decoding="async"
+        class="w-full h-full object-cover brightness-[0.92] transition-transform duration-700 ease-out group-hover:scale-105"
+      />
 
     <!-- Gradient overlay -->
     <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent"></div>
@@ -75,7 +78,7 @@ const slug = expedition.id.replace(/\.(md|mdx|json)$/, '');
     <div class="flex items-center gap-3 text-[0.62rem] font-mono uppercase tracking-[0.16em] text-text-muted">
       <span>{exp.region}</span>
       <span class="w-px h-2.5 bg-canvas-border"></span>
-      <span>{exp.bestSeason}</span>
+      <span class="text-accent-himalaya">{exp.category}</span>
     </div>
 
     <!-- Title -->
@@ -102,9 +105,12 @@ const slug = expedition.id.replace(/\.(md|mdx|json)$/, '');
     <div class="flex items-center justify-between pt-3 border-t border-canvas-border mt-auto">
       <div>
         <span class="block font-mono text-[0.55rem] uppercase tracking-[0.16em] text-text-muted">Field Status</span>
-        <span class="flex items-center gap-1.5 mt-0.5 font-sans text-[0.68rem] text-text-secondary font-medium">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse"></span>
-          2026 Inquiries Open
+        <span class="radar-badge mt-1 font-sans text-[0.68rem] text-text-secondary font-medium">
+          <span class="relative flex items-center justify-center w-2.5 h-2.5">
+            <span class="radar-dot"></span>
+            <span class="radar-ring"></span>
+          </span>
+          Inquiries Open
         </span>
       </div>
 
@@ -118,6 +124,7 @@ const slug = expedition.id.replace(/\.(md|mdx|json)$/, '');
         </svg>
       </a>
     </div>
+  </div>
   </div>
 </article>
 

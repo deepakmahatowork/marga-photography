@@ -27,7 +27,7 @@ export const ui = {
     'hero.title_line1': 'Where Sacred Light',
     'hero.title_line2': 'Meets Living Heritage.',
     'hero.description': "We don't build generic tours. We lead quiet, small-group visual expeditions into the deep human stories, sacred masked rituals, wild tiger corridors, and alpine sanctuaries of Nepal.",
-    'hero.cta_expeditions': 'Explore 2026 Expeditions',
+    'hero.cta_expeditions': 'Explore Expeditions',
     'hero.cta_portfolio': 'View Portfolio',
 
     // Portfolios
@@ -41,11 +41,11 @@ export const ui = {
     'portfolios.landscapes': 'Landscapes',
 
     // Expeditions
-    'expeditions.badge': '2026 Field Masterclasses',
+    'expeditions.badge': 'Field Masterclasses',
     'expeditions.title': 'Flagship Photographic Expeditions',
     'expeditions.subtitle': 'Curated itineraries strictly capped at 4 to 6 photographers. Guided by veteran Himalayan visual artists.',
     'expeditions.status': 'Field Status',
-    'expeditions.inquiries_open': '2026 Inquiries Open',
+    'expeditions.inquiries_open': 'Inquiries Open',
     'expeditions.view_itinerary': 'View Itinerary',
 
     // Stories
@@ -84,7 +84,7 @@ export const ui = {
     'hero.title_line1': 'Où la Lumière Sacrée',
     'hero.title_line2': "Rencontre l'Héritage Vivant.",
     'hero.description': "Nous ne créons pas de circuits génériques. Nous guidons des expéditions visuelles intimes en petits groupes au cœur des histoires humaines profondes, des rituels masqués sacrés, des corridors de tigres sauvages et des sanctuaires alpins du Népal.",
-    'hero.cta_expeditions': 'Explorer les Expéditions 2026',
+    'hero.cta_expeditions': 'Explorer les Expéditions',
     'hero.cta_portfolio': 'Voir le Portfolio',
 
     // Portfolios
@@ -98,11 +98,11 @@ export const ui = {
     'portfolios.landscapes': 'Himalaya',
 
     // Expeditions
-    'expeditions.badge': 'Masterclasses de Terrain 2026',
+    'expeditions.badge': 'Masterclasses de Terrain',
     'expeditions.title': 'Expéditions Photographiques Phares',
     'expeditions.subtitle': 'Itinéraires soignés strictement limités à 4 ou 6 photographes. Guidés par des artistes visuels himalayens chevronnés.',
     'expeditions.status': 'Statut du Terrain',
-    'expeditions.inquiries_open': 'Inscriptions 2026 Ouvertes',
+    'expeditions.inquiries_open': 'Inscriptions Ouvertes',
     'expeditions.view_itinerary': "Voir l'Itinéraire",
 
     // Stories

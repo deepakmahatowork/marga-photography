@@ -11,14 +11,23 @@ const { expeditionTitle, defaultCategory } = Astro.props;
   <!-- Subtle top accent rule -->
   <div class="w-12 h-px mb-6" style="background-color: var(--marga-gold)"></div>
 
-  <form id="inquiry-form" class="space-y-5">
-    <!-- Honeypot anti-spam (invisible) -->
-    <div class="hidden" aria-hidden="true">
-      <label for="company_honeypot">Do not fill this field</label>
-      <input type="text" id="company_honeypot" name="company_honeypot" tabindex="-1" autocomplete="off" />
-    </div>
+  <form
+    id="inquiry-form"
+    action="https://api.web3forms.com/submit"
+    method="POST"
+    class="space-y-5"
+  >
+    <!-- Web3Forms Access Key -->
+    <input type="hidden" name="access_key" value="936a98cf-f8fc-47e0-a7ca-8720b09e4b40" />
 
-    <!-- Hidden context -->
+    <!-- Web3Forms Customization -->
+    <input type="hidden" name="subject" value={expeditionTitle ? `New Expedition Inquiry: ${expeditionTitle}` : 'New Inquiry — Marga Photography'} />
+    <input type="hidden" name="from_name" value="Marga Photography" />
+
+    <!-- Web3Forms Anti-Bot Honeypot -->
+    <input type="checkbox" name="botcheck" class="hidden" style="display: none;" tabindex="-1" autocomplete="off" />
+
+    <!-- Expedition Context -->
     <input type="hidden" name="expedition" value={expeditionTitle || 'General / Custom Expedition'} />
     {defaultCategory && <input type="hidden" name="category" value={defaultCategory} />}
 
@@ -69,13 +78,14 @@ const { expeditionTitle, defaultCategory } = Astro.props;
 
     <!-- Message -->
     <div>
-      <label for="notes" class="block text-[10px] uppercase tracking-[0.22em] font-semibold mb-2" style="color: var(--color-text-muted)">
-        Message
+      <label for="message" class="block text-[10px] uppercase tracking-[0.22em] font-semibold mb-2" style="color: var(--color-text-muted)">
+        Message <span style="color: var(--marga-gold)">*</span>
       </label>
       <textarea
-        id="notes"
-        name="notes"
+        id="message"
+        name="message"
         rows="4"
+        required
         placeholder="Tell us what you'd like to photograph in Nepal..."
         class="inquiry-input w-full px-4 py-3 text-sm resize-none"
       ></textarea>
@@ -92,7 +102,7 @@ const { expeditionTitle, defaultCategory } = Astro.props;
         class="inline-flex items-center gap-2 px-7 py-3 text-[11px] font-bold uppercase tracking-[0.22em] transition-all duration-300 cursor-pointer"
         style="background-color: var(--marga-gold); color: #ffffff; border: 1px solid var(--marga-gold);"
       >
-        <span id="btn-text">Send Inquiry</span>
+        <span id="btn-text">Submit</span>
         <svg id="btn-spinner" class="hidden animate-spin h-3.5 w-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
           <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
           <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
@@ -105,50 +115,56 @@ const { expeditionTitle, defaultCategory } = Astro.props;
   </form>
 </div>
 
-
 <script>
-  const form = document.getElementById('inquiry-form') as HTMLFormElement;
-  const statusDiv = document.getElementById('form-status');
-  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
-  const btnText = document.getElementById('btn-text');
-  const btnSpinner = document.getElementById('btn-spinner');
+  function setupInquiryForm() {
+    const form = document.getElementById('inquiry-form') as HTMLFormElement;
+    const statusDiv = document.getElementById('form-status');
+    const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+    const btnText = document.getElementById('btn-text');
+    const btnSpinner = document.getElementById('btn-spinner');
 
-  if (form && statusDiv && submitBtn) {
+    if (!form || !statusDiv || !submitBtn) return;
+
+    // Prevent attaching multiple listeners across view transitions
+    if (form.dataset.initialized === 'true') return;
+    form.dataset.initialized = 'true';
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
       // Client honeypot check
-      const honeypot = (form.elements.namedItem('company_honeypot') as HTMLInputElement)?.value;
-      if (honeypot) {
-        return; // Silent discard
+      const botcheck = (form.elements.namedItem('botcheck') as HTMLInputElement)?.checked;
+      if (botcheck) {
+        return; // Silent discard for bots
       }
 
       // UI Loading State
       submitBtn.disabled = true;
       btnSpinner?.classList.remove('hidden');
-      if (btnText) btnText.textContent = 'Sending...';
+      if (btnText) btnText.textContent = 'Submitting...';
       statusDiv.classList.add('hidden');
 
       const formData = new FormData(form);
       const data = Object.fromEntries(formData.entries());
 
       try {
-        const response = await fetch('/api/inquiry', {
+        const response = await fetch('https://api.web3forms.com/submit', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            Accept: 'application/json',
           },
           body: JSON.stringify(data),
         });
 
         const result = await response.json();
 
-        if (response.ok && result.success) {
+        if (response.status === 200 && result.success) {
           form.reset();
           statusDiv.className = 'block p-4 rounded border bg-emerald-500/10 border-emerald-500/30 text-emerald-800 dark:text-emerald-200 text-xs';
           statusDiv.innerHTML = `
             <strong class="font-semibold block mb-1">✓ Inquiry Received Successfully</strong>
-            Thank you for reaching out to Marga Photography. Our expedition lead has received your details and will follow up directly with itinerary details and availability within 24 hours.
+            Thank you for reaching out to Marga Photography. Your message has been safely delivered, and our expedition lead will follow up directly with itinerary details and availability within 24 hours.
           `;
         } else {
           throw new Error(result.message || 'Submission failed. Please verify your entries.');
@@ -162,8 +178,11 @@ const { expeditionTitle, defaultCategory } = Astro.props;
       } finally {
         submitBtn.disabled = false;
         btnSpinner?.classList.add('hidden');
-        if (btnText) btnText.textContent = 'Send Inquiry';
+        if (btnText) btnText.textContent = 'Submit';
       }
     });
   }
+
+  setupInquiryForm();
+  document.addEventListener('astro:page-load', setupInquiryForm);
 </script>

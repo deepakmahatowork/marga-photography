@@ -66,13 +66,13 @@ const chapters = [
         <span class="w-6 h-px bg-[var(--marga-gold)]"></span>
         <span class="journal-label text-[var(--marga-gold)] text-xs">Journey Through Nepal</span>
       </div>
-      <div class="font-sans text-xs tracking-[0.25em] uppercase text-white/40" id="journey-counter">
+      <div class="font-sans text-xs tracking-[0.25em] uppercase" style="color: var(--section-dark-subtext)" id="journey-counter">
         01 / 04
       </div>
     </div>
 
     <!-- Progress bar -->
-    <div class="absolute bottom-0 left-0 right-0 z-20 h-px bg-white/8">
+    <div class="absolute bottom-0 left-0 right-0 z-20 h-px" style="background-color: var(--section-dark-border)">
       <div class="h-full bg-[var(--marga-gold)] origin-left transition-transform duration-100 ease-linear" id="journey-progress-bar" style="transform: scaleX(0)"></div>
     </div>
 
@@ -90,15 +90,13 @@ const chapters = [
             <img
               src={chapter.image}
               alt={chapter.alt}
-              class="w-full h-full object-cover object-center brightness-[0.70] transition-transform duration-700 ease-out origin-center scale-95 sm:scale-100"
+              class="w-full h-full object-cover object-center brightness-[0.88] transition-transform duration-700 ease-out origin-center scale-95 sm:scale-100"
               loading={i === 0 ? 'eager' : 'lazy'}
               decoding="async"
             />
 
-            <!-- Dark gradient overlay from bottom -->
-            <div class="absolute inset-0 bg-gradient-to-t from-[var(--section-dark-bg)]/90 via-[var(--section-dark-bg)]/25 to-transparent pointer-events-none"></div>
-            <!-- Left edge blend -->
-            <div class="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-[var(--section-dark-bg)]/40 to-transparent pointer-events-none hidden xl:block"></div>
+            <!-- Refined dark gradient scrim from bottom for crisp typographic legibility without washing out the photo -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent pointer-events-none"></div>
 
             <!-- Chapter label — bottom left -->
             <div class="journey-panel-label">
@@ -109,12 +107,12 @@ const chapters = [
 
             <!-- Coordinates — bottom right -->
             <div class="absolute bottom-6 sm:bottom-10 right-6 sm:right-10 z-10 pointer-events-none">
-              <span class="font-sans text-xs tracking-[0.25em] uppercase" style="color: var(--hero-meta-color)">{chapter.coordinates}</span>
+              <span class="font-sans text-xs tracking-[0.25em] uppercase text-white/70">{chapter.coordinates}</span>
             </div>
 
             <!-- Subtle panel number — large background typography -->
             <div class="absolute top-1/2 right-6 sm:right-8 -translate-y-1/2 z-0 pointer-events-none select-none" aria-hidden="true">
-              <span class="font-editorial text-[clamp(6rem,14vw,14rem)] font-light leading-none opacity-40" style="color: var(--section-dark-border)">
+              <span class="font-editorial text-[clamp(6rem,14vw,14rem)] font-light leading-none text-white/[0.08]">
                 {chapter.number}
               </span>
             </div>

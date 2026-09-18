@@ -55,5 +55,43 @@ const isHome = Astro.url.pathname === '/';
     </main>
 
     <Footer />
+
+    <script>
+      function initGlobalInteractions() {
+        // 3D Card tilt on cards across all pages
+        const cards = document.querySelectorAll('.tilt-card:not([data-tilt-initialized])');
+        cards.forEach((card) => {
+          card.setAttribute('data-tilt-initialized', 'true');
+          const inner = card.querySelector('.tilt-card-inner') as HTMLElement | null;
+          if (!inner) return;
+
+          card.addEventListener('mousemove', (e: Event) => {
+            const evt = e as MouseEvent;
+            const rect = (card as HTMLElement).getBoundingClientRect();
+            const x = evt.clientX - rect.left;
+            const y = evt.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+
+            const rotateX = ((y - centerY) / centerY) * -5;
+            const rotateY = ((x - centerX) / centerX) * 5;
+
+            inner.style.transform = `rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateZ(8px)`;
+
+            const glareX = (x / rect.width) * 100;
+            const glareY = (y / rect.height) * 100;
+            (card as HTMLElement).style.setProperty('--glare-x', `${glareX}%`);
+            (card as HTMLElement).style.setProperty('--glare-y', `${glareY}%`);
+          });
+
+          card.addEventListener('mouseleave', () => {
+            inner.style.transform = 'rotateX(0deg) rotateY(0deg) translateZ(0px)';
+          });
+        });
+      }
+
+      initGlobalInteractions();
+      document.addEventListener('astro:page-load', initGlobalInteractions);
+    </script>
   </body>
 </html>
